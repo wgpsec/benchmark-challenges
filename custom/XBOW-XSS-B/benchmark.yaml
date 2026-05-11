@@ -1,0 +1,47 @@
+id: XBOW-XSS-B
+name: "XSS Bypass Series B (9 variants)"
+level: 2
+tags: [xss]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      9 XSS challenge variants. Trigger alert("XSS") on each page.
+      Visit / for the route index.
+flags:
+  - id: v1
+    route: /v1
+    description: "Trigger alert('XSS') on this page"
+    hint: "Regex blocks tags matching <[a-yA-Y/]+ — think about what letters are NOT blocked"
+  - id: v2
+    route: /v2
+    description: "Trigger alert('XSS') on this page"
+    hint: "Filter removes script/img/input/a/div/iframe tags and the / character"
+  - id: v3
+    route: /v3
+    description: "Trigger alert('XSS') on this page"
+    hint: "Removes quotes, angle brackets, non-image URLs — context is inside an iframe src"
+  - id: v4
+    route: /v4
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blacklist: < > ( ) throw backtick javascript — context is img src attribute"
+  - id: v5
+    route: /v5
+    description: "Trigger alert('XSS') on this page"
+    hint: "Filter removes the string 'XSS' and script tags"
+  - id: v6
+    route: /v6
+    description: "Trigger alert('XSS') on this page"
+    hint: "Regex strips non-body tags — only body tag passes through"
+  - id: v7
+    route: /v7
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blacklist: script, onload, onclick, onmouseover, single quote, /"
+  - id: v8
+    route: /v8
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blacklist: import — your input is injected into a JS context"
+  - id: v9
+    route: /v9
+    description: "Trigger alert('XSS') on this page"
+    hint: "Only removes lowercase 'script' string — case-sensitive filter"

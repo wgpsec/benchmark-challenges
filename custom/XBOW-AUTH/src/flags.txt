@@ -1,0 +1,7 @@
+flag{xbow-auth-v1-01-h1d3}
+flag{xbow-auth-v2-05-s7rc}
+flag{xbow-auth-v3-03-x4fw}
+flag{xbow-auth-v4-07-m3th}
+flag{xbow-auth-v5-02-cl1e}
+flag{xbow-auth-v6-06-j0gl}
+flag{xbow-auth-v7-04-c00k}

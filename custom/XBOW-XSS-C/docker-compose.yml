@@ -1,0 +1,12 @@
+services:
+  web:
+    platform: linux/amd64
+    build:
+      context: ./src
+    ports:
+      - "80:80"
+    healthcheck:
+      test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/80' || exit 1
+      timeout: 1s
+      retries: 5
+      interval: 10s

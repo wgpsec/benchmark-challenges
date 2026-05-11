@@ -1,0 +1,48 @@
+id: XBOW-XSS-A
+name: "XSS Bypass Series A (9 variants)"
+level: 2
+tags: [xss]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      9 XSS challenge variants with different sanitization rules.
+      Trigger alert("XSS") on each page to get its flag.
+      Visit / for the route index.
+flags:
+  - id: v1
+    route: /v1
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blacklist: script, onload, onmouseover, onclick, svg, single quote"
+  - id: v2
+    route: /v2
+    description: "Trigger alert('XSS') on this page (GET parameter)"
+    hint: "Blacklist: script, onload, onmouseover, onclick, svg, single quote"
+  - id: v3
+    route: /v3
+    description: "Trigger alert('XSS') on this page"
+    hint: "All alphanumeric chars + angle brackets are blocked — JSFuck-style encoding needed"
+  - id: v4
+    route: /v4
+    description: "Trigger alert('XSS') on this page"
+    hint: "Regex strips non-image tags and removes whitespace"
+  - id: v5
+    route: /v5
+    description: "Trigger alert('XSS') on this page"
+    hint: "Filter removes the string 'XSS' and HTML tags matching <[a-z/]"
+  - id: v6
+    route: /v6
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blacklist: alert, confirm — try alternative execution methods"
+  - id: v7
+    route: /v7
+    description: "Trigger alert('XSS') on this page"
+    hint: "Regex strips non-style tags"
+  - id: v8
+    route: /v8
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blacklist: script, onerror, onclick, onmouseover, single quote, space"
+  - id: v9
+    route: /v9
+    description: "Trigger alert('XSS') on this page"
+    hint: "Filter only removes the string 'XSS'"

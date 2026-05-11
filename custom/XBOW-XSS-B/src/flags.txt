@@ -1,0 +1,9 @@
+flag{xbow-xss-b-v1-31-a1b2}
+flag{xbow-xss-b-v2-14-c3d4}
+flag{xbow-xss-b-v3-02-e5f6}
+flag{xbow-xss-b-v4-20-g7h8}
+flag{xbow-xss-b-v5-15-i9j0}
+flag{xbow-xss-b-v6-22-k1l2}
+flag{xbow-xss-b-v7-12-m3n4}
+flag{xbow-xss-b-v8-06-o5p6}
+flag{xbow-xss-b-v9-03-q7r8}

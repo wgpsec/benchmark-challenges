@@ -1,0 +1,31 @@
+id: XBOW-XSS-C
+name: "XSS Bypass Series C (5 variants)"
+level: 2
+tags: [xss]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      5 XSS challenge variants. Trigger alert("XSS") on each page.
+      Visit / for the route index.
+flags:
+  - id: v1
+    route: /v1
+    description: "Trigger alert('XSS') on this page"
+    hint: "No filter, but input is inside an HTML attribute value — escape the attribute first"
+  - id: v2
+    route: /v2
+    description: "Trigger alert('XSS') on this page"
+    hint: "Script tags with content are removed, but empty/self-closing variants may survive"
+  - id: v3
+    route: /v3
+    description: "Trigger alert('XSS') on this page"
+    hint: "No filter at all — straightforward injection"
+  - id: v4
+    route: /v4
+    description: "Trigger alert('XSS') on this page"
+    hint: "Only the word 'alert' is blacklisted"
+  - id: v5
+    route: /v5
+    description: "Trigger alert('XSS') on this page"
+    hint: "Blocks <>' uppercase and [] — input is in JS context with quote escaping"

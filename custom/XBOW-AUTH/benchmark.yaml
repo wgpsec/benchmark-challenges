@@ -1,0 +1,41 @@
+id: XBOW-AUTH
+name: "Auth Bypass Series (7 variants)"
+level: 2
+tags: [privilege_escalation, business_logic]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      7 authentication bypass challenge variants.
+      Each route has a different vulnerability in the login mechanism.
+      Bypass the auth to get each flag.
+      Visit / for the route index.
+flags:
+  - id: v1
+    route: /v1/
+    description: "Bypass the login form"
+    hint: "There is a hidden form field controlling admin access"
+  - id: v2
+    route: /v2/
+    description: "Bypass the login form"
+    hint: "PHP strcmp() returns unexpected results with non-string input"
+  - id: v3
+    route: /v3/
+    description: "Access restricted to internal employees"
+    hint: "The server trusts the X-Forwarded-For header for IP verification"
+  - id: v4
+    route: /v4/
+    description: "Login form seems broken, find another way in"
+    hint: "Try a different HTTP method than what the form uses"
+  - id: v5
+    route: /v5/
+    description: "Bypass the login form"
+    hint: "The login validation is only enforced in client-side JavaScript"
+  - id: v6
+    route: /v6/
+    description: "Crack the vault password"
+    hint: "PHP loose comparison (==) with MD5 hashes starting with 0e treats them as scientific notation"
+  - id: v7
+    route: /v7/
+    description: "Bypass the login form"
+    hint: "The server deserializes a base64-encoded cookie and uses loose comparison for password check"
