@@ -51,6 +51,34 @@ XBEN-001-24/
 
 仅变更的题目会被重新打包（增量更新）。
 
+## WgpSec Agentic Ecosystem
+
+benchmark-challenges 是 **WgpSec Agentic Ecosystem** 的数据层 — 提供真实漏洞环境，用于评估 AI Agent 的攻防能力。
+
+```
+┌───────────────────── WgpSec Agentic Ecosystem ─────────────────────┐
+│                                                                     │
+│  Knowledge ➜ Service ➜ Execution ➜ Evaluation                      │
+│                                                                     │
+│  AboutSecurity ──▶ context1337 ──▶ tchkiller ──▶ benchmark-platform │
+│  (知识库)          (MCP 服务)      (渗透Agent)     (平台)           │
+│                                         ▲                           │
+│                                    PoJun (通用求解引擎)              │
+│                                         │                           │
+│                              benchmark-challenges (本仓库)           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+| 项目 | 定位 |
+|------|------|
+| [AboutSecurity](https://github.com/wgpsec/AboutSecurity) | 结构化渗透知识库（Skills, Dic, Payload, Vuln） |
+| [context1337](https://github.com/wgpsec/context1337) | MCP Server — 将 AboutSecurity 转化为 AI Agent 可调用的搜索 API |
+| [tchkiller](https://github.com/wgpsec/tchkiller) | 自主渗透 Agent，支持多轮决策与团队协作 |
+| [benchmark-platform](https://github.com/wgpsec/benchmark-platform) | CTF 靶场平台，评估 Agent 攻防能力 |
+| [benchmark-challenges](https://github.com/wgpsec/benchmark-challenges) | 靶场数据仓库 — 通过 GitHub Releases 打包分发 |
+| PoJun | 通用 AI 求解引擎（私有） |
+
 ## 许可证
 
 [MIT](LICENSE)

@@ -51,6 +51,34 @@ On every push to `main`, the GitHub Action:
 
 Only changed challenges are re-packaged (incremental).
 
+## WgpSec Agentic Ecosystem
+
+benchmark-challenges is the data layer of the **WgpSec Agentic Ecosystem** — providing real-world vulnerable environments for evaluating AI agent offensive capabilities.
+
+```
+┌───────────────────── WgpSec Agentic Ecosystem ─────────────────────┐
+│                                                                     │
+│  Knowledge ➜ Service ➜ Execution ➜ Evaluation                      │
+│                                                                     │
+│  AboutSecurity ──▶ context1337 ──▶ tchkiller ──▶ benchmark-platform │
+│  (Knowledge Base)  (MCP Server)    (Pentest Agent)  (Platform)     │
+│                                         ▲                           │
+│                                    PoJun (General Solver)           │
+│                                         │                           │
+│                              benchmark-challenges (this repo)       │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+| Project | Role |
+|---------|------|
+| [AboutSecurity](https://github.com/wgpsec/AboutSecurity) | Structured pentest knowledge base (Skills, Dic, Payload, Vuln) |
+| [context1337](https://github.com/wgpsec/context1337) | MCP Server — turns AboutSecurity into a searchable API for AI agents |
+| [tchkiller](https://github.com/wgpsec/tchkiller) | Autonomous pentest agent with multi-round decision-making and team collaboration |
+| [benchmark-platform](https://github.com/wgpsec/benchmark-platform) | CTF challenge platform for evaluating agent offensive capabilities |
+| [benchmark-challenges](https://github.com/wgpsec/benchmark-challenges) | Challenge data repository — packed & distributed via GitHub Releases |
+| PoJun | General-purpose AI problem-solving engine (private) |
+
 ## License
 
 [MIT](LICENSE)
