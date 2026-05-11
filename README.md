@@ -39,6 +39,23 @@ cp -r /tmp/benchmarks/argus challenges/argus
 2. Include at minimum: `docker-compose.yml`, `benchmark.json`, `.env`
 3. Push to main — the GitHub Action will package and publish it automatically
 
+## Create Your Own Challenge
+
+Want to build a custom challenge? Two resources to help:
+
+- **[Format Specification](docs/challenge-spec.md)** — Complete reference for all required files, fields, and constraints. Copy this to any AI tool to generate compliant challenges.
+- **[Claude Code Skill](.claude/skills/create-challenge.md)** — Interactive skill for Claude Code users. Just describe your attack scenario and it generates all files ready to import.
+
+Quick start with AI:
+
+```
+1. Copy docs/challenge-spec.md content to your AI assistant
+2. Describe the vulnerability scenario you want
+3. Get a complete challenge directory generated
+4. Run `docker compose up --build` to test locally
+5. Pack as `category--name.zip` and import via the platform UI
+```
+
 ## Challenge Format
 
 ```

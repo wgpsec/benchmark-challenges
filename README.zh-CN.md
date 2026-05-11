@@ -39,6 +39,23 @@ cp -r /tmp/benchmarks/argus challenges/argus
 2. 至少包含：`docker-compose.yml`、`benchmark.json`、`.env`
 3. 推送到 main — GitHub Action 会自动打包并发布
 
+## 自定义创建靶场
+
+想自己构建靶场？以下两个资源可以帮助你：
+
+- **[格式规范文档](docs/challenge-spec.md)** — 完整的文件格式、字段定义和约束说明。可以直接复制给任意 AI 工具来生成合规靶场。
+- **[Claude Code Skill](.claude/skills/create-challenge.md)** — Claude Code 用户专用交互式 Skill。只需描述攻击场景，即可自动生成所有文件。
+
+快速上手（使用 AI 生成）：
+
+```
+1. 将 docs/challenge-spec.md 内容复制给你的 AI 助手
+2. 描述你想要的漏洞场景
+3. 获得完整的靶场目录结构
+4. 运行 docker compose up --build 本地测试
+5. 打包为 分类--名称.zip 通过平台「导入」上传
+```
+
 ## 题目格式
 
 ```
