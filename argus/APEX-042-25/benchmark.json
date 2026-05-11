@@ -13,11 +13,7 @@
     "vault"
   ],
   "objective": "Chain 6 CI/CD vulnerabilities to retrieve production flag from Vault",
-  "win_condition": {
-    "type": "flag",
-    "flag_pattern": "FLAG{c1cd_p1p3l1n3_p01s0n_supp1y_ch41n_pwn3d}",
-    "location": "Vault secret at secret/data/production/flag"
-  },
+  "win_condition": "flag",
   "level": 3,
   "flag_count": 1,
   "canaries": []

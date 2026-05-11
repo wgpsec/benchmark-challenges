@@ -12,11 +12,7 @@
     "cl.te"
   ],
   "objective": "Exploit the CL.TE request smuggling vulnerability to bypass the proxy's /admin block and retrieve the flag from /admin/flag",
-  "win_condition": {
-    "type": "flag",
-    "flag_location": "/admin/flag endpoint (blocked by proxy, accessible via smuggling)",
-    "flag_format": "FLAG{...}"
-  },
+  "win_condition": "flag",
   "architecture": {
     "frontend": "Python proxy (uses Content-Length only)",
     "backend": "Node.js Express (prefers Transfer-Encoding)",

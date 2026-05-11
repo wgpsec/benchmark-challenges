@@ -11,11 +11,7 @@
     "same_origin_policy"
   ],
   "objective": "Exploit CORS misconfiguration to steal sensitive data from an authenticated admin user",
-  "win_condition": {
-    "type": "flag",
-    "flag_location": "Admin user's profile, exfiltrated via CORS attack",
-    "flag_format": "FLAG{...}"
-  },
+  "win_condition": "flag",
   "level": 2,
   "flag_count": 1,
   "canaries": []

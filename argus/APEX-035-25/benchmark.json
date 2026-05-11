@@ -16,11 +16,7 @@
     "cvss": "6.5 (Medium)",
     "root_cause": "Non-atomic read-modify-write pattern in inventory management"
   },
-  "win_condition": {
-    "type": "flag",
-    "location": "Order confirmation when purchasing Golden Flag Trophy",
-    "method": "Exploit race condition to purchase sold-out item"
-  },
+  "win_condition": "flag",
   "target_item": {
     "name": "Golden Flag Trophy",
     "slug": "golden-flag-trophy",

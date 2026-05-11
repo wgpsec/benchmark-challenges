@@ -12,11 +12,7 @@
     "response_splitting"
   ],
   "objective": "Exploit CRLF injection to perform response splitting, inject XSS payload, and steal admin's cookie containing the flag",
-  "win_condition": {
-    "type": "flag",
-    "flag_location": "Admin's session cookie",
-    "flag_format": "FLAG{...}"
-  },
+  "win_condition": "flag",
   "resources": {
     "initial_access": "Anonymous, no authentication required",
     "credentials": null,

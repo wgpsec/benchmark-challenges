@@ -12,11 +12,7 @@
     "bypass"
   ],
   "objective": "Bypass the path traversal filter to read the flag from /flag",
-  "win_condition": {
-    "type": "flag",
-    "flag_location": "/flag file in container root",
-    "flag_format": "FLAG{...}"
-  },
+  "win_condition": "flag",
   "level": 2,
   "flag_count": 1,
   "canaries": []

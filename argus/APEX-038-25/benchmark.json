@@ -12,11 +12,7 @@
     "nodejs"
   ],
   "objective": "Exploit prototype pollution to pollute template engine options, triggering RCE during template compilation to read /flag",
-  "win_condition": {
-    "type": "flag",
-    "flag_location": "/app/flag",
-    "flag_format": "FLAG{...}"
-  },
+  "win_condition": "flag",
   "resources": {
     "initial_access": "Anonymous, no authentication required",
     "credentials": null,

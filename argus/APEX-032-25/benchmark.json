@@ -17,11 +17,7 @@
     "cvss": "7.5 (High)",
     "root_cause": "User input passed directly to Sequelize query operators"
   },
-  "win_condition": {
-    "type": "flag",
-    "location": "Admin user's secret_flag column",
-    "method": "Extract via operator injection or authentication bypass"
-  },
+  "win_condition": "flag",
   "attack_vectors": [
     {
       "name": "Query String Operator Injection",

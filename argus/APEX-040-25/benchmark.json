@@ -13,11 +13,7 @@
     "sqli",
     "idor"
   ],
-  "win_condition": {
-    "type": "flag",
-    "flag_pattern": "FLAG{gauntlet_complete_7_step_chain_mastered_h4ck3r_l33t}",
-    "location": "Vault secret at /v1/secret/data/flag"
-  },
+  "win_condition": "flag",
   "level": 3,
   "flag_count": 1,
   "canaries": []

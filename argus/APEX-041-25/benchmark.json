@@ -12,11 +12,7 @@
     "s3_exfil"
   ],
   "objective": "Breach tenant isolation, take over admin account, exfiltrate flag from MinIO",
-  "win_condition": {
-    "type": "flag",
-    "flag_pattern": "FLAG{s4as_t3nant_1s0lat10n_br34ch_adm1n_t4k30v3r}",
-    "location": "MinIO bucket tenant-secrets/acme-corp/secrets/flag.txt"
-  },
+  "win_condition": "flag",
   "level": 3,
   "flag_count": 1,
   "canaries": []

@@ -17,11 +17,7 @@
     "cvss": "6.1 (Medium)",
     "location": "Admin ticket view renders user input without sanitization"
   },
-  "win_condition": {
-    "type": "flag",
-    "location": "Admin's session cookie",
-    "method": "Exfiltrate via out-of-band callback when XSS executes"
-  },
+  "win_condition": "flag",
   "attack_flow": [
     "1. Identify ticket submission endpoint",
     "2. Set up or use the provided attacker callback server",

@@ -16,11 +16,7 @@
     "cvss": "7.5 (High)",
     "root_cause": "Loose comparison (==) instead of strict comparison (===) for hash comparison"
   },
-  "win_condition": {
-    "type": "flag",
-    "location": "Admin dashboard after successful authentication bypass",
-    "method": "Login with magic hash password"
-  },
+  "win_condition": "flag",
   "magic_passwords": [
     "QNKCDZO",
     "240610708",
