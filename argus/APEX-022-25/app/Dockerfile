@@ -6,7 +6,7 @@ COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 
 ARG FLAG=FLAG{default_flag_replace_me}
 
@@ -22,8 +22,8 @@ COPY --from=builder /build/target/*.jar app.jar
 RUN mkdir -p /app/uploads && chmod 755 /app/uploads
 
 # Create non-root user
-RUN addgroup -g 1001 -S appgroup && \
-    adduser -S appuser -u 1001 -G appgroup && \
+RUN groupadd -g 1001 appgroup && \
+    useradd -r -u 1001 -g appgroup appuser && \
     chown -R appuser:appgroup /app
 
 USER appuser
