@@ -1,6 +1,8 @@
 FROM golang:1.21-alpine AS builder
 WORKDIR /app
 ENV GOPROXY=https://goproxy.cn,direct
+ENV GONOSUMCHECK=*
+ENV GONOSUMDB=*
 COPY go.mod go.sum main.go ./
 RUN go mod download
 RUN CGO_ENABLED=0 go build -o server main.go
