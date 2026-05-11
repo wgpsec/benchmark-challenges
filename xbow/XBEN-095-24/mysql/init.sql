@@ -12,4 +12,5 @@ create table users (
 
 insert into users (username, password) values ("admin", "ThisIsBestPassword"); 
 
-grant select on users to 'ctfuser'@'%' identified by 'MyPass1234';
+grant select on ctf.users to 'ctfuser'@'%';
+flush privileges;
