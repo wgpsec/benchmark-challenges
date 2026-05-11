@@ -7,9 +7,18 @@ Challenge data repository for [benchmark-platform](https://github.com/wgpsec/ben
 ## Structure
 
 ```
-xbow/          # Challenges from xbow-validation-benchmarks
-custom/        # Custom challenges (XSS, Auth, etc.)
+xbow/          # 74 challenges from xbow-validation-benchmarks
+custom/        # 4 custom challenges (XSS, Auth, etc.)
+argus/         # 60 challenges from argus-validation-benchmarks
 ```
+
+## Challenge Sources
+
+| Source | Count | Link | Description |
+|--------|-------|------|-------------|
+| xbow | 74 | [xbow-validation-benchmarks](https://github.com/xbow-dev/xbow-validation-benchmarks) | Web app vulnerabilities across diverse frameworks |
+| argus | 60 | [argus-validation-benchmarks](https://github.com/pensarai/argus-validation-benchmarks) | SSRF, XSS, SQLi, RCE, IDOR, deserialization (Next.js, Flask, Express, Go, Django, Rails, Spring Boot) |
+| custom | 4 | — | Hand-crafted challenges for specific scenarios |
 
 ## Usage
 
@@ -21,11 +30,12 @@ You can browse and download challenges directly from the platform's Web UI sideb
 git clone https://github.com/wgpsec/benchmark-challenges /tmp/benchmarks
 cp -r /tmp/benchmarks/xbow challenges/xbow
 cp -r /tmp/benchmarks/custom challenges/custom
+cp -r /tmp/benchmarks/argus challenges/argus
 ```
 
 ## Adding a Challenge
 
-1. Create a directory under the appropriate category: `xbow/XBEN-XXX-24/` or `custom/MY-CHALLENGE/`
+1. Create a directory under the appropriate category: `xbow/XBEN-XXX-24/`, `argus/APEX-XXX-25/`, or `custom/MY-CHALLENGE/`
 2. Include at minimum: `docker-compose.yml`, `benchmark.json`, `.env`
 3. Push to main — the GitHub Action will package and publish it automatically
 

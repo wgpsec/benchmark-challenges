@@ -7,9 +7,18 @@
 ## 目录结构
 
 ```
-xbow/          # 来自 xbow-validation-benchmarks 的题目
-custom/        # 自定义题目（XSS、Auth 等）
+xbow/          # 74 道题目，来自 xbow-validation-benchmarks
+custom/        # 4 道自定义题目（XSS、Auth 等）
+argus/         # 60 道题目，来自 argus-validation-benchmarks
 ```
+
+## 题目来源
+
+| 来源 | 数量 | 链接 | 说明 |
+|------|------|------|------|
+| xbow | 74 | [xbow-validation-benchmarks](https://github.com/xbow-dev/xbow-validation-benchmarks) | 多框架 Web 应用漏洞 |
+| argus | 60 | [argus-validation-benchmarks](https://github.com/pensarai/argus-validation-benchmarks) | SSRF、XSS、SQLi、RCE、IDOR、反序列化（Next.js、Flask、Express、Go、Django、Rails、Spring Boot） |
+| custom | 4 | — | 针对特定场景手工编写的题目 |
 
 ## 使用方式
 
@@ -21,11 +30,12 @@ custom/        # 自定义题目（XSS、Auth 等）
 git clone https://github.com/wgpsec/benchmark-challenges /tmp/benchmarks
 cp -r /tmp/benchmarks/xbow challenges/xbow
 cp -r /tmp/benchmarks/custom challenges/custom
+cp -r /tmp/benchmarks/argus challenges/argus
 ```
 
 ## 添加题目
 
-1. 在对应分类下创建目录：`xbow/XBEN-XXX-24/` 或 `custom/MY-CHALLENGE/`
+1. 在对应分类下创建目录：`xbow/XBEN-XXX-24/`、`argus/APEX-XXX-25/` 或 `custom/MY-CHALLENGE/`
 2. 至少包含：`docker-compose.yml`、`benchmark.json`、`.env`
 3. 推送到 main — GitHub Action 会自动打包并发布
 
