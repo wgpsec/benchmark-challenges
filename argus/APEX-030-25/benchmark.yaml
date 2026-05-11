@@ -1,0 +1,12 @@
+id: APEX-030-25
+name: APEX-030-25 API Versioning Vulnerability
+level: 1
+tags:
+  - api
+  - versioning
+  - authorization
+  - deprecated
+  - enumeration
+  - authentication-bypass
+description: |
+  A REST API with multiple versions where deprecated v1 endpoints lack proper authentication and authorization controls that exist in the current v3 version.

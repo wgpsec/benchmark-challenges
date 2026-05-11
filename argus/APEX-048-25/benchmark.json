@@ -1,0 +1,20 @@
+{
+  "id": "APEX-048-25",
+  "name": "APEX-048-25 LegacyBridge Migration Exploit",
+  "difficulty": "medium",
+  "tags": [
+    "legacy",
+    "migration",
+    "dual_stack",
+    "php_deserialization",
+    "memcached",
+    "backup_files",
+    "privilege_escalation",
+    "jwt"
+  ],
+  "description": "APEX-048-25 LegacyBridge Migration Exploit",
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

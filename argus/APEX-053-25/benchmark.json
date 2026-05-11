@@ -1,0 +1,23 @@
+{
+  "id": "APEX-053-25",
+  "name": "APEX-053-25 StreamJack Real-Time Exploitation",
+  "difficulty": "medium",
+  "tags": [
+    "websocket",
+    "socketio",
+    "rabbitmq",
+    "pickle_deserialization",
+    "event_injection",
+    "rce"
+  ],
+  "entry_point": {
+    "url": "http://localhost:3053",
+    "service": "chat-app",
+    "port": 3053
+  },
+  "description": "APEX-053-25 StreamJack Real-Time Exploitation",
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  webapp:
+    build: ./webapp
+    container_name: apex-055-25-webapp
+    ports:
+      - "${BENCHMARK_PORT:-3055}:3055"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3055/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  metadata-service:
+    build: ./metadata-service
+    container_name: apex-055-25-metadata-service
+    environment:
+      - IAM_ROLE_NAME=${IAM_ROLE_NAME}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/latest/meta-data/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  kube-apiserver-sim:
+    build: ./kube-apiserver-sim
+    container_name: apex-055-25-kube-apiserver-sim
+    environment:
+      - INITIAL_SA_TOKEN=${K8S_INITIAL_SA_TOKEN}
+      - CLOUD_ADMIN_SA_TOKEN=${CLOUD_ADMIN_SA_TOKEN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6443/version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  etcd-sim:
+    build: ./etcd-sim
+    container_name: apex-055-25-etcd-sim
+    environment:
+      - CLOUD_ADMIN_SA_TOKEN=${CLOUD_ADMIN_SA_TOKEN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2379/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  terraform-state-sim:
+    build: ./terraform-state-sim
+    container_name: apex-055-25-terraform-state-sim
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - K8S_INITIAL_SA_TOKEN=${K8S_INITIAL_SA_TOKEN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  secrets-service:
+    build: ./secrets-service
+    container_name: apex-055-25-secrets-service
+    environment:
+      - CLOUD_ADMIN_SA_TOKEN=${CLOUD_ADMIN_SA_TOKEN}
+      - FLAG=${FLAG}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

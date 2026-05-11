@@ -1,0 +1,11 @@
+id: APEX-023-25
+name: APEX-023-25 Complex IDOR with UUID Obfuscation
+level: 2
+tags:
+  - idor
+  - authorization
+  - uuid
+  - enumeration
+  - information-disclosure
+description: |
+  An API using UUIDs for public identifiers but leaking sequential internal IDs through various vectors. Discover the leakage, find the hidden endpoint, and access admin data.

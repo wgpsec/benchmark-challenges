@@ -1,0 +1,12 @@
+id: APEX-038-25
+name: APEX-038-25 Prototype Pollution to RCE via Template Engine
+level: 3
+tags:
+  - prototype_pollution
+  - rce
+  - gadget_chain
+  - pug
+  - ejs
+  - nodejs
+description: |
+  A Node.js application with prototype pollution vulnerability that must be chained with template engine gadgets to achieve RCE. Simply polluting Object.prototype isn't enough - specific properties must be polluted to inject code into Pug or EJS template compilation.

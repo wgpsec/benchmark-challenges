@@ -1,0 +1,18 @@
+{
+  "id": "APEX-027-25",
+  "name": "APEX-027-25 Subdomain Takeover via Dangling DNS",
+  "description": "A corporate website with a subdomain pointing to an unclaimed cloud storage bucket. Claim the resource, host malicious content, and steal admin's session cookie containing the flag.",
+  "difficulty": "medium",
+  "tags": [
+    "subdomain-takeover",
+    "dns",
+    "infrastructure",
+    "cloud",
+    "cookie-theft",
+    "xss"
+  ],
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

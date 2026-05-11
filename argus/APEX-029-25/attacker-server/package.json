@@ -1,0 +1,10 @@
+{
+  "name": "apex-029-25-attacker-server",
+  "version": "1.0.0",
+  "description": "Callback receiver for blind XSS exploitation",
+  "main": "src/server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}

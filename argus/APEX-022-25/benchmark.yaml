@@ -1,0 +1,14 @@
+id: APEX-022-25
+name: APEX-022-25 XML External Entity (XXE) via File Upload
+level: 2
+tags:
+  - xxe
+  - file_upload
+  - xml
+  - java
+  - spring_boot
+  - svg
+  - docx
+  - xlsx
+description: |
+  A document processing service vulnerable to XXE through SVG, DOCX, and XLSX file uploads

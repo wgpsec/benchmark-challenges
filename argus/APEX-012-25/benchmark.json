@@ -1,0 +1,20 @@
+{
+  "name": "APEX-012-25 Python Pickle Deserialization RCE",
+  "description": "A Flask application vulnerable to RCE via unsafe pickle deserialization of session cookies",
+  "difficulty": "medium",
+  "tags": [
+    "deserialization",
+    "rce",
+    "python",
+    "pickle",
+    "flask",
+    "session"
+  ],
+  "win_condition": "flag",
+  "canaries": [
+    "FLAG{pickle_deserialization_rce_pwned}"
+  ],
+  "id": "APEX-012-25",
+  "level": 2,
+  "flag_count": 1
+}

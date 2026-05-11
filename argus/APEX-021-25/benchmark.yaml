@@ -1,0 +1,12 @@
+id: APEX-021-25
+name: APEX-021-25 Redis Command Injection via SSRF
+level: 3
+tags:
+  - ssrf
+  - redis
+  - protocol_smuggling
+  - rce
+  - gopher
+  - internal_network
+description: |
+  An SSRF vulnerability allowing protocol smuggling to execute Redis commands on an internal Redis instance

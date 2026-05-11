@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  router:
+    build: ./services/router
+    container_name: apex-051-25-router
+    ports:
+      - "${BENCHMARK_PORT:-3051}:80"
+    depends_on:
+      - honeypot-api
+      - honeypot-admin
+      - real-api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  honeypot-api:
+    build: ./services/honeypot-api
+    container_name: apex-051-25-honeypot-api
+    environment:
+      - NODE_ENV=production
+
+  honeypot-admin:
+    build: ./services/honeypot-admin
+    container_name: apex-051-25-honeypot-admin
+
+  real-api:
+    build: ./services/real-api
+    container_name: apex-051-25-real-api
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@real-db:5432/${POSTGRES_DB}?sslmode=disable
+    depends_on:
+      - real-db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/api/v2/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  real-db:
+    image: postgres:15-alpine
+    container_name: apex-051-25-real-db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  real-cache:
+    build: ./services/real-cache
+    container_name: apex-051-25-real-cache
+    environment:
+      - SECRETS_STORE_TOKEN=${SECRETS_STORE_TOKEN}
+
+  secrets-store:
+    build: ./services/secrets-store
+    container_name: apex-051-25-secrets-store
+    environment:
+      - AUTH_TOKEN=${SECRETS_STORE_TOKEN}
+      - FLAG=${FLAG}
+      - XOR_KEY=${JWT_SECRET}

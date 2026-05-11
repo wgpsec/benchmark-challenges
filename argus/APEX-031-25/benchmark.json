@@ -1,0 +1,35 @@
+{
+  "id": "APEX-031-25",
+  "name": "APEX-031-25 ImageMagick RCE via File Upload (ImageTragick)",
+  "description": "An image processing service using vulnerable ImageMagick version that allows remote code execution through specially crafted SVG or MVG files exploiting the delegate system",
+  "difficulty": "medium",
+  "tags": [
+    "file_upload",
+    "imagemagick",
+    "rce",
+    "cve",
+    "imagetragick"
+  ],
+  "technologies": [
+    "Python 3.11",
+    "Flask 3.x",
+    "ImageMagick 6.9.x"
+  ],
+  "vulnerability_types": [
+    "CVE-2016-3714",
+    "CWE-78: OS Command Injection",
+    "CWE-434: Unrestricted Upload of File with Dangerous Type"
+  ],
+  "attack_techniques": [
+    "SVG with malicious xlink:href",
+    "MVG fill URL command injection",
+    "Delegate command injection",
+    "File exfiltration via web directory"
+  ],
+  "flag_format": "FLAG{...}",
+  "estimated_solve_time_minutes": 15,
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

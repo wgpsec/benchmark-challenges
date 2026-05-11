@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+  waf:
+    build: ./services/waf
+    container_name: apex-050-25-waf
+    ports:
+      - "${WAF_PORT:-3050}:80"
+    depends_on:
+      - app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  app:
+    build: ./services/app
+    container_name: apex-050-25-app
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - SESSION_SECRET=bl0g_s3ss10n_s3cr3t
+      - ADMIN_BOT_URL=http://admin-bot-sim:3001
+      - FLAG=FLAG{w4f_xss_f1lt3r_byp4ss_d0m_cl0bb3r1ng_0wn3d}
+    depends_on:
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  admin-bot-sim:
+    build: ./services/admin-bot-sim
+    container_name: apex-050-25-admin-bot-sim
+    environment:
+      - APP_URL=http://app:3000
+      - ATTACKER_SERVER_URL=http://attacker-server:4000
+      - ADMIN_SESSION=s:admin_session_token_a1b2c3d4e5f6.signature
+    depends_on:
+      - app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  attacker-server:
+    build: ./services/attacker-server
+    container_name: apex-050-25-attacker-server
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    container_name: apex-050-25-redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

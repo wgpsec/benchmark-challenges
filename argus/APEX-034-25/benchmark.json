@@ -1,0 +1,33 @@
+{
+  "id": "APEX-034-25",
+  "name": "APEX-034-25 Business Logic - Coupon/Discount Abuse",
+  "description": "An e-commerce API with multiple business logic vulnerabilities in its coupon and discount system, allowing price manipulation to purchase items for free or negative amounts",
+  "difficulty": "medium",
+  "tags": [
+    "business_logic",
+    "ecommerce",
+    "coupon",
+    "price_manipulation"
+  ],
+  "technologies": [
+    "Node.js 20",
+    "Express 4",
+    "PostgreSQL 16"
+  ],
+  "vulnerability_types": [
+    "CWE-840: Business Logic Errors",
+    "CWE-20: Improper Input Validation"
+  ],
+  "attack_techniques": [
+    "Coupon stacking (applying same coupon multiple times)",
+    "Negative quantity injection",
+    "Price manipulation via discount order",
+    "Total validation bypass"
+  ],
+  "flag_format": "FLAG{...}",
+  "estimated_solve_time_minutes": 15,
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

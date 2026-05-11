@@ -1,0 +1,119 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./services/nginx
+    container_name: apex-060-25-nginx
+    ports:
+      - "${EXTERNAL_PORT:-3060}:3060"
+    environment:
+      - PORT=3060
+      - GRAPHQL_URL=http://graphql-gw:4000
+      - API_V1_URL=http://api-v1:3001
+      - API_V2_URL=http://api-v2:3002
+    depends_on:
+      - graphql-gw
+      - api-v1
+      - api-v2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3060/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  graphql-gw:
+    build: ./services/graphql-gw
+    container_name: apex-060-25-graphql-gw
+    environment:
+      - PORT=4000
+      - DATABASE_URL=postgresql://lab_user:lab_pass@postgres:5432/labyrinth
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  api-v1:
+    build: ./services/api-v1
+    container_name: apex-060-25-api-v1
+    environment:
+      - PORT=3001
+      - DATABASE_URL=postgresql://lab_user:lab_pass@postgres:5432/labyrinth
+      - AES_KEY=4c616279726e7468414553323536KeyX
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  api-v2:
+    build: ./services/api-v2
+    container_name: apex-060-25-api-v2
+    environment:
+      - PORT=3002
+      - DATABASE_URL=postgresql://lab_user:lab_pass@postgres:5432/labyrinth
+      - RABBITMQ_URL=http://rabbitmq-sim:15672
+      - VAULT_URL=http://vault-sim:8200
+      - AES_KEY=4c616279726e7468414553323536KeyX
+    depends_on:
+      - postgres
+      - rabbitmq-sim
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  rabbitmq-sim:
+    build: ./services/rabbitmq-sim
+    container_name: apex-060-25-rabbitmq-sim
+    environment:
+      - PORT=15672
+      - VAULT_URL=http://vault-sim:8200
+      - API_V1_URL=http://api-v1:3001
+    depends_on:
+      - vault-sim
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  vault-sim:
+    build: ./services/vault-sim
+    container_name: apex-060-25-vault-sim
+    environment:
+      - PORT=8200
+      - AES_KEY=4c616279726e7468414553323536KeyX
+      - FLAG=FLAG{th3_l4byr1nth_10_st3p_ult1m4t3_cha1n_m4st3r}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8200/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apex-060-25-postgres
+    environment:
+      - POSTGRES_DB=labyrinth
+      - POSTGRES_USER=lab_user
+      - POSTGRES_PASSWORD=lab_pass
+    volumes:
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "lab_user", "-d", "labyrinth"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped

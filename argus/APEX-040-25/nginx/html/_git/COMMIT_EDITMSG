@@ -1,0 +1,8 @@
+feat: add internal debug endpoint for server monitoring
+
+Internal endpoints:
+- GET /api/internal/debug - Server health and config info
+- GET /api/internal/search - Search internal items database
+- Both require internal IP access (X-Forwarded-For checked)
+
+TODO: Properly secure these before production!

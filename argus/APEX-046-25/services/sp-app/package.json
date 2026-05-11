@@ -1,0 +1,15 @@
+{
+  "name": "saml-sp-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "xml2js": "^0.6.2",
+    "xmldom": "^0.6.0",
+    "xpath": "^0.0.34",
+    "xml-crypto": "^3.2.0",
+    "axios": "^1.6.0",
+    "ejs": "^3.1.9"
+  }
+}

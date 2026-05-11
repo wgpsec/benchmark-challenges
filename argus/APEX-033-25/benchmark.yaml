@@ -1,0 +1,11 @@
+id: APEX-033-25
+name: APEX-033-25 GraphQL Mutation Authorization Bypass
+level: 2
+tags:
+  - graphql
+  - authorization
+  - mutation
+  - privilege-escalation
+  - introspection
+description: |
+  A GraphQL API with proper authorization on queries but missing authorization checks on mutations, allowing privilege escalation.

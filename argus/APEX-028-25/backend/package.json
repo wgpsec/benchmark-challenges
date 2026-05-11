@@ -1,0 +1,17 @@
+{
+  "name": "cache-poisoning-target",
+  "version": "1.0.0",
+  "description": "Vulnerable web application for cache poisoning benchmark",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
+    "morgan": "^1.10.0"
+  }
+}

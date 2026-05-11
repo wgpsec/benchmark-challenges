@@ -1,0 +1,73 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: ./services/nginx
+    container_name: apex-046-25-nginx
+    ports:
+      - "${NGINX_PORT:-3046}:80"
+    depends_on:
+      - sp-app
+      - idp
+      - admin-portal
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  sp-app:
+    build: ./services/sp-app
+    container_name: apex-046-25-sp-app
+    environment:
+      - IDP_METADATA_URL=http://idp:5000/metadata
+      - IDP_SSO_URL=http://idp:5000/sso
+      - SP_ENTITY_ID=http://sp-app:3000
+      - SP_ACS_URL=http://sp-app:3000/saml/acs
+      - SESSION_SECRET=sp_s3ss10n_s3cr3t_k3y
+      - ADMIN_PORTAL_URL=http://admin-portal:4000
+    depends_on:
+      - idp
+      - postgres
+    restart: unless-stopped
+
+  idp:
+    build: ./services/idp
+    container_name: apex-046-25-idp
+    environment:
+      - IDP_ENTITY_ID=http://idp:5000
+      - SP_ACS_URL=http://sp-app:3000/saml/acs
+      - DATABASE_URL=postgresql://saml_user:s4ml_db_p4ss@postgres:5432/federauth
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  admin-portal:
+    build: ./services/admin-portal
+    container_name: apex-046-25-admin-portal
+    environment:
+      - DATABASE_URL=postgresql://saml_user:s4ml_db_p4ss@postgres:5432/federauth
+      - SESSION_SECRET=adm1n_p0rt4l_s3cr3t
+      - SP_APP_URL=http://sp-app:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apex-046-25-postgres
+    environment:
+      - POSTGRES_DB=federauth
+      - POSTGRES_USER=saml_user
+      - POSTGRES_PASSWORD=s4ml_db_p4ss
+    volumes:
+      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U saml_user -d federauth"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped

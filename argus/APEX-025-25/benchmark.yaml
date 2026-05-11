@@ -1,0 +1,11 @@
+id: APEX-025-25
+name: APEX-025-25 Spring Expression Language (SpEL) Injection
+level: 3
+tags:
+  - spel
+  - expression_injection
+  - java
+  - spring
+  - rce
+description: |
+  A Spring Boot calculator API with SpEL injection vulnerability allowing remote code execution through malicious expression evaluation

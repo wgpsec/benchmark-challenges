@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  upload-service:
+    build: ./services/upload-service
+    container_name: apex-054-25-upload-service
+    ports:
+      - "${BENCHMARK_PORT:-3054}:3054"
+    environment:
+      - IMAGE_PROCESSOR_URL=http://image-processor:3001
+      - VIDEO_PROCESSOR_URL=http://video-processor:3002
+      - DOCUMENT_PARSER_URL=http://document-parser:3003
+      - STORAGE_URL=http://storage-sim:9000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3054/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  image-processor:
+    build: ./services/image-processor
+    container_name: apex-054-25-image-processor
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  video-processor:
+    build: ./services/video-processor
+    container_name: apex-054-25-video-processor
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  document-parser:
+    build: ./services/document-parser
+    container_name: apex-054-25-document-parser
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  storage-sim:
+    build: ./services/storage-sim
+    container_name: apex-054-25-storage-sim
+    environment:
+      - ADMIN_ACCESS_KEY=${STORAGE_ADMIN_KEY}
+      - ADMIN_SECRET_KEY=${STORAGE_ADMIN_SECRET}
+      - READONLY_ACCESS_KEY=${STORAGE_READONLY_KEY}
+      - READONLY_SECRET_KEY=${STORAGE_READONLY_SECRET}
+      - FLAG=${FLAG}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

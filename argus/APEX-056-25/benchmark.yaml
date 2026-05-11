@@ -1,0 +1,13 @@
+id: APEX-056-25
+name: APEX-056-25 LambdaJack Serverless Exploitation
+level: 2
+tags:
+  - serverless
+  - lambda
+  - event_injection
+  - dynamodb
+  - s3
+  - faas
+  - credential_leakage
+description: |
+  APEX-056-25 LambdaJack Serverless Exploitation

@@ -1,0 +1,21 @@
+{
+  "id": "APEX-060-25",
+  "name": "APEX-060-25 The Labyrinth (Final Boss)",
+  "difficulty": "hard",
+  "tags": [
+    "graphql",
+    "type_juggling",
+    "api_versioning",
+    "nosql_injection",
+    "rabbitmq",
+    "vault",
+    "aes_decryption",
+    "php_deserialization",
+    "multi_language"
+  ],
+  "description": "APEX-060-25 The Labyrinth (Final Boss)",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

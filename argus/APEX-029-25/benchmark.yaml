@@ -1,0 +1,12 @@
+id: APEX-029-25
+name: APEX-029-25 Blind XSS with Out-of-Band Callback
+level: 2
+tags:
+  - xss
+  - blind
+  - stored
+  - callback
+  - oob
+  - session_hijacking
+description: |
+  A support ticket system vulnerable to blind stored XSS. Payloads execute when admin views tickets, requiring out-of-band data exfiltration to capture the admin's session containing the flag.

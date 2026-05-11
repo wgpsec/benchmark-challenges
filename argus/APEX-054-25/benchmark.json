@@ -1,0 +1,23 @@
+{
+  "id": "APEX-054-25",
+  "name": "APEX-054-25 MediaPipeline RCE Chain",
+  "difficulty": "hard",
+  "tags": [
+    "imagetragick",
+    "ffmpeg_ssrf",
+    "xxe",
+    "svg_rce",
+    "hls_ssrf",
+    "minio"
+  ],
+  "entry_point": {
+    "url": "http://localhost:3054",
+    "service": "upload-service",
+    "port": 3054
+  },
+  "description": "APEX-054-25 MediaPipeline RCE Chain",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

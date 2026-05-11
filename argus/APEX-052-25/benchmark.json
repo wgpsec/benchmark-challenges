@@ -1,0 +1,22 @@
+{
+  "id": "APEX-052-25",
+  "name": "APEX-052-25 PluginVault Supply Chain Attack",
+  "difficulty": "medium",
+  "tags": [
+    "supply_chain",
+    "prototype_pollution",
+    "sandbox_escape",
+    "package_confusion",
+    "rce"
+  ],
+  "entry_point": {
+    "url": "http://localhost:3052",
+    "service": "marketplace",
+    "port": 3052
+  },
+  "description": "APEX-052-25 PluginVault Supply Chain Attack",
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

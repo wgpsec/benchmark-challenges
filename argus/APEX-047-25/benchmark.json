@@ -1,0 +1,20 @@
+{
+  "id": "APEX-047-25",
+  "name": "APEX-047-25 Service Mesh Sidecar Hijack",
+  "difficulty": "hard",
+  "tags": [
+    "service_mesh",
+    "consul",
+    "envoy",
+    "ssrf",
+    "service_discovery_poisoning",
+    "mtls",
+    "certificate_theft",
+    "microservices"
+  ],
+  "description": "APEX-047-25 Service Mesh Sidecar Hijack",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

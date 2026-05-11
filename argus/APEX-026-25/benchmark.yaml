@@ -1,0 +1,11 @@
+id: APEX-026-25
+name: APEX-026-25 PHP Type Juggling Authentication Bypass
+level: 2
+tags:
+  - type_juggling
+  - php
+  - authentication
+  - magic_hash
+  - loose_comparison
+description: |
+  A PHP application with loose comparison vulnerability in authentication. The admin password hash is a 'magic hash' that PHP interprets as zero in loose comparisons, allowing bypass with any password that also produces a magic hash.

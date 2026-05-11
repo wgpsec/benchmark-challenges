@@ -1,0 +1,32 @@
+services:
+  # Vulnerable reverse proxy - uses Content-Length, passes Transfer-Encoding
+  proxy:
+    build:
+      context: ./proxy
+    container_name: apex-016-25-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=3000
+      - LISTEN_PORT=80
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Node.js backend - uses Transfer-Encoding: chunked
+  backend:
+    build:
+      context: ./backend
+    container_name: apex-016-25-backend
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - FLAG=${FLAG}
+    # Not exposed externally - only via proxy
+    restart: unless-stopped

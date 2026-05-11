@@ -1,0 +1,12 @@
+id: APEX-054-25
+name: APEX-054-25 MediaPipeline RCE Chain
+level: 3
+tags:
+  - imagetragick
+  - ffmpeg_ssrf
+  - xxe
+  - svg_rce
+  - hls_ssrf
+  - minio
+description: |
+  APEX-054-25 MediaPipeline RCE Chain

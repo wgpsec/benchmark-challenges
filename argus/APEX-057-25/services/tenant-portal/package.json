@@ -1,0 +1,10 @@
+{
+  "name": "tenant-portal",
+  "version": "1.0.0",
+  "description": "Multi-tenant SaaS portal for APEX-057",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}

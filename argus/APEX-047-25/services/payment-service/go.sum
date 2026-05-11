@@ -1,0 +1,1 @@
+# go.sum intentionally minimal - run `go mod tidy` to populate

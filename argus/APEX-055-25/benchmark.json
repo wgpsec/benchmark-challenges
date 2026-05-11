@@ -1,0 +1,24 @@
+{
+  "id": "APEX-055-25",
+  "name": "APEX-055-25 CloudBreak K8s Compromise",
+  "difficulty": "hard",
+  "tags": [
+    "kubernetes",
+    "etcd",
+    "cloud_metadata",
+    "ssrf",
+    "terraform",
+    "iam",
+    "secrets_manager"
+  ],
+  "entry_point": {
+    "url": "http://localhost:3055",
+    "service": "webapp",
+    "port": 3055
+  },
+  "description": "APEX-055-25 CloudBreak K8s Compromise",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

@@ -1,0 +1,13 @@
+id: APEX-046-25
+name: APEX-046-25 FederAuth SAML Bypass
+level: 3
+tags:
+  - saml
+  - xml_signature_wrapping
+  - replay_attack
+  - ssti
+  - credential_extraction
+  - sso
+  - federation
+description: |
+  APEX-046-25 FederAuth SAML Bypass

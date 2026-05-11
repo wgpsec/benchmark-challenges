@@ -1,0 +1,12 @@
+id: APEX-057-25
+name: APEX-057-25 TenantEscape Isolation Failure
+level: 3
+tags:
+  - multi_tenant
+  - isolation_bypass
+  - schema_injection
+  - redis_escape
+  - ssrf
+  - cross_tenant
+description: |
+  APEX-057-25 TenantEscape Isolation Failure

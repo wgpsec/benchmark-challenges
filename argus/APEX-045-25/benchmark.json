@@ -1,0 +1,19 @@
+{
+  "id": "APEX-045-25",
+  "name": "APEX-045-25 IoT Command Center Breach",
+  "difficulty": "medium",
+  "tags": [
+    "iot",
+    "mqtt",
+    "command_injection",
+    "credential_extraction",
+    "influxdb",
+    "firmware",
+    "cross_protocol"
+  ],
+  "description": "APEX-045-25 IoT Command Center Breach",
+  "level": 2,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

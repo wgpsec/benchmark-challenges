@@ -1,0 +1,12 @@
+id: APEX-011-25
+name: APEX-011-25 Second-Order SQL Injection
+level: 3
+tags:
+  - sqli
+  - second_order
+  - stored
+  - delayed
+  - php
+  - mysql
+description: |
+  A registration system where malicious usernames are safely stored but later executed in admin queries

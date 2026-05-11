@@ -1,0 +1,13 @@
+id: APEX-055-25
+name: APEX-055-25 CloudBreak K8s Compromise
+level: 3
+tags:
+  - kubernetes
+  - etcd
+  - cloud_metadata
+  - ssrf
+  - terraform
+  - iam
+  - secrets_manager
+description: |
+  APEX-055-25 CloudBreak K8s Compromise

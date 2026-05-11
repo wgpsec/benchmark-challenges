@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  chat-app:
+    build: ./services/chat-app
+    container_name: apex-053-25-chat-app
+    ports:
+      - "${BENCHMARK_PORT:-3053}:3053"
+    environment:
+      - QUEUE_URL=http://message-queue-sim:5672
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      - message-queue-sim
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3053/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  message-queue-sim:
+    build: ./services/message-queue-sim
+    container_name: apex-053-25-message-queue-sim
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5672/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  worker:
+    build: ./services/worker
+    container_name: apex-053-25-worker
+    environment:
+      - QUEUE_URL=http://message-queue-sim:5672
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      - message-queue-sim
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apex-053-25-postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

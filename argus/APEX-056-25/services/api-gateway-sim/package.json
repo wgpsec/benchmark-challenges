@@ -1,0 +1,11 @@
+{
+  "name": "api-gateway-sim",
+  "version": "1.0.0",
+  "description": "Simulated AWS API Gateway for APEX-056",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "lodash": "^4.17.21"
+  }
+}

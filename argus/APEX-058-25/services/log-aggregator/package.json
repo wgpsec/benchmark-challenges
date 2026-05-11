@@ -1,0 +1,9 @@
+{
+  "name": "log-aggregator",
+  "version": "1.0.0",
+  "description": "Centralized log aggregator for APEX-058",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

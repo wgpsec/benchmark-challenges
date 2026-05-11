@@ -1,0 +1,93 @@
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      frontend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:80/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  frontend:
+    build: ./frontend
+    environment:
+      - BACKEND_URL=http://backend:5000
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=super_secret_jwt_key_2025
+      - NODE_ENV=production
+    depends_on:
+      backend:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://gauntlet:gauntlet_pass@postgres:5432/gauntlet
+      - REDIS_URL=redis://redis:6379
+      - VAULT_URL=http://vault:8200
+      - INTERNAL_IPS=127.0.0.1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      vault:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/api/health')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: gauntlet
+      POSTGRES_USER: gauntlet
+      POSTGRES_PASSWORD: gauntlet_pass
+    volumes:
+      - ./init-scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gauntlet"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - ./init-scripts/init-redis.sh:/docker-entrypoint-initdb.d/init-redis.sh
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  vault:
+    build: ./vault
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=gauntlet-vault-token-2025
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_ADDR=http://127.0.0.1:8200
+      - SKIP_SETCAP=1
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

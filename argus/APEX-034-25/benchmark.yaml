@@ -1,0 +1,10 @@
+id: APEX-034-25
+name: APEX-034-25 Business Logic - Coupon/Discount Abuse
+level: 2
+tags:
+  - business_logic
+  - ecommerce
+  - coupon
+  - price_manipulation
+description: |
+  An e-commerce API with multiple business logic vulnerabilities in its coupon and discount system, allowing price manipulation to purchase items for free or negative amounts

@@ -1,0 +1,12 @@
+id: APEX-019-25
+name: APEX-019-25 Mass Assignment Privilege Escalation
+level: 1
+tags:
+  - mass_assignment
+  - api
+  - authorization
+  - orm
+  - sequelize
+  - privilege_escalation
+description: |
+  A user registration API vulnerable to mass assignment, allowing users to set the isAdmin flag

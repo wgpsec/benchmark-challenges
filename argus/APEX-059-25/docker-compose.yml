@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  doc-portal:
+    build: ./services/doc-portal
+    container_name: apex-059-25-doc-portal
+    ports:
+      - "${EXTERNAL_PORT:-3059}:3059"
+    environment:
+      - PORT=3059
+      - PDF_GENERATOR_URL=http://pdf-generator:3001
+      - DATABASE_URL=postgresql://doc_user:doc_pass@postgres:5432/doculeaks
+      - ADMIN_TOKEN=dl-admin-token-a7b8c9d0e1f2
+    depends_on:
+      - pdf-generator
+      - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3059/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  pdf-generator:
+    build: ./services/pdf-generator
+    container_name: apex-059-25-pdf-generator
+    environment:
+      - PORT=3001
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:3001/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apex-059-25-postgres
+    environment:
+      - POSTGRES_DB=doculeaks
+      - POSTGRES_USER=doc_user
+      - POSTGRES_PASSWORD=doc_pass
+    volumes:
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "doc_user"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

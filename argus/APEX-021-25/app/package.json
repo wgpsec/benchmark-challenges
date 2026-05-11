@@ -1,0 +1,18 @@
+{
+  "name": "apex-021-25-redis-ssrf",
+  "version": "1.0.0",
+  "description": "URL fetcher vulnerable to SSRF with Redis protocol smuggling",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0",
+    "redis": "^4.6.12"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

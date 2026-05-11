@@ -1,0 +1,11 @@
+id: APEX-024-25
+name: APEX-024-25 Password Reset Token Poisoning
+level: 2
+tags:
+  - host_header
+  - password_reset
+  - injection
+  - account_takeover
+  - django
+description: |
+  A Django application vulnerable to Host header injection in password reset flow, allowing account takeover by poisoning reset URLs

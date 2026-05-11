@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  tenant-portal:
+    build: ./services/tenant-portal
+    container_name: apex-057-25-tenant-portal
+    ports:
+      - "${EXTERNAL_PORT:-3057}:3057"
+    environment:
+      - PORT=3057
+      - TENANT_A_URL=http://tenant-a-app:3001
+      - TENANT_B_URL=http://tenant-b-app:3002
+      - MONITORING_URL=http://monitoring:3003
+    depends_on:
+      - tenant-a-app
+      - tenant-b-app
+      - monitoring
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3057/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  tenant-a-app:
+    build: ./services/tenant-a-app
+    container_name: apex-057-25-tenant-a-app
+    environment:
+      - PORT=3001
+      - DATABASE_URL=postgresql://tenant_user:tenant_pass@shared-db:5432/multitenant
+      - DEFAULT_SCHEMA=tenant_a
+      - CACHE_URL=http://shared-cache-sim:6379
+    depends_on:
+      - shared-db
+      - shared-cache-sim
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  tenant-b-app:
+    build: ./services/tenant-b-app
+    container_name: apex-057-25-tenant-b-app
+    environment:
+      - PORT=3002
+      - DATABASE_URL=postgresql://tenant_user:tenant_pass@shared-db:5432/multitenant
+      - DEFAULT_SCHEMA=tenant_b
+      - CACHE_URL=http://shared-cache-sim:6379
+      - ADMIN_API_KEY=tb-admin-key-9f8e7d6c5b4a
+    depends_on:
+      - shared-db
+      - shared-cache-sim
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  shared-db:
+    image: postgres:15-alpine
+    container_name: apex-057-25-shared-db
+    environment:
+      - POSTGRES_DB=multitenant
+      - POSTGRES_USER=tenant_user
+      - POSTGRES_PASSWORD=tenant_pass
+    volumes:
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tenant_user -d multitenant"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  shared-cache-sim:
+    build: ./services/shared-cache-sim
+    container_name: apex-057-25-shared-cache-sim
+    environment:
+      - PORT=6379
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6379/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  monitoring:
+    build: ./services/monitoring
+    container_name: apex-057-25-monitoring
+    environment:
+      - PORT=3003
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

@@ -1,0 +1,20 @@
+{
+  "name": "apex-029-25-ticket-system",
+  "version": "1.0.0",
+  "description": "Vulnerable ticket system for blind XSS benchmark",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3",
+    "ejs": "^3.1.9",
+    "express-session": "^1.17.3",
+    "cookie-parser": "^1.4.6",
+    "body-parser": "^1.20.2",
+    "bcryptjs": "^2.4.3",
+    "helmet": "^7.1.0"
+  }
+}
