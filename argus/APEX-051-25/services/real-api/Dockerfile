@@ -1,7 +1,8 @@
 FROM golang:1.21-alpine AS builder
 WORKDIR /app
+ENV GOPROXY=https://goproxy.cn,direct
 COPY go.mod go.sum main.go ./
-RUN go mod tidy && go mod download
+RUN go mod download
 RUN CGO_ENABLED=0 go build -o server main.go
 
 FROM alpine:3.18
