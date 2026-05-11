@@ -1,6 +1,9 @@
 services:
   web:
-    build: ./app    
+    build:
+      context: ./app
+      args:
+        - FLAG
     container_name: ssti-twig
     ports:
       - "80:80"
