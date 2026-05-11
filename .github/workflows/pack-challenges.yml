@@ -2,7 +2,7 @@ name: Pack & Publish Challenges
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/argus-integration]
 
 permissions:
   contents: write
@@ -19,9 +19,9 @@ jobs:
         id: detect
         run: |
           if git rev-parse HEAD~1 >/dev/null 2>&1; then
-            CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^(xbow|custom)/' | cut -d'/' -f1,2 | sort -u || true)
+            CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
           else
-            CHANGED=$(git ls-tree -r --name-only HEAD | grep -E '^(xbow|custom)/' | cut -d'/' -f1,2 | sort -u || true)
+            CHANGED=$(git ls-tree -r --name-only HEAD | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
           fi
           echo "changed<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED" >> $GITHUB_OUTPUT
@@ -54,7 +54,7 @@ jobs:
 
           challenges = []
           for category_dir in sorted(Path(".").iterdir()):
-              if category_dir.name in ("xbow", "custom") and category_dir.is_dir():
+              if category_dir.name in ("xbow", "custom", "argus") and category_dir.is_dir():
                   for ch_dir in sorted(category_dir.iterdir()):
                       if not ch_dir.is_dir():
                           continue
