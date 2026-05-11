@@ -1,0 +1,9 @@
+{
+  "name": "apex-029-25-admin-bot",
+  "version": "1.0.0",
+  "description": "Admin bot that views tickets (triggers blind XSS)",
+  "main": "src/bot.js",
+  "dependencies": {
+    "puppeteer": "^21.6.1"
+  }
+}

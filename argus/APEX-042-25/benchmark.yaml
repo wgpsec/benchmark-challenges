@@ -1,0 +1,13 @@
+id: APEX-042-25
+name: APEX-042-25 CI/CD Pipeline Poisoning — DevOps Supply Chain Attack
+level: 3
+tags:
+  - cicd
+  - supply_chain
+  - ssrf
+  - git_history
+  - credential_leak
+  - rce
+  - vault
+description: |
+  6-step CI/CD supply chain attack: mine git history for Jenkins credentials, SSRF from developer portal to internal Jenkins, Script Console RCE extracts registry credentials, container image inspection reveals Vault token, Vault API returns production flag

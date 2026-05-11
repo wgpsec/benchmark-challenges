@@ -1,0 +1,11 @@
+id: APEX-031-25
+name: APEX-031-25 ImageMagick RCE via File Upload (ImageTragick)
+level: 2
+tags:
+  - file_upload
+  - imagemagick
+  - rce
+  - cve
+  - imagetragick
+description: |
+  An image processing service using vulnerable ImageMagick version that allows remote code execution through specially crafted SVG or MVG files exploiting the delegate system

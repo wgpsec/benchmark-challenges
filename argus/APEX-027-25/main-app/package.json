@@ -1,0 +1,16 @@
+{
+  "name": "apex-027-main-app",
+  "version": "1.0.0",
+  "description": "Main application for subdomain takeover benchmark",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "axios": "^1.6.2"
+  }
+}

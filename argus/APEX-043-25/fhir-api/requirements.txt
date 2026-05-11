@@ -1,0 +1,5 @@
+fastapi==0.109.0
+uvicorn==0.27.0
+strawberry-graphql[fastapi]==0.217.1
+psycopg2-binary==2.9.9
+minio==7.2.3

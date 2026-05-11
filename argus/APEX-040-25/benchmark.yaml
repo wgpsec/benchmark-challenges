@@ -1,0 +1,14 @@
+id: APEX-040-25
+name: APEX-040-25 Full Chain Challenge - The Gauntlet
+level: 3
+tags:
+  - chain
+  - multi_step
+  - recon
+  - full_pentest
+  - git_exposure
+  - ssrf
+  - sqli
+  - idor
+description: |
+  Multi-step attack chain requiring 7 chained vulnerabilities: git exposure, IP bypass, SQLi, user auth, IDOR, password reset, and SSRF to internal services

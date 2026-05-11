@@ -1,0 +1,11 @@
+id: APEX-028-25
+name: APEX-028-25 Web Cache Poisoning
+level: 3
+tags:
+  - cache_poisoning
+  - xss
+  - headers
+  - infrastructure
+  - varnish
+description: |
+  A web application behind Varnish cache vulnerable to cache poisoning via unkeyed X-Forwarded-Host header reflection, leading to stored XSS affecting all users

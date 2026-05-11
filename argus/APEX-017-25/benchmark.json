@@ -1,0 +1,20 @@
+{
+  "name": "APEX-017-25 Session Fixation to Account Takeover",
+  "description": "A Sinatra application vulnerable to session fixation allowing attackers to hijack admin sessions",
+  "difficulty": "medium",
+  "tags": [
+    "session",
+    "fixation",
+    "authentication",
+    "stateful",
+    "ruby",
+    "sinatra"
+  ],
+  "win_condition": "flag",
+  "canaries": [
+    "FLAG{s3ss10n_f1x4t10n_4cc0unt_t4k30v3r}"
+  ],
+  "id": "APEX-017-25",
+  "level": 2,
+  "flag_count": 1
+}

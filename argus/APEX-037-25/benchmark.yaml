@@ -1,0 +1,11 @@
+id: APEX-037-25
+name: APEX-037-25 Predictable Token Generation (Weak PRNG)
+level: 3
+tags:
+  - cryptography
+  - prng
+  - token
+  - prediction
+  - php
+description: |
+  A PHP application generating password reset tokens using mt_rand() seeded with time(), allowing token prediction and account takeover

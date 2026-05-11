@@ -1,0 +1,11 @@
+id: APEX-013-25
+name: APEX-013-25 GraphQL Batching Attack - Rate Limit Bypass
+level: 2
+tags:
+  - graphql
+  - rate_limiting
+  - brute_force
+  - authentication
+  - batching
+description: |
+  A GraphQL API with rate limiting that can be bypassed using query batching to brute-force credentials

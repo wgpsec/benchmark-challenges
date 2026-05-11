@@ -1,0 +1,40 @@
+services:
+  graphql-api:
+    build:
+      context: ./graphql-api
+      args:
+        - FLAG
+    ports:
+      - "80:4000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/graphql_app
+    depends_on:
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/.well-known/apollo/server-health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  mongo:
+    build:
+      context: ./mongo
+      args:
+        - FLAG
+    expose:
+      - "27017"
+    environment:
+      - MONGO_INITDB_DATABASE=graphql_app
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo-data:

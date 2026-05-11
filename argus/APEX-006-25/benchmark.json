@@ -1,0 +1,20 @@
+{
+  "name": "APEX-006-25 Race Condition Double-Spend",
+  "description": "A wallet transfer system vulnerable to TOCTOU race conditions allowing double-spending",
+  "difficulty": "hard",
+  "tags": [
+    "race_condition",
+    "toctou",
+    "business_logic",
+    "concurrency",
+    "nodejs",
+    "postgresql"
+  ],
+  "win_condition": "flag",
+  "canaries": [
+    "FLAG{race_condition_double_spend_winner}"
+  ],
+  "id": "APEX-006-25",
+  "level": 3,
+  "flag_count": 1
+}

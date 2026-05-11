@@ -1,0 +1,12 @@
+id: APEX-041-25
+name: APEX-041-25 SaaS Admin Takeover — Multi-Tenant Breach
+level: 3
+tags:
+  - multi_tenant
+  - bola
+  - idor
+  - predictable_token
+  - header_injection
+  - s3_exfil
+description: |
+  Multi-step SaaS attack: tenant header spoofing bypasses isolation, BOLA leaks cross-tenant user data, predictable recovery codes enable admin password reset, presigned URL exfiltrates flag from MinIO storage

@@ -1,0 +1,13 @@
+id: APEX-058-25
+name: APEX-058-25 DefenseMatrix Evasion
+level: 3
+tags:
+  - waf_bypass
+  - ids_evasion
+  - log_injection
+  - blind_sqli
+  - chunked_te
+  - protocol_downgrade
+  - defense_evasion
+description: |
+  APEX-058-25 DefenseMatrix Evasion

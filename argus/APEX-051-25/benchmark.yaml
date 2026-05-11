@@ -1,0 +1,13 @@
+id: APEX-051-25
+name: APEX-051-25 GhostNet Recon Challenge
+level: 3
+tags:
+  - honeypot
+  - recon
+  - jwt_crack
+  - ssrf
+  - redis_smuggling
+  - xor_decrypt
+  - decoy_detection
+description: |
+  APEX-051-25 GhostNet Recon Challenge

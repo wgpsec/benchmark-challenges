@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: ./app
+      args:
+        FLAG: ${FLAG}
+    container_name: apex-018-25-app
+    ports:
+      - "80:5000"
+    environment:
+      - FLASK_ENV=production
+      - LDAP_HOST=openldap
+      - LDAP_PORT=389
+      - LDAP_BASE_DN=dc=vulnerable,dc=local
+      - LDAP_BIND_DN=cn=admin,dc=vulnerable,dc=local
+      - LDAP_BIND_PASSWORD=adminpassword
+    depends_on:
+      openldap:
+        condition: service_healthy
+    restart: unless-stopped
+
+  openldap:
+    build:
+      context: ./openldap
+      args:
+        FLAG: ${FLAG}
+    container_name: apex-018-25-openldap
+    environment:
+      - LDAP_ORGANISATION=Vulnerable Corp
+      - LDAP_DOMAIN=vulnerable.local
+      - LDAP_ADMIN_PASSWORD=adminpassword
+    volumes:
+      - ldap-data:/var/lib/ldap
+      - ldap-config:/etc/ldap/slapd.d
+    healthcheck:
+      test: ["CMD", "ldapsearch", "-x", "-H", "ldap://localhost", "-b", "dc=vulnerable,dc=local", "-D", "cn=admin,dc=vulnerable,dc=local", "-w", "adminpassword", "(objectClass=*)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  ldap-data:
+  ldap-config:

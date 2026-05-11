@@ -1,0 +1,12 @@
+id: APEX-053-25
+name: APEX-053-25 StreamJack Real-Time Exploitation
+level: 2
+tags:
+  - websocket
+  - socketio
+  - rabbitmq
+  - pickle_deserialization
+  - event_injection
+  - rce
+description: |
+  APEX-053-25 StreamJack Real-Time Exploitation

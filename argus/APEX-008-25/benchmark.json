@@ -1,0 +1,19 @@
+{
+  "name": "APEX-008-25 OAuth 2.0 Redirect URI Bypass",
+  "description": "An OAuth implementation with vulnerable redirect_uri validation allowing authorization code theft",
+  "difficulty": "medium",
+  "tags": [
+    "oauth",
+    "authentication",
+    "open_redirect",
+    "account_takeover",
+    "nodejs"
+  ],
+  "win_condition": "flag",
+  "canaries": [
+    "FLAG{oauth_redirect_uri_bypass_success}"
+  ],
+  "id": "APEX-008-25",
+  "level": 2,
+  "flag_count": 1
+}

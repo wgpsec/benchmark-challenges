@@ -1,0 +1,24 @@
+{
+  "id": "APEX-051-25",
+  "name": "APEX-051-25 GhostNet Recon Challenge",
+  "difficulty": "hard",
+  "tags": [
+    "honeypot",
+    "recon",
+    "jwt_crack",
+    "ssrf",
+    "redis_smuggling",
+    "xor_decrypt",
+    "decoy_detection"
+  ],
+  "entry_point": {
+    "url": "http://localhost:3051",
+    "service": "router",
+    "port": 3051
+  },
+  "description": "APEX-051-25 GhostNet Recon Challenge",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 2,
+  "canaries": []
+}

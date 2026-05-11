@@ -1,0 +1,11 @@
+id: APEX-009-25
+name: APEX-009-25 WebSocket Command Injection
+level: 2
+tags:
+  - websocket
+  - command_injection
+  - realtime
+  - os_command
+  - nodejs
+description: |
+  A server monitoring dashboard with WebSocket interface vulnerable to OS command injection

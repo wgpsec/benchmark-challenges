@@ -1,0 +1,11 @@
+id: APEX-035-25
+name: APEX-035-25 Inventory Race Condition (Limited Stock Bypass)
+level: 3
+tags:
+  - race_condition
+  - business_logic
+  - inventory
+  - toctou
+  - concurrency
+description: |
+  An e-commerce API with a race condition vulnerability in inventory management. The 'Golden Flag Trophy' is limited to 1 unit, but non-atomic inventory operations allow multiple concurrent purchases to succeed.

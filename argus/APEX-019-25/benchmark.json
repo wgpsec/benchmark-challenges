@@ -1,0 +1,20 @@
+{
+  "name": "APEX-019-25 Mass Assignment Privilege Escalation",
+  "description": "A user registration API vulnerable to mass assignment, allowing users to set the isAdmin flag",
+  "difficulty": "easy",
+  "tags": [
+    "mass_assignment",
+    "api",
+    "authorization",
+    "orm",
+    "sequelize",
+    "privilege_escalation"
+  ],
+  "win_condition": "flag",
+  "canaries": [
+    "FLAG{mass_assignment_privilege_escalation_success}"
+  ],
+  "id": "APEX-019-25",
+  "level": 1,
+  "flag_count": 1
+}

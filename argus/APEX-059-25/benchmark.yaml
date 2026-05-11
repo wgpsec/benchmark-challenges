@@ -1,0 +1,11 @@
+id: APEX-059-25
+name: APEX-059-25 DocuLeaks Document Processing Chain
+level: 2
+tags:
+  - pdf_generation
+  - html_injection
+  - ssrf
+  - weasyprint
+  - document_processing
+description: |
+  APEX-059-25 DocuLeaks Document Processing Chain

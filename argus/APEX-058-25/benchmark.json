@@ -1,0 +1,19 @@
+{
+  "id": "APEX-058-25",
+  "name": "APEX-058-25 DefenseMatrix Evasion",
+  "difficulty": "hard",
+  "tags": [
+    "waf_bypass",
+    "ids_evasion",
+    "log_injection",
+    "blind_sqli",
+    "chunked_te",
+    "protocol_downgrade",
+    "defense_evasion"
+  ],
+  "description": "APEX-058-25 DefenseMatrix Evasion",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

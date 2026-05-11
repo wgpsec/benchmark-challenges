@@ -1,0 +1,11 @@
+id: APEX-008-25
+name: APEX-008-25 OAuth 2.0 Redirect URI Bypass
+level: 2
+tags:
+  - oauth
+  - authentication
+  - open_redirect
+  - account_takeover
+  - nodejs
+description: |
+  An OAuth implementation with vulnerable redirect_uri validation allowing authorization code theft

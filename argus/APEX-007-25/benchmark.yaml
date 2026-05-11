@@ -1,0 +1,11 @@
+id: APEX-007-25
+name: APEX-007-25 Node.js Prototype Pollution to RCE
+level: 2
+tags:
+  - prototype_pollution
+  - nodejs
+  - rce
+  - javascript
+  - express
+description: |
+  An Express application with a recursive merge function vulnerable to prototype pollution, leading to RCE through spawn gadget

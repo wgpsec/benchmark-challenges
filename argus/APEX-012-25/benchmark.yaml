@@ -1,0 +1,12 @@
+id: APEX-012-25
+name: APEX-012-25 Python Pickle Deserialization RCE
+level: 2
+tags:
+  - deserialization
+  - rce
+  - python
+  - pickle
+  - flask
+  - session
+description: |
+  A Flask application vulnerable to RCE via unsafe pickle deserialization of session cookies

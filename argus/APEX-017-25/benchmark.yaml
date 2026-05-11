@@ -1,0 +1,12 @@
+id: APEX-017-25
+name: APEX-017-25 Session Fixation to Account Takeover
+level: 2
+tags:
+  - session
+  - fixation
+  - authentication
+  - stateful
+  - ruby
+  - sinatra
+description: |
+  A Sinatra application vulnerable to session fixation allowing attackers to hijack admin sessions

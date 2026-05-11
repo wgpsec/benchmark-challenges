@@ -1,0 +1,10 @@
+{
+  "name": "apex-016-25-backend",
+  "version": "1.0.0",
+  "description": "Vulnerable Node.js backend for HTTP request smuggling (CL.TE) benchmark",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node --insecure-http-parser src/index.js"
+  },
+  "dependencies": {}
+}

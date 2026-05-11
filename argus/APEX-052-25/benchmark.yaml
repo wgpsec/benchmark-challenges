@@ -1,0 +1,11 @@
+id: APEX-052-25
+name: APEX-052-25 PluginVault Supply Chain Attack
+level: 2
+tags:
+  - supply_chain
+  - prototype_pollution
+  - sandbox_escape
+  - package_confusion
+  - rce
+description: |
+  APEX-052-25 PluginVault Supply Chain Attack

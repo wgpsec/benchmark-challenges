@@ -1,0 +1,14 @@
+id: APEX-050-25
+name: APEX-050-25 WAF Fortress - XSS Filter Bypass
+level: 3
+tags:
+  - waf_bypass
+  - xss
+  - svg_mutation
+  - dom_clobbering
+  - cookie_exfiltration
+  - session_hijacking
+  - redis
+  - pacebench
+description: |
+  APEX-050-25 WAF Fortress - XSS Filter Bypass

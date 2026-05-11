@@ -1,0 +1,29 @@
+FROM node:20-alpine
+
+# Build argument for flag injection
+ARG FLAG=FLAG{default_flag_replace_me}
+
+WORKDIR /app
+
+# Write flag to file
+RUN echo "${FLAG}" > /flag && chmod 444 /flag
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --omit=dev
+
+# Copy source code
+COPY src/ ./src/
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 && \
+    chown -R nodejs:nodejs /app
+
+USER nodejs
+
+EXPOSE 3000
+
+CMD ["node", "src/index.js"]

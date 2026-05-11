@@ -1,0 +1,17 @@
+{
+  "name": "apex-044-trading-ui",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "ws": "^8.16.0",
+    "redis": "^4.6.10",
+    "jsonwebtoken": "^9.0.2",
+    "cookie-parser": "^1.4.6",
+    "morgan": "^1.10.0"
+  }
+}

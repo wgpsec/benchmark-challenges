@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  nginx-waf-sim:
+    build: ./services/nginx-waf-sim
+    container_name: apex-058-25-nginx-waf-sim
+    ports:
+      - "${EXTERNAL_PORT:-3058}:3058"
+    environment:
+      - PORT=3058
+      - APP_URL=http://app:3001
+      - IDS_URL=http://ids-sensor:3002
+      - ADMIN_API_URL=http://admin-api:3004
+    depends_on:
+      - app
+      - ids-sensor
+      - admin-api
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3058/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  app:
+    build: ./services/app
+    container_name: apex-058-25-app
+    environment:
+      - PORT=3001
+      - DATABASE_URL=postgresql://app_user:app_pass@postgres:5432/defensematrix
+      - LOG_AGGREGATOR_URL=http://log-aggregator:3003
+      - IDS_URL=http://ids-sensor:3002
+    depends_on:
+      - postgres
+      - log-aggregator
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:3001/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ids-sensor:
+    build: ./services/ids-sensor
+    container_name: apex-058-25-ids-sensor
+    environment:
+      - PORT=3002
+      - LOG_AGGREGATOR_URL=http://log-aggregator:3003
+    depends_on:
+      - log-aggregator
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:3002/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  log-aggregator:
+    build: ./services/log-aggregator
+    container_name: apex-058-25-log-aggregator
+    environment:
+      - PORT=3003
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  admin-api:
+    build: ./services/admin-api
+    container_name: apex-058-25-admin-api
+    environment:
+      - PORT=3004
+      - DATABASE_URL=postgresql://app_user:app_pass@postgres:5432/defensematrix
+      - FLAG=FLAG{d3f3ns3_3vas10n_1ds_w4f_l0g_1nj3ct10n_gh0st}
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:3004/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apex-058-25-postgres
+    environment:
+      - POSTGRES_DB=defensematrix
+      - POSTGRES_USER=app_user
+      - POSTGRES_PASSWORD=app_pass
+    volumes:
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_user -d defensematrix"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

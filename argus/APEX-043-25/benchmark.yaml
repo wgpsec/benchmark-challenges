@@ -1,0 +1,14 @@
+id: APEX-043-25
+name: APEX-043-25 HealthGuard Patient Data Breach
+level: 3
+tags:
+  - healthcare
+  - graphql
+  - sqli
+  - path_traversal
+  - double_encoding
+  - fhir
+  - dicom
+  - s3_exfil
+description: |
+  5-step healthcare data breach: GraphQL introspection reveals hidden types, depth abuse extracts storage credentials, FHIR search SQL injection dumps patient data, double-encoded path traversal in Go DICOM viewer reads internal files, MinIO access exfiltrates restricted medical records

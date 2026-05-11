@@ -1,0 +1,12 @@
+{
+  "name": "apex-027-dns-server",
+  "version": "1.0.0",
+  "description": "Custom DNS server with dangling CNAME records",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "dns2": "^2.1.0"
+  }
+}

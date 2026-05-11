@@ -1,0 +1,10 @@
+# Base organization structure
+dn: ou=users,dc=vulnerable,dc=local
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=vulnerable,dc=local
+objectClass: top
+objectClass: organizationalUnit
+ou: groups

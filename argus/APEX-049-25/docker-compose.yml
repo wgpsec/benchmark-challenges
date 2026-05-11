@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  waf:
+    build: ./services/waf
+    container_name: apex-049-25-waf
+    ports:
+      - "${WAF_PORT:-3049}:80"
+    depends_on:
+      app:
+        condition: service_healthy
+      admin-panel:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    build: ./services/app
+    container_name: apex-049-25-app
+    environment:
+      - DATABASE_URL=postgresql://waf_user:w4f_db_p4ss@postgres:5432/wafapp
+      - ADMIN_SESSION_SECRET=adm1n_s3ss10n_k3y
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  admin-panel:
+    build: ./services/admin-panel
+    container_name: apex-049-25-admin-panel
+    environment:
+      - APP_URL=http://app:5000
+      - SECRETS_VAULT_URL=http://secrets-vault:5001
+      - SESSION_SECRET=adm1n_p4n3l_s3cr3t
+    depends_on:
+      app:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  secrets-vault:
+    build: ./services/secrets-vault
+    container_name: apex-049-25-secrets-vault
+    environment:
+      - FLAG=FLAG{w4f_byp4ss_hpp_cont3nt_typ3_c0nfus10n_3vad3d}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apex-049-25-postgres
+    environment:
+      - POSTGRES_DB=wafapp
+      - POSTGRES_USER=waf_user
+      - POSTGRES_PASSWORD=w4f_db_p4ss
+    volumes:
+      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U waf_user -d wafapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped

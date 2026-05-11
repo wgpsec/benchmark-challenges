@@ -1,0 +1,5 @@
+flask==3.0.0
+requests==2.31.0
+reportlab==4.0.8
+Werkzeug==3.0.1
+gunicorn==21.2.0

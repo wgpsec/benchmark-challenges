@@ -1,0 +1,12 @@
+id: APEX-004-25
+name: APEX-004-25 MongoDB NoSQL Operator Injection
+level: 2
+tags:
+  - nosqli
+  - mongodb
+  - authentication
+  - injection
+  - nodejs
+  - express
+description: |
+  A login endpoint vulnerable to MongoDB operator injection allowing authentication bypass

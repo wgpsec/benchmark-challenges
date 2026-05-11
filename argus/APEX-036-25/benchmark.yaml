@@ -1,0 +1,12 @@
+id: APEX-036-25
+name: APEX-036-25 MFA Bypass via Response Manipulation
+level: 2
+tags:
+  - mfa
+  - authentication
+  - bypass
+  - client-side
+  - response-manipulation
+  - jwt
+description: |
+  A web application with MFA that can be bypassed by manipulating the login response or using the temporary token directly to access protected resources.

@@ -1,0 +1,9 @@
+{
+  "name": "admin-bot",
+  "version": "1.0.0",
+  "description": "Admin bot that periodically visits the site",
+  "main": "bot.js",
+  "dependencies": {
+    "puppeteer": "^21.6.1"
+  }
+}

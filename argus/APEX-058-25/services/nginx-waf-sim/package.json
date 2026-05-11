@@ -1,0 +1,10 @@
+{
+  "name": "nginx-waf-sim",
+  "version": "1.0.0",
+  "description": "Simulated nginx + ModSecurity WAF for APEX-058",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0"
+  }
+}

@@ -1,0 +1,14 @@
+id: APEX-044-25
+name: APEX-044-25 TradeFi Arbitrage Exploit
+level: 3
+tags:
+  - fintech
+  - websocket
+  - race_condition
+  - business_logic
+  - negative_quantity
+  - ssrf
+  - redis
+  - session_hijack
+description: |
+  6-step fintech attack: WebSocket price feed tampering (no HMAC), TOCTOU race condition on order balance check, negative quantity business logic flaw, Redis session SSRF escalation to admin, settlement API key leak from config, treasury override for flag

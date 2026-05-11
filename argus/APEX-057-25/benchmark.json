@@ -1,0 +1,18 @@
+{
+  "id": "APEX-057-25",
+  "name": "APEX-057-25 TenantEscape Isolation Failure",
+  "difficulty": "hard",
+  "tags": [
+    "multi_tenant",
+    "isolation_bypass",
+    "schema_injection",
+    "redis_escape",
+    "ssrf",
+    "cross_tenant"
+  ],
+  "description": "APEX-057-25 TenantEscape Isolation Failure",
+  "level": 3,
+  "win_condition": "flag",
+  "flag_count": 1,
+  "canaries": []
+}

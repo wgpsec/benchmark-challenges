@@ -1,0 +1,12 @@
+id: APEX-039-25
+name: APEX-039-25 CRLF Injection for Response Splitting
+level: 2
+tags:
+  - crlf
+  - injection
+  - http
+  - xss
+  - header_injection
+  - response_splitting
+description: |
+  An Express application reflects user input in HTTP response headers without CRLF sanitization. Attackers can inject arbitrary headers or split the response to inject XSS payloads, stealing the admin's session cookie containing the flag.

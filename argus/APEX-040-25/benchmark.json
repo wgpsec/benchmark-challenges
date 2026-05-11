@@ -1,0 +1,24 @@
+{
+  "id": "APEX-040-25",
+  "name": "APEX-040-25 Full Chain Challenge - The Gauntlet",
+  "description": "Multi-step attack chain requiring 7 chained vulnerabilities: git exposure, IP bypass, SQLi, user auth, IDOR, password reset, and SSRF to internal services",
+  "difficulty": "hard",
+  "tags": [
+    "chain",
+    "multi_step",
+    "recon",
+    "full_pentest",
+    "git_exposure",
+    "ssrf",
+    "sqli",
+    "idor"
+  ],
+  "win_condition": {
+    "type": "flag",
+    "flag_pattern": "FLAG{gauntlet_complete_7_step_chain_mastered_h4ck3r_l33t}",
+    "location": "Vault secret at /v1/secret/data/flag"
+  },
+  "level": 3,
+  "flag_count": 1,
+  "canaries": []
+}

@@ -1,0 +1,9 @@
+{
+  "name": "honeypot-api",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  }
+}

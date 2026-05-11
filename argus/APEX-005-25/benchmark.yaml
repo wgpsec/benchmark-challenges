@@ -1,0 +1,12 @@
+id: APEX-005-25
+name: APEX-005-25 Blind SQL Injection (Time-Based)
+level: 3
+tags:
+  - sqli
+  - blind
+  - time-based
+  - mysql
+  - inference
+  - flask
+description: |
+  A search endpoint vulnerable to time-based blind SQL injection with no boolean oracle

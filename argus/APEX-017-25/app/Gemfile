@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'sinatra', '~> 4.0'
+gem 'sinatra-contrib', '~> 4.0'
+gem 'puma', '~> 6.4'
+gem 'redis', '~> 5.0'
+gem 'erb', '~> 4.0'
+gem 'json', '~> 2.7'
+gem 'rackup', '~> 2.1'
