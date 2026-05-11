@@ -173,6 +173,24 @@ services:
       context: ./src
 ```
 
+**国内镜像加速：** Dockerfile 中的包管理器应使用阿里云镜像源，避免构建时因网络问题失败：
+
+apt（Debian/Ubuntu 基础镜像）：
+```dockerfile
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources 2>/dev/null; \
+    sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list 2>/dev/null; true
+```
+
+pip（Python）：
+```dockerfile
+RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com flask
+```
+
+npm/yarn/pnpm（Node.js）：
+```dockerfile
+RUN npm config set registry https://registry.npmmirror.com && npm install
+```
+
 ### 完整示例（单服务）
 
 ```yaml
@@ -326,9 +344,10 @@ mkdir src
 
 ```dockerfile
 FROM python:3.11-slim
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources 2>/dev/null; true
 WORKDIR /app
 COPY . .
-RUN pip install flask
+RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com flask
 EXPOSE 80
 CMD ["python", "app.py"]
 ```

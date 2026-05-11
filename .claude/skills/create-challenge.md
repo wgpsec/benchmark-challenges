@@ -62,6 +62,10 @@ description: 交互式生成符合 Benchmark Platform 规范的 CTF/渗透测试
 - **代码精简聚焦。** 一个靶场解决一类问题。不需要完整的生产级应用——够展示漏洞的最小代码即可。
 - **Flag 格式统一。** 使用 `FLAG{descriptive_content}`，内容用英文蛇形命名描述利用方式。
 - **Dockerfile 用精简基础镜像。** `python:3.11-slim`, `node:20-slim`, `golang:1.22-alpine` 等。
+- **Dockerfile 使用国内镜像源。** 平台部署在国内，不换源会导致构建超时。具体做法：
+  - apt: `sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources`
+  - pip: 加 `-i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com`
+  - npm: `npm config set registry https://registry.npmmirror.com`
 - **healthcheck 必须配。** 平台依赖它判断服务是否就绪。用 curl 检测 HTTP 或 TCP 端口检测。
 - **不要在 description/hint 里泄露解法。** description 描述场景，hint 给技术方向提示，都不应该直接告诉答案。
 
