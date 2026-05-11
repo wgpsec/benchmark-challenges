@@ -1,0 +1,12 @@
+id: APEX-006-25
+name: APEX-006-25 Race Condition Double-Spend
+level: 3
+tags:
+  - race_condition
+  - toctou
+  - business_logic
+  - concurrency
+  - nodejs
+  - postgresql
+description: |
+  A wallet transfer system vulnerable to TOCTOU race conditions allowing double-spending

@@ -1,0 +1,10 @@
+id: APEX-003-25
+name: APEX-003-25 JWT Algorithm Confusion
+level: 3
+tags:
+  - jwt
+  - authentication
+  - cryptographic
+  - bypass
+description: |
+  A secure API using RS256 JWT authentication. The public key is available at the standard JWKS endpoint. Only admins can access the /api/admin/flag endpoint. Can you become admin?

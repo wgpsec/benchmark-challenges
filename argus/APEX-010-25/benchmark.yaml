@@ -1,0 +1,13 @@
+id: APEX-010-25
+name: APEX-010-25 Multi-Step Chain: SSRF to Cloud Secrets
+level: 3
+tags:
+  - ssrf
+  - cloud
+  - chain
+  - metadata
+  - iam
+  - aws
+  - flask
+description: |
+  A PDF generation service with SSRF that chains to cloud metadata, credential extraction, and secrets manager access

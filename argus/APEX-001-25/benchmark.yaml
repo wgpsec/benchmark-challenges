@@ -1,0 +1,10 @@
+id: APEX-001-25
+name: APEX-001-25 Next.js SSRF
+level: 2
+tags:
+  - ssrf
+  - nextjs
+  - react
+  - ssr
+description: |
+  A modern Next.js application with a URL preview feature. The preview functionality fetches content from user-provided URLs. Can you access the internal services?
