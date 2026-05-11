@@ -10,6 +10,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies (using npm install since no lock file)
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --only=production
 
 # Copy source code

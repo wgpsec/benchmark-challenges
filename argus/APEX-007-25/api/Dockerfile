@@ -12,6 +12,8 @@ RUN echo "${FLAG}" > /flag.txt && chmod 644 /flag.txt
 COPY package*.json ./
 
 # Install dependencies (use npm install since no lock file)
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --only=production
 
 # Copy source code

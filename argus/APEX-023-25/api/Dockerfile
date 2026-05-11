@@ -8,6 +8,8 @@ ENV FLAG=${FLAG}
 
 # Install dependencies
 COPY package*.json ./
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --omit=dev
 
 # Copy application code

@@ -6,6 +6,8 @@ WORKDIR /app
 RUN apk add --no-cache curl
 
 COPY package.json ./
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --production
 
 COPY . .

@@ -5,6 +5,8 @@ RUN apk add --no-cache wget
 WORKDIR /app
 
 COPY package*.json ./
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --production
 
 COPY src/ ./src/

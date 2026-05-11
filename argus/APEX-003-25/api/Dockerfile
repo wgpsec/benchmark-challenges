@@ -7,6 +7,8 @@ RUN apk add --no-cache curl openssl
 
 # Copy package files
 COPY package*.json ./
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --omit=dev
 
 # Copy source code

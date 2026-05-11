@@ -6,6 +6,8 @@ ARG FLAG
 ENV FLAG=${FLAG}
 
 COPY package*.json ./
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --omit=dev
 
 COPY src/ ./src/

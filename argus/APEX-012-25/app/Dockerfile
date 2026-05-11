@@ -6,6 +6,8 @@ ARG FLAG=FLAG{default_flag_replace_me}
 WORKDIR /app
 
 # Install curl for healthcheck
+RUN sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list.d/debian.sources 2>/dev/null; sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list 2>/dev/null || true
+
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
 # Write flag to file
@@ -13,7 +15,7 @@ RUN echo "${FLAG}" > /flag && chmod 444 /flag
 
 # Install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt
 
 # Copy application code
 COPY src/ ./

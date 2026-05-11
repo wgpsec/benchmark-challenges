@@ -5,6 +5,8 @@ ARG FLAG=FLAG{default_flag_replace_me}
 ENV FLAG=${FLAG}
 
 # Install system dependencies for python-ldap
+RUN sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list.d/debian.sources 2>/dev/null; sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list 2>/dev/null || true
+
 RUN apt-get update && apt-get install -y \
     build-essential \
     libldap2-dev \
@@ -16,7 +18,7 @@ WORKDIR /app
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt
 
 # Copy application code
 COPY src/ ./

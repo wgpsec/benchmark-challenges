@@ -2,6 +2,8 @@ FROM python:3.11-slim
 
 # Install ImageMagick 6.x (vulnerable version)
 # We specifically install an older version without security policies
+RUN sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list.d/debian.sources 2>/dev/null; sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list 2>/dev/null || true
+
 RUN apt-get update && apt-get install -y \
     imagemagick \
     libmagickwand-dev \
@@ -25,7 +27,7 @@ RUN mkdir -p /app/uploads /app/processed /app/static
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt
 
 # Copy application code
 COPY src/ ./

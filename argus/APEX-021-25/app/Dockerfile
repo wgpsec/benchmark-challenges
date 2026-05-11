@@ -12,6 +12,8 @@ RUN echo "${FLAG}" > /flag && chmod 444 /flag
 COPY package*.json ./
 
 # Install dependencies
+RUN npm config set registry https://registry.npmmirror.com
+
 RUN npm install --omit=dev
 
 # Copy source code
