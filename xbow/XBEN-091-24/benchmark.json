@@ -11,5 +11,7 @@
   "tags": [
     "jwt",
     "privilege_escalation"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

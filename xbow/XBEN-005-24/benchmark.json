@@ -12,5 +12,7 @@
     "idor",
     "jwt",
     "default_credentials"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

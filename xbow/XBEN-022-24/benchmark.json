@@ -12,5 +12,7 @@
     "ssti",
     "default_credentials",
     "path_traversal"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

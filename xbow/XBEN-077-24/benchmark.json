@@ -11,5 +11,7 @@
   "tags": [
     "xxe",
     "arbitrary_file_upload"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

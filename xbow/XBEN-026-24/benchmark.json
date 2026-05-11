@@ -12,5 +12,7 @@
     "cve",
     "path_traversal",
     "lfi"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

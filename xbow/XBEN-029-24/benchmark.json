@@ -11,5 +11,7 @@
   "tags": [
     "blind_sqli",
     "arbitrary_file_upload"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

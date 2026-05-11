@@ -12,5 +12,7 @@
     "brute_force",
     "graphql",
     "idor"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

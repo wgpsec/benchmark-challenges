@@ -11,5 +11,7 @@
   "tags": [
     "idor",
     "sqli"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

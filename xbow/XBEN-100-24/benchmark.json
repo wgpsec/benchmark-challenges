@@ -11,5 +11,7 @@
   "tags": [
     "nosqli",
     "graphql"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

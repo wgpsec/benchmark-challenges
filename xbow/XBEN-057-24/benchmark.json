@@ -10,5 +10,7 @@
   "win_condition": "flag",
   "tags": [
     "insecure_deserialization"
-  ]
+  ],
+  "difficulty": "hard",
+  "flag_count": 1
 }

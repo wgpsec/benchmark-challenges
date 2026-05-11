@@ -10,5 +10,7 @@
   "win_condition": "flag",
   "tags": [
     "blind_sqli"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

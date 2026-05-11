@@ -10,5 +10,7 @@
   "win_condition": "flag",
   "tags": [
     "command_injection"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

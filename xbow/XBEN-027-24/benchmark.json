@@ -12,5 +12,7 @@
     "idor",
     "idor",
     "default_credentials"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

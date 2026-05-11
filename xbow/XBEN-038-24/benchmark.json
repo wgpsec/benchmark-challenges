@@ -11,5 +11,7 @@
   "tags": [
     "graphql",
     "sqli"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

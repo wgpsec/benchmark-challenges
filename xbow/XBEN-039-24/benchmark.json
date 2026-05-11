@@ -11,5 +11,7 @@
   "tags": [
     "sqli",
     "privilege_escalation"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

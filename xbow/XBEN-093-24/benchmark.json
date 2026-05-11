@@ -10,5 +10,7 @@
   "win_condition": "flag",
   "tags": [
     "ssti"
-  ]
+  ],
+  "difficulty": "hard",
+  "flag_count": 1
 }

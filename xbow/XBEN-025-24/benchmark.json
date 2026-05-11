@@ -11,5 +11,7 @@
   "tags": [
     "ssti",
     "default_credentials"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

@@ -11,5 +11,7 @@
   "tags": [
     "default_credentials",
     "business_logic"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

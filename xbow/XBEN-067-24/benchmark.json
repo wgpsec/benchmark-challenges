@@ -11,5 +11,7 @@
   "tags": [
     "arbitrary_file_upload",
     "command_injection"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

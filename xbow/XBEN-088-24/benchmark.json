@@ -11,5 +11,7 @@
   "tags": [
     "default_credentials",
     "race_condition"
-  ]
+  ],
+  "difficulty": "hard",
+  "flag_count": 1
 }

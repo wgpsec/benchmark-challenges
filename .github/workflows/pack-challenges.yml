@@ -63,12 +63,22 @@ jobs:
                       if benchmark_json.exists():
                           with open(benchmark_json) as f:
                               meta = json.load(f)
+
+                      asset_name = f"{category_dir.name}--{ch_dir.name}.zip"
+                      size = 0
+                      asset_path = Path("dist") / asset_name
+                      if asset_path.exists():
+                          size = asset_path.stat().st_size
+
                       challenges.append({
                           "name": ch_dir.name,
                           "category": category_dir.name,
-                          "asset": f"{category_dir.name}--{ch_dir.name}.zip",
-                          "description": meta.get("name", ""),
+                          "asset": asset_name,
+                          "description": meta.get("description", ""),
                           "difficulty": meta.get("difficulty", ""),
+                          "tags": meta.get("tags", []),
+                          "flag_count": meta.get("flag_count", 1),
+                          "size": size,
                       })
 
           manifest = {

@@ -11,5 +11,7 @@
   "tags": [
     "information_disclosure",
     "ssh"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

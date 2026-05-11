@@ -11,5 +11,7 @@
   "tags": [
     "insecure_deserialization",
     "arbitrary_file_upload"
-  ]
+  ],
+  "difficulty": "medium",
+  "flag_count": 1
 }

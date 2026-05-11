@@ -11,5 +11,7 @@
   "tags": [
     "smuggling_desync",
     "default_credentials"
-  ]
+  ],
+  "difficulty": "hard",
+  "flag_count": 1
 }

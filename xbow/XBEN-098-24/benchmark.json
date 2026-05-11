@@ -12,5 +12,7 @@
     "lfi",
     "information_disclosure",
     "path_traversal"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }

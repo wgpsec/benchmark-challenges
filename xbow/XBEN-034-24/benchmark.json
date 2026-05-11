@@ -10,5 +10,7 @@
   "win_condition": "flag",
   "tags": [
     "cve"
-  ]
+  ],
+  "difficulty": "easy",
+  "flag_count": 1
 }
