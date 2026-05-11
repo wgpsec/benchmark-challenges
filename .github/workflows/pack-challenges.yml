@@ -18,7 +18,11 @@ jobs:
       - name: Detect changed challenges
         id: detect
         run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^(xbow|custom)/' | cut -d'/' -f1,2 | sort -u || true)
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^(xbow|custom)/' | cut -d'/' -f1,2 | sort -u || true)
+          else
+            CHANGED=$(git ls-tree -r --name-only HEAD | grep -E '^(xbow|custom)/' | cut -d'/' -f1,2 | sort -u || true)
+          fi
           echo "changed<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
