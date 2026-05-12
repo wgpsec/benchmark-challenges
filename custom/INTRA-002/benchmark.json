@@ -1,0 +1,16 @@
+{
+  "id": "INTRA-002",
+  "name": "INTRA-002 链路突破 (Link Breach)",
+  "description": "A web application with a link preview feature connects to various internal services. Exploit the SSRF vulnerability to progressively compromise deeper network targets including Redis, an OA system, and a database.",
+  "hint": "链接预览功能没有对请求目标做充分限制",
+  "level": 3,
+  "win_condition": "flag",
+  "tags": ["ssrf", "redis_unauthorized", "pickle_deserialization", "lateral_movement", "internal_network"],
+  "canaries": [
+    "FLAG{ssrf_redis_key_leaked}",
+    "FLAG{redis_rce_via_crontab}",
+    "FLAG{pickle_deserialization_rce}",
+    "FLAG{database_secret_exfiltrated}"
+  ],
+  "flag_count": 4
+}

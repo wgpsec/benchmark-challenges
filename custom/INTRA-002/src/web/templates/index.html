@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Link Preview Service</title></head>
+<body>
+<h1>Link Preview Service</h1>
+<p>Enter a URL to preview its content:</p>
+<form method="POST" action="/preview">
+  <input type="text" name="url" value="{{ url or '' }}" size="60" placeholder="https://example.com">
+  <button type="submit">Preview</button>
+</form>
+{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+{% if result %}<h3>Preview Result:</h3><pre>{{ result }}</pre>{% endif %}
+</body>
+</html>

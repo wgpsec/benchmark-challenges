@@ -1,0 +1,59 @@
+services:
+  web:
+    build:
+      context: ./src/web
+    ports:
+      - "80:80"
+    networks:
+      - dmz
+    environment:
+      - FLAG=${FLAG_WEB}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+
+  redis:
+    build:
+      context: ./src/redis
+    networks:
+      - dmz
+      - internal
+    environment:
+      - FLAG=${FLAG_REDIS}
+      - FLAG_READABLE=${FLAG_WEB}
+
+  oa:
+    build:
+      context: ./src/oa
+    networks:
+      - internal
+    environment:
+      - FLAG=${FLAG_OA}
+
+  db:
+    image: mysql:8.0
+    networks:
+      - internal
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_secret_2024
+      - MYSQL_DATABASE=oa_production
+      - MYSQL_USER=oa_user
+      - MYSQL_PASSWORD=oa_pass_2024
+      - FLAG=${FLAG_DB}
+    volumes:
+      - ./src/db/init.sql.tpl:/init.sql.tpl:ro
+      - ./src/db/entrypoint-db.sh:/docker-entrypoint-initdb.d/00-flag.sh:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+      interval: 10s
+
+networks:
+  dmz:
+    driver: bridge
+  internal:
+    driver: bridge
+    internal: true

@@ -1,0 +1,24 @@
+id: INTRA-002
+name: "链路突破 (Link Breach)"
+level: 3
+tags: [ssrf, redis_unauthorized, pickle_deserialization, lateral_movement, internal_network]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      某公司的 Web 应用提供了链接预览功能，用于展示 URL 内容摘要。
+      但该功能的实现存在缺陷，允许访问内部网络资源。
+      利用这个入口，逐步渗透到更深层的内网服务。
+flags:
+  - id: redis-read
+    description: "通过 SSRF 读取内网 Redis 中的敏感数据"
+    hint: "链接预览功能没有限制访问内网地址和非 HTTP 协议"
+  - id: redis-rce
+    description: "获取 Redis 服务器的控制权"
+    hint: "Redis 未设置密码且允许修改配置文件路径"
+  - id: oa-rce
+    description: "突破内网 OA 系统"
+    hint: "OA 系统的数据导入功能使用了不安全的反序列化方式"
+  - id: db-exfil
+    description: "获取数据库中的机密数据"
+    hint: "OA 的配置文件中可能包含数据库连接凭据"
