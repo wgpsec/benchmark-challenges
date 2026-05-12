@@ -13,6 +13,7 @@
     "microservices"
   ],
   "description": "APEX-047-25 Service Mesh Sidecar Hijack",
+  "hint": "Consul服务注册无需认证，可篡改服务发现路由并从KV存储窃取mTLS证书",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

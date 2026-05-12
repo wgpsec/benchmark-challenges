@@ -17,6 +17,7 @@
     "port": 3055
   },
   "description": "APEX-055-25 CloudBreak K8s Compromise",
+  "hint": "URL预览接口无过滤，可逐步访问云元数据、etcd和密钥管理等内部服务",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

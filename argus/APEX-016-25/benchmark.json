@@ -2,6 +2,7 @@
   "id": "APEX-016-25",
   "name": "APEX-016-25 HTTP Request Smuggling (CL.TE)",
   "description": "A CL.TE request smuggling vulnerability allowing bypass of proxy security rules to access admin endpoints. The proxy uses Content-Length while Node.js backend uses Transfer-Encoding: chunked, creating a desync condition.",
+  "hint": "代理按 Content-Length 截断请求体，后端按 chunked 解析，利用解析差异将走私请求指向被禁的 /admin 路径",
   "difficulty": "hard",
   "tags": [
     "request_smuggling",

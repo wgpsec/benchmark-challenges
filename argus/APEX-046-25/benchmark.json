@@ -12,6 +12,7 @@
     "federation"
   ],
   "description": "APEX-046-25 FederAuth SAML Bypass",
+  "hint": "SAML响应验签与属性提取作用于不同Assertion节点，可构造XML签名包装攻击",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

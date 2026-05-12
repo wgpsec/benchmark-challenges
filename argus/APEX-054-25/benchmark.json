@@ -16,6 +16,7 @@
     "port": 3054
   },
   "description": "APEX-054-25 MediaPipeline RCE Chain",
+  "hint": "媒体上传支持多种格式，SVG和HLS播放列表的解析过程可触发SSRF或代码执行",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

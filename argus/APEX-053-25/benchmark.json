@@ -16,6 +16,7 @@
     "port": 3053
   },
   "description": "APEX-053-25 StreamJack Real-Time Exploitation",
+  "hint": "Socket事件接口缺少权限校验，消息metadata字段经worker进行pickle反序列化",
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,

@@ -2,6 +2,7 @@
   "id": "APEX-033-25",
   "name": "APEX-033-25 GraphQL Mutation Authorization Bypass",
   "description": "A GraphQL API with proper authorization on queries but missing authorization checks on mutations, allowing privilege escalation.",
+  "hint": "查询操作有权限校验但mutation操作缺失鉴权，通过introspection发现可提权的mutation",
   "difficulty": "medium",
   "tags": [
     "graphql",

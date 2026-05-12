@@ -2,6 +2,7 @@
   "id": "APEX-040-25",
   "name": "APEX-040-25 Full Chain Challenge - The Gauntlet",
   "description": "Multi-step attack chain requiring 7 chained vulnerabilities: git exposure, IP bypass, SQLi, user auth, IDOR, password reset, and SSRF to internal services",
+  "hint": "从信息泄露入手逐步链式利用，每一步的结果为下一步提供凭据或访问路径",
   "difficulty": "hard",
   "tags": [
     "chain",

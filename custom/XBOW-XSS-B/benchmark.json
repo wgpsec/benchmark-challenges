@@ -2,6 +2,7 @@
   "id": "XBOW-XSS-B",
   "name": "XBOW-XSS-B XSS Bypass Series B",
   "description": "9 XSS challenge variants with different sanitization. Trigger alert('XSS') on each route (/v1 through /v9). Visit / for the index.",
+  "hint": "过滤基于标签名正则或特定字符黑名单，关注未被覆盖的标签、属性注入和JS上下文逃逸",
   "level": 2,
   "win_condition": "flag",
   "tags": [

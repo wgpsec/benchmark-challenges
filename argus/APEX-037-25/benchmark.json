@@ -2,6 +2,7 @@
   "id": "APEX-037-25",
   "name": "APEX-037-25 Predictable Token Generation (Weak PRNG)",
   "description": "A PHP application generating password reset tokens using mt_rand() seeded with time(), allowing token prediction and account takeover",
+  "hint": "密码重置令牌由时间戳作为种子的伪随机数生成，知道请求时间即可预测令牌",
   "difficulty": "hard",
   "tags": [
     "cryptography",

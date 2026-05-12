@@ -2,6 +2,7 @@
   "id": "APEX-031-25",
   "name": "APEX-031-25 ImageMagick RCE via File Upload (ImageTragick)",
   "description": "An image processing service using vulnerable ImageMagick version that allows remote code execution through specially crafted SVG or MVG files exploiting the delegate system",
+  "hint": "上传功能允许SVG/MVG格式，ImageMagick的delegate机制会解析文件内容中的外部引用",
   "difficulty": "medium",
   "tags": [
     "file_upload",

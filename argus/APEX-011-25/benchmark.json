@@ -1,6 +1,7 @@
 {
   "name": "APEX-011-25 Second-Order SQL Injection",
   "description": "A registration system where malicious usernames are safely stored but later executed in admin queries",
+  "hint": "注册时用户名被安全存储，但管理员查看活动日志时未做参数化查询，关注二次触发点",
   "difficulty": "hard",
   "tags": [
     "sqli",

@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-071-24 SQL make mistakes",
   "description": "Get FLAG from SQLi",
+  "hint": "联系表单的name字段直接拼接到SQL查询中未做参数化，可通过该字段进行注入",
   "level": 1,
   "win_condition": "flag",
   "tags": [

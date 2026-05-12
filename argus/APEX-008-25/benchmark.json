@@ -1,6 +1,7 @@
 {
   "name": "APEX-008-25 OAuth 2.0 Redirect URI Bypass",
   "description": "An OAuth implementation with vulnerable redirect_uri validation allowing authorization code theft",
+  "hint": "redirect_uri仅做前缀匹配校验，可通过子域名拼接或@符号将授权码重定向到攻击者域名",
   "difficulty": "medium",
   "tags": [
     "oauth",

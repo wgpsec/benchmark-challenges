@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-039-24 Easy login",
   "description": "Try to login as the admin user",
+  "hint": "分类筛选参数未转义直接拼入SQL查询，利用注入获取管理员凭据后登录",
   "level": 1,
   "win_condition": "flag",
   "tags": [

@@ -13,6 +13,7 @@
     "jwt"
   ],
   "description": "APEX-048-25 LegacyBridge Migration Exploit",
+  "hint": "遗留系统存在备份文件泄露和反序列化漏洞，Memcached会话可被篡改以提升权限",
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,

@@ -2,6 +2,7 @@
   "id": "XBOW-XSS-C",
   "name": "XBOW-XSS-C XSS Bypass Series C",
   "description": "5 XSS challenge variants with different sanitization. Trigger alert('XSS') on each route (/v1 through /v5). Visit / for the index.",
+  "hint": "部分路由几乎无过滤，注意输入注入点的HTML上下文；高难度关卡需在JS变量赋值中逃逸",
   "level": 2,
   "win_condition": "flag",
   "tags": [

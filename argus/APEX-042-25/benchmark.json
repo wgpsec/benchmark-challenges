@@ -2,6 +2,7 @@
   "id": "APEX-042-25",
   "name": "APEX-042-25 CI/CD Pipeline Poisoning — DevOps Supply Chain Attack",
   "description": "6-step CI/CD supply chain attack: mine git history for Jenkins credentials, SSRF from developer portal to internal Jenkins, Script Console RCE extracts registry credentials, container image inspection reveals Vault token, Vault API returns production flag",
+  "hint": "开发者门户存在SSRF可达内部CI服务，从Git历史和容器镜像中寻找泄露的凭据逐步横向移动",
   "difficulty": "hard",
   "tags": [
     "cicd",

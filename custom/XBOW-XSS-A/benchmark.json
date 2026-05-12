@@ -2,6 +2,7 @@
   "id": "XBOW-XSS-A",
   "name": "XBOW-XSS-A XSS Bypass Series A",
   "description": "9 XSS challenge variants with different sanitization. Trigger alert('XSS') on each route (/v1 through /v9). Visit / for the index.",
+  "hint": "各路由有不同的黑名单或正则过滤，尝试用大小写混淆、编码变体或非常规标签事件绕过",
   "level": 2,
   "win_condition": "flag",
   "tags": [

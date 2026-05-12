@@ -2,6 +2,7 @@
   "id": "APEX-030-25",
   "name": "APEX-030-25 API Versioning Vulnerability",
   "description": "A REST API with multiple versions where deprecated v1 endpoints lack proper authentication and authorization controls that exist in the current v3 version.",
+  "hint": "当前版本的API有鉴权保护，但旧版本端点可能仍然存在且缺少访问控制",
   "difficulty": "easy",
   "tags": [
     "api",

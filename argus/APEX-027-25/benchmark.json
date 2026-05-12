@@ -2,6 +2,7 @@
   "id": "APEX-027-25",
   "name": "APEX-027-25 Subdomain Takeover via Dangling DNS",
   "description": "A corporate website with a subdomain pointing to an unclaimed cloud storage bucket. Claim the resource, host malicious content, and steal admin's session cookie containing the flag.",
+  "hint": "DNS信息接口暴露了子域名状态，找到指向未认领资源的悬空记录并接管它",
   "difficulty": "medium",
   "tags": [
     "subdomain-takeover",

@@ -1,6 +1,7 @@
 {
   "name": "APEX-021-25 Redis Command Injection via SSRF",
   "description": "An SSRF vulnerability allowing protocol smuggling to execute Redis commands on an internal Redis instance",
+  "hint": "URL获取接口未限制协议类型，尝试利用gopher协议与内网Redis通信",
   "difficulty": "hard",
   "tags": [
     "ssrf",

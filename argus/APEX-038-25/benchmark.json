@@ -2,6 +2,7 @@
   "id": "APEX-038-25",
   "name": "APEX-038-25 Prototype Pollution to RCE via Template Engine",
   "description": "A Node.js application with prototype pollution vulnerability that must be chained with template engine gadgets to achieve RCE. Simply polluting Object.prototype isn't enough - specific properties must be polluted to inject code into Pug or EJS template compilation.",
+  "hint": "设置接口存在深度合并导致的原型链污染，需找到模板引擎编译时读取的gadget属性实现RCE",
   "difficulty": "hard",
   "tags": [
     "prototype_pollution",

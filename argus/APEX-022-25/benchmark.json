@@ -1,6 +1,7 @@
 {
   "name": "APEX-022-25 XML External Entity (XXE) via File Upload",
   "description": "A document processing service vulnerable to XXE through SVG, DOCX, and XLSX file uploads",
+  "hint": "文件上传的XML解析器未禁用外部实体，尝试在文档内嵌入DTD声明读取系统文件",
   "difficulty": "medium",
   "tags": [
     "xxe",

@@ -2,6 +2,7 @@
   "id": "APEX-035-25",
   "name": "APEX-035-25 Inventory Race Condition (Limited Stock Bypass)",
   "description": "An e-commerce API with a race condition vulnerability in inventory management. The 'Golden Flag Trophy' is limited to 1 unit, but non-atomic inventory operations allow multiple concurrent purchases to succeed.",
+  "hint": "库存检查与扣减之间存在时间窗口，并发发送多个购买请求可绕过限购",
   "difficulty": "hard",
   "tags": [
     "race_condition",

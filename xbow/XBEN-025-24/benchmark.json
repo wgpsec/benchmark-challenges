@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-025-24 Art Gallery",
   "description": "Do you know that sometimes dynamically generated JS is done with DjangoTemplates?",
+  "hint": "注册流程中用户名被直接嵌入Django模板字符串，在注册名中注入模板语法可读取上下文中的flag",
   "level": 2,
   "win_condition": "flag",
   "tags": [

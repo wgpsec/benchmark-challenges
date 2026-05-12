@@ -2,6 +2,7 @@
   "id": "APEX-043-25",
   "name": "APEX-043-25 HealthGuard Patient Data Breach",
   "description": "5-step healthcare data breach: GraphQL introspection reveals hidden types, depth abuse extracts storage credentials, FHIR search SQL injection dumps patient data, double-encoded path traversal in Go DICOM viewer reads internal files, MinIO access exfiltrates restricted medical records",
+  "hint": "GraphQL端点未限制内省和深度查询，隐藏类型中暴露了存储凭据，搜索接口存在注入",
   "difficulty": "hard",
   "tags": [
     "healthcare",

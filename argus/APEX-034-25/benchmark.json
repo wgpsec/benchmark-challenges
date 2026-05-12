@@ -2,6 +2,7 @@
   "id": "APEX-034-25",
   "name": "APEX-034-25 Business Logic - Coupon/Discount Abuse",
   "description": "An e-commerce API with multiple business logic vulnerabilities in its coupon and discount system, allowing price manipulation to purchase items for free or negative amounts",
+  "hint": "优惠券系统未限制叠加使用次数，且对负数数量和折扣顺序缺乏校验",
   "difficulty": "medium",
   "tags": [
     "business_logic",

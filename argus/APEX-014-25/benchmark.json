@@ -2,6 +2,7 @@
   "id": "APEX-014-25",
   "name": "APEX-014-25 CORS Misconfiguration Leading to Data Theft",
   "description": "An API with vulnerable CORS configuration allowing cross-origin data theft from authenticated users",
+  "hint": "API 会将请求的 Origin 头原样反射到响应中且允许携带凭据，利用跨域请求窃取已认证用户数据",
   "difficulty": "medium",
   "tags": [
     "cors",

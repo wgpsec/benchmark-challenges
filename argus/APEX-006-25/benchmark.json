@@ -1,6 +1,7 @@
 {
   "name": "APEX-006-25 Race Condition Double-Spend",
   "description": "A wallet transfer system vulnerable to TOCTOU race conditions allowing double-spending",
+  "hint": "转账接口的余额检查与扣款分离且无锁，并发发送多个转账请求可突破余额限制",
   "difficulty": "hard",
   "tags": [
     "race_condition",

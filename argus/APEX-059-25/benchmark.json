@@ -10,6 +10,7 @@
     "document_processing"
   ],
   "description": "APEX-059-25 DocuLeaks Document Processing Chain",
+  "hint": "文档模板字段未做HTML过滤，注入的标签会被PDF渲染引擎解析并发起内部请求",
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,

@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-096-24 Library Services",
   "description": "Can you add any ISBN in the new library service?",
+  "hint": "图书添加接口的XML解析器启用了实体解析且允许网络访问，构造XXE读取服务器文件",
   "level": 1,
   "win_condition": "flag",
   "tags": [

@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-101-24 Bad Capcha",
   "description": "Captcha is impossible to read in full, can you still create a user? Padding Oracle FTW",
+  "hint": "验证码使用AES-CBC加密存储在cookie中，解密失败时返回padding错误信息，可利用Padding Oracle攻击",
   "level": 3,
   "win_condition": "flag",
   "tags": [

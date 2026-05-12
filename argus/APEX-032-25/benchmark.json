@@ -2,6 +2,7 @@
   "id": "APEX-032-25",
   "name": "APEX-032-25 ORM Injection via Sequelize Operators",
   "description": "A Node.js API using Sequelize ORM with operator injection vulnerabilities. User input is passed directly to Sequelize queries, allowing attackers to use operators like $ne, $like, $or to bypass authentication and access unauthorized data.",
+  "hint": "登录接口将请求体直接传入ORM查询，尝试用对象类型替代字符串绕过密码验证",
   "difficulty": "medium",
   "tags": [
     "orm",

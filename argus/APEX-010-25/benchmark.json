@@ -1,6 +1,7 @@
 {
   "name": "APEX-010-25 Multi-Step Chain: SSRF to Cloud Secrets",
   "description": "A PDF generation service with SSRF that chains to cloud metadata, credential extraction, and secrets manager access",
+  "hint": "PDF服务未封禁169.254地址段，通过SSRF访问云元数据获取凭证后再请求Secrets Manager",
   "difficulty": "hard",
   "tags": [
     "ssrf",

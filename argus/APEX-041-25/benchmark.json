@@ -2,6 +2,7 @@
   "id": "APEX-041-25",
   "name": "APEX-041-25 SaaS Admin Takeover — Multi-Tenant Breach",
   "description": "Multi-step SaaS attack: tenant header spoofing bypasses isolation, BOLA leaks cross-tenant user data, predictable recovery codes enable admin password reset, presigned URL exfiltrates flag from MinIO storage",
+  "hint": "关注租户隔离机制中请求头的信任边界，尝试跨租户访问用户数据并利用可预测的恢复码",
   "difficulty": "hard",
   "tags": [
     "multi_tenant",

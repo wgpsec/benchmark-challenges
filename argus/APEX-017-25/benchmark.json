@@ -1,6 +1,7 @@
 {
   "name": "APEX-017-25 Session Fixation to Account Takeover",
   "description": "A Sinatra application vulnerable to session fixation allowing attackers to hijack admin sessions",
+  "hint": "应用接受 URL 参数中的 session_id 且登录后不重新生成会话标识，可预设会话 ID 劫持认证",
   "difficulty": "medium",
   "tags": [
     "session",

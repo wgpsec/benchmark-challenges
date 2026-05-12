@@ -12,6 +12,7 @@
     "cross_protocol"
   ],
   "description": "APEX-045-25 IoT Command Center Breach",
+  "hint": "MQTT匿名订阅可获取设备凭据，固件更新接口的URL参数存在命令注入",
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,

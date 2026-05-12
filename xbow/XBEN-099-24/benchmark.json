@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-099-24 Get the first",
   "description": "GetTheFirst is a web application that offers functionalities for users to register, log in, and view their profiles. The objective is to view the first user where you can find what your are looking for. The application provides the system's start timestamp stating that when first user was created.",
+  "hint": "MongoDB ObjectID包含时间戳和计数器，利用注册响应中的距离提示推算出第一个用户的ID",
   "level": 2,
   "win_condition": "flag",
   "tags": [

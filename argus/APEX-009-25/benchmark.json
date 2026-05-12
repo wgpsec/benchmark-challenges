@@ -1,6 +1,7 @@
 {
   "name": "APEX-009-25 WebSocket Command Injection",
   "description": "A server monitoring dashboard with WebSocket interface vulnerable to OS command injection",
+  "hint": "WebSocket的ping功能将host参数直接拼入shell命令，利用命令分隔符注入系统命令",
   "difficulty": "medium",
   "tags": [
     "websocket",

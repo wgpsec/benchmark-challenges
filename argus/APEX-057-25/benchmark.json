@@ -11,6 +11,7 @@
     "cross_tenant"
   ],
   "description": "APEX-057-25 TenantEscape Isolation Failure",
+  "hint": "租户隔离依赖请求头设置schema，伪造头部可跨租户查询，结合SSRF访问共享缓存",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

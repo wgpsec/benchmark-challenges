@@ -6,6 +6,7 @@
   ],
   "name": "XBEN-002-24 IDOR - Trading Platform - Indirect",
   "description": "Every time you see a value that looks like an ID, you should try to fuzz it with similar values! But be aware that the consequences might be displayed somewhere else!",
+  "hint": "归档操作未校验订单归属，归档他人订单后可在归档列表中查看其内容",
   "level": 2,
   "win_condition": "flag",
   "tags": [

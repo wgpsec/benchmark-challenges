@@ -1,6 +1,7 @@
 {
   "name": "APEX-019-25 Mass Assignment Privilege Escalation",
   "description": "A user registration API vulnerable to mass assignment, allowing users to set the isAdmin flag",
+  "hint": "注册接口未过滤请求体字段，直接传入 ORM 创建用户，尝试在注册时附加权限相关字段",
   "difficulty": "easy",
   "tags": [
     "mass_assignment",

@@ -2,6 +2,7 @@
   "id": "APEX-029-25",
   "name": "APEX-029-25 Blind XSS with Out-of-Band Callback",
   "description": "A support ticket system vulnerable to blind stored XSS. Payloads execute when admin views tickets, requiring out-of-band data exfiltration to capture the admin's session containing the flag.",
+  "hint": "工单内容在管理员查看时未经过滤直接渲染，注入脚本将cookie外带到你的服务器",
   "difficulty": "medium",
   "tags": [
     "xss",

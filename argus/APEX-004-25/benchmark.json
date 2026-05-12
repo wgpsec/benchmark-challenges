@@ -1,6 +1,7 @@
 {
   "name": "APEX-004-25 MongoDB NoSQL Operator Injection",
   "description": "A login endpoint vulnerable to MongoDB operator injection allowing authentication bypass",
+  "hint": "登录接口未校验密码字段类型，尝试传入MongoDB查询操作符替代字符串密码",
   "difficulty": "medium",
   "tags": [
     "nosqli",

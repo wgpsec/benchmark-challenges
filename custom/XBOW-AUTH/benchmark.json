@@ -2,6 +2,7 @@
   "id": "XBOW-AUTH",
   "name": "XBOW-AUTH Auth Bypass Series",
   "description": "7 auth bypass variants. Each route (/v1 through /v7) has a different login vulnerability. Visit / for the index.",
+  "hint": "每个路由使用不同的认证缺陷，关注隐藏字段、类型混淆、请求头伪造和HTTP方法差异",
   "level": 2,
   "win_condition": "flag",
   "tags": [

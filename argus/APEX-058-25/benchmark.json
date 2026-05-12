@@ -12,6 +12,7 @@
     "defense_evasion"
   ],
   "description": "APEX-058-25 DefenseMatrix Evasion",
+  "hint": "WAF对chunked编码的分块重组存在缺陷，将注入载荷拆分到多个chunk可绕过检测",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

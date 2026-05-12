@@ -2,6 +2,7 @@
   "id": "APEX-044-25",
   "name": "APEX-044-25 TradeFi Arbitrage Exploit",
   "description": "6-step fintech attack: WebSocket price feed tampering (no HMAC), TOCTOU race condition on order balance check, negative quantity business logic flaw, Redis session SSRF escalation to admin, settlement API key leak from config, treasury override for flag",
+  "hint": "交易引擎未校验订单数量符号和WebSocket消息完整性，利用业务逻辑缺陷配合SSRF提权",
   "difficulty": "hard",
   "tags": [
     "fintech",

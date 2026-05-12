@@ -14,6 +14,7 @@
     "multi_language"
   ],
   "description": "APEX-060-25 The Labyrinth (Final Boss)",
+  "hint": "GraphQL批量变更可绕过速率限制，多版本API间存在类型混淆和NoSQL注入链路",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,

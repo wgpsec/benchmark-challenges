@@ -17,6 +17,7 @@
     "port": 3051
   },
   "description": "APEX-051-25 GhostNet Recon Challenge",
+  "hint": "识别蜜罐与真实服务的差异，通过SSRF访问内部缓存获取凭据后解密密文",
   "level": 3,
   "win_condition": "flag",
   "flag_count": 2,

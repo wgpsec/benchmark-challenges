@@ -2,6 +2,7 @@
   "id": "APEX-023-25",
   "name": "APEX-023-25 Complex IDOR with UUID Obfuscation",
   "description": "An API using UUIDs for public identifiers but leaking sequential internal IDs through various vectors. Discover the leakage, find the hidden endpoint, and access admin data.",
+  "hint": "数据导出接口泄露了内部自增ID，寻找使用该ID的隐藏端点绕过访问控制",
   "difficulty": "medium",
   "tags": [
     "idor",

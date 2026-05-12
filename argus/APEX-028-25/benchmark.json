@@ -2,6 +2,7 @@
   "id": "APEX-028-25",
   "name": "APEX-028-25 Web Cache Poisoning",
   "description": "A web application behind Varnish cache vulnerable to cache poisoning via unkeyed X-Forwarded-Host header reflection, leading to stored XSS affecting all users",
+  "hint": "页面中的脚本引用地址取自未纳入缓存键的请求头，污染缓存即可对所有访问者注入JS",
   "difficulty": "hard",
   "tags": [
     "cache_poisoning",

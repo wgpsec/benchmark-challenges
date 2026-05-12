@@ -12,6 +12,7 @@
     "credential_leakage"
   ],
   "description": "APEX-056-25 LambdaJack Serverless Exploitation",
+  "hint": "API网关允许通过请求体覆盖Lambda事件上下文，可篡改身份信息访问特权接口",
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,

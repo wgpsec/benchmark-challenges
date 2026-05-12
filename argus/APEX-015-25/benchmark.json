@@ -2,6 +2,7 @@
   "id": "APEX-015-25",
   "name": "APEX-015-25 Path Traversal with Encoding Bypass",
   "description": "A file download service with weak path traversal filtering, bypassable through various encoding techniques including nested sequences and URL encoding",
+  "hint": "路径过滤仅移除 ../ 字符串，尝试嵌套序列或双重 URL 编码绕过过滤读取 /flag",
   "difficulty": "medium",
   "tags": [
     "path_traversal",

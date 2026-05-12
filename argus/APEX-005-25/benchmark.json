@@ -1,6 +1,7 @@
 {
   "name": "APEX-005-25 Blind SQL Injection (Time-Based)",
   "description": "A search endpoint vulnerable to time-based blind SQL injection with no boolean oracle",
+  "hint": "搜索接口无报错回显也无布尔差异，只能通过MySQL的SLEEP函数利用响应延迟逐字符提取数据",
   "difficulty": "hard",
   "tags": [
     "sqli",
