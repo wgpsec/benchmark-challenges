@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -n "${FLAG:-FLAG{ftp_anonymous_ssh_key_leak}}" > /flag.txt
+echo -n "$FLAG" > /flag.txt
 chmod 644 /flag.txt
 
 # Generate SSH key pair for ftpuser (the private key will be leaked via FTP)

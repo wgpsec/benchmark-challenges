@@ -1,3 +1,3 @@
 #!/bin/bash
-echo -n "${FLAG:-FLAG{internal_ops_panel_accessed}}" > /flag.txt
+echo -n "$FLAG" > /flag.txt
 exec "$@"
