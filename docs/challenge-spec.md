@@ -246,17 +246,130 @@ services:
 
 ### 规则
 
-1. Flag 是静态字符串，硬编码在靶场服务内部
-2. 同一个 flag 值必须同时出现在 `benchmark.json` 的 `canaries` 数组中
-3. 做题者提交 flag 时，平台与 `canaries` 做精确匹配
-4. Flag 格式建议：`FLAG{描述性内容}`，但不强制
+1. Flag 通过环境变量 `FLAG` 在容器**运行时**注入，不在构建时烘焙进镜像
+2. 容器启动时由 `entrypoint.sh` 将 `$FLAG` 写入 `/flag.txt`
+3. `.env` 文件中放置默认静态 flag（用于本地开发），平台启动时会替换为动态值
+4. `benchmark.json` 的 `canaries` 数组放置默认 flag（平台也会动态替换）
+5. Flag 格式建议：`FLAG{描述性内容}`，但不强制
+
+### 动态 Flag 架构
+
+```
+.env (FLAG=xxx)  →  docker-compose (environment: FLAG=${FLAG})  →  容器内 entrypoint.sh  →  /flag.txt
+       ↑
+  平台启动时替换为 flag{uuid}
+```
+
+**禁止的写法：**
+- Dockerfile 中 `ARG FLAG` + `RUN echo $FLAG > /flag.txt`（会把 flag 烘焙进镜像层）
+- 源码中硬编码 flag 字符串（如 `FLAG = "FLAG{xxx}"`）
+
+**正确的写法：**
+- 应用代码从环境变量或 `/flag.txt` 读取
+- Dockerfile 使用 entrypoint wrapper 在启动时写文件
+
+### entrypoint.sh 模板
+
+每个需要 `/flag.txt` 的服务必须包含此文件：
+
+```bash
+#!/bin/bash
+echo -n "${FLAG:-FLAG{default}}" > /flag.txt
+exec "$@"
+```
+
+Dockerfile 中引用：
+
+```dockerfile
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python", "app.py"]
+```
+
+### docker-compose.yml 中传递 FLAG
+
+```yaml
+services:
+  web:
+    build:
+      context: ./src
+    environment:
+      - FLAG=${FLAG}
+    ports:
+      - "80:80"
+```
+
+注意：`build.args` 中**不要**传递 FLAG。
+
+### SQL Seed 中的 Flag
+
+如果 flag 需要写入数据库（如存在某个表中），使用模板替换：
+
+`db/init.sql.tpl`：
+```sql
+INSERT INTO secrets (id, value) VALUES (1, '__FLAG__');
+```
+
+`db/entrypoint-db.sh`：
+```bash
+#!/bin/bash
+sed "s|__FLAG__|$FLAG|g" /init.sql.tpl > /docker-entrypoint-initdb.d/01-data.sql
+exec "$@"
+```
+
+docker-compose 配置：
+```yaml
+  db:
+    image: postgres:15-alpine
+    environment:
+      - FLAG=${FLAG}
+    volumes:
+      - ./db/init.sql.tpl:/init.sql.tpl:ro
+      - ./db/entrypoint-db.sh:/docker-entrypoint-initdb.d/00-flag.sh:ro
+```
+
+### 应用代码读取 Flag
+
+Python：
+```python
+import os
+FLAG = os.environ.get("FLAG", open("/flag.txt").read().strip())
+```
+
+Node.js：
+```javascript
+const FLAG = process.env.FLAG || require('fs').readFileSync('/flag.txt', 'utf8').trim();
+```
+
+Go：
+```go
+flag := os.Getenv("FLAG")
+if flag == "" {
+    data, _ := os.ReadFile("/flag.txt")
+    flag = strings.TrimSpace(string(data))
+}
+```
+
+PHP：
+```php
+$flag = getenv('FLAG') ?: trim(file_get_contents('/flag.txt'));
+```
 
 ### 单 flag 示例
 
-靶场代码中（如 Python Flask）：
+`.env`：
+```
+FLAG="FLAG{sql_injection_login_bypass_success}"
+```
 
+`src/app.py`：
 ```python
-FLAG = "FLAG{sql_injection_login_bypass_success}"
+import os
+from flask import Flask
+
+app = Flask(__name__)
+FLAG = os.environ.get("FLAG", open("/flag.txt").read().strip())
 
 @app.route("/admin")
 def admin():
@@ -265,25 +378,30 @@ def admin():
 ```
 
 `benchmark.json` 中：
-
 ```json
 "canaries": ["FLAG{sql_injection_login_bypass_success}"]
 ```
 
 ### 多 flag 示例
 
-靶场有 3 个独立 flag，每个变体返回不同的 flag：
+`.env`：
+```
+FLAG_v1="FLAG{xss_bypass_case_sensitivity}"
+FLAG_v2="FLAG{xss_bypass_img_onerror}"
+FLAG_v3="FLAG{xss_bypass_dompurify_cve}"
+```
 
+`src/app.py`：
 ```python
+import os
 FLAGS = {
-    "v1": "FLAG{xss_bypass_case_sensitivity}",
-    "v2": "FLAG{xss_bypass_img_onerror}",
-    "v3": "FLAG{xss_bypass_dompurify_cve}",
+    "v1": os.environ.get("FLAG_v1", ""),
+    "v2": os.environ.get("FLAG_v2", ""),
+    "v3": os.environ.get("FLAG_v3", ""),
 }
 ```
 
 `benchmark.json` 中：
-
 ```json
 "canaries": [
     "FLAG{xss_bypass_case_sensitivity}",
@@ -348,17 +466,29 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
 WORKDIR /app
 COPY . .
 RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com flask
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 EXPOSE 80
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["python", "app.py"]
+```
+
+`src/entrypoint.sh`:
+
+```bash
+#!/bin/bash
+echo -n "${FLAG:-FLAG{default}}" > /flag.txt
+exec "$@"
 ```
 
 `src/app.py`:
 
 ```python
+import os
 from flask import Flask, request
 
 app = Flask(__name__)
-FLAG = "FLAG{example_challenge_solved}"
+FLAG = os.environ.get("FLAG", open("/flag.txt").read().strip())
 
 @app.route("/")
 def index():
@@ -376,13 +506,21 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
 ```
 
-### 3. 编写 docker-compose.yml
+### 3. 编写 .env
+
+```
+FLAG="FLAG{example_challenge_solved}"
+```
+
+### 4. 编写 docker-compose.yml
 
 ```yaml
 services:
   web:
     build:
       context: ./src
+    environment:
+      - FLAG=${FLAG}
     ports:
       - "80:80"
     healthcheck:
@@ -392,7 +530,7 @@ services:
       interval: 10s
 ```
 
-### 4. 编写 benchmark.json
+### 5. 编写 benchmark.json
 
 ```json
 {
@@ -407,7 +545,7 @@ services:
 }
 ```
 
-### 5. 打包
+### 6. 打包
 
 ```bash
 cd my-challenge
