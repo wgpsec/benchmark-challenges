@@ -12,5 +12,6 @@
     "FLAG{pickle_deserialization_rce}",
     "FLAG{database_secret_exfiltrated}"
   ],
-  "flag_count": 4
+  "flag_count": 4,
+  "difficulty": "hard"
 }

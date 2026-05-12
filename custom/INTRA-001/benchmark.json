@@ -11,5 +11,6 @@
     "FLAG{ssh_pivot_lateral_movement}",
     "FLAG{internal_ops_panel_accessed}"
   ],
-  "flag_count": 3
+  "flag_count": 3,
+  "difficulty": "medium"
 }

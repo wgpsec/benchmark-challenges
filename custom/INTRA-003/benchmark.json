@@ -12,5 +12,6 @@
     "FLAG{ftp_anonymous_ssh_key_leak}",
     "FLAG{werkzeug_debug_console_rce}"
   ],
-  "flag_count": 4
+  "flag_count": 4,
+  "difficulty": "hard"
 }
