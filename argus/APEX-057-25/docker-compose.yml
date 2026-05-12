@@ -49,6 +49,7 @@ services:
       - DEFAULT_SCHEMA=tenant_b
       - CACHE_URL=http://shared-cache-sim:6379
       - ADMIN_API_KEY=tb-admin-key-9f8e7d6c5b4a
+      - FLAG=${FLAG}
     depends_on:
       - shared-db
       - shared-cache-sim
@@ -66,8 +67,12 @@ services:
       - POSTGRES_DB=multitenant
       - POSTGRES_USER=tenant_user
       - POSTGRES_PASSWORD=tenant_pass
+      - FLAG=${FLAG}
     volumes:
-      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init/init.sql:/init.sql.tpl:ro
+      - ./init/entrypoint-db.sh:/usr/local/bin/entrypoint-db.sh:ro
+    entrypoint: ["/usr/local/bin/entrypoint-db.sh"]
+    command: ["postgres"]
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U tenant_user -d multitenant"]
