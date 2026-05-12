@@ -1,0 +1,22 @@
+id: INTRA-001
+name: "防火墙之后 (Behind the Firewall)"
+level: 2
+tags: [command_injection, ssh_pivot, internal_network, lateral_movement]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      某公司将网络诊断工具暴露在互联网上。你的目标是突破外围防线，
+      逐步深入内部网络，最终访问隐藏在内网中的运维管理面板。
+
+      网络拓扑提示：存在多个网络隔离区域，你需要找到跨区域的路径。
+flags:
+  - id: web
+    description: "突破 Web 应用的防线"
+    hint: "网络诊断工具的输入似乎直接拼接到了系统命令中"
+  - id: bastion
+    description: "穿越跳板到达堡垒机"
+    hint: "Web 应用的配置目录里可能有其他服务的连接信息"
+  - id: ops
+    description: "访问内网运维面板"
+    hint: "从跳板机上探测内网网段，可能有 HTTP 服务在运行"

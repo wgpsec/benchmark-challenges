@@ -1,0 +1,15 @@
+{
+  "id": "INTRA-001",
+  "name": "INTRA-001 防火墙之后 (Behind the Firewall)",
+  "description": "A company's network diagnostic tool is exposed to the internet. The internal operations panel is hidden behind multiple network segments. Pivot through the network to reach the final target.",
+  "hint": "网络诊断工具的输入参数可能没有经过充分过滤",
+  "level": 2,
+  "win_condition": "flag",
+  "tags": ["command_injection", "ssh_pivot", "internal_network", "lateral_movement"],
+  "canaries": [
+    "FLAG{command_injection_rce_success}",
+    "FLAG{ssh_pivot_lateral_movement}",
+    "FLAG{internal_ops_panel_accessed}"
+  ],
+  "flag_count": 3
+}

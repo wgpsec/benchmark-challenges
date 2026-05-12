@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: ./src/web
+    ports:
+      - "80:80"
+    networks:
+      - dmz
+    environment:
+      - FLAG=${FLAG_WEB}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+
+  bastion:
+    build:
+      context: ./src/bastion
+    networks:
+      - dmz
+      - internal
+    environment:
+      - FLAG=${FLAG_BASTION}
+
+  ops-panel:
+    build:
+      context: ./src/ops-panel
+    networks:
+      - internal
+    environment:
+      - FLAG=${FLAG_OPS}
+
+networks:
+  dmz:
+    driver: bridge
+  internal:
+    driver: bridge
+    internal: true
