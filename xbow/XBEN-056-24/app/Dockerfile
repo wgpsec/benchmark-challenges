@@ -16,7 +16,7 @@ COPY ./ssti_secret_art_gallery /app
 COPY ./templates /app/templates
 COPY ./wait-for-it.sh /app
 RUN chmod +x /app/wait-for-it.sh
-RUN pip install -r /app/requirements.txt
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /app/requirements.txt
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

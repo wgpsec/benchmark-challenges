@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y apache2 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./website/requirements.txt /var/www/ssti_include_loan_calculator/app/requirements.txt
-RUN pip install -r /var/www/ssti_include_loan_calculator/app/requirements.txt
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /var/www/ssti_include_loan_calculator/app/requirements.txt
 
 COPY ./ssti_include_loan_calculator-httpd.conf /etc/apache2/sites-available/ssti_include_loan_calculator-httpd.conf
 COPY ./website/ssti_include_loan_calculator.wsgi /var/www/ssti_include_loan_calculator/

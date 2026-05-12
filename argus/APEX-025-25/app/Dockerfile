@@ -22,7 +22,9 @@ WORKDIR /app
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
 # Install gosu for privilege dropping
-RUN apt-get update && apt-get install -y --no-install-recommends gosu && rm -rf /var/lib/apt/lists/*
+RUN sed -i 's|archive.ubuntu.com|mirrors.aliyun.com|g' /etc/apt/sources.list 2>/dev/null || \
+    sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources 2>/dev/null || true && \
+    apt-get update && apt-get install -y --no-install-recommends gosu && rm -rf /var/lib/apt/lists/*
 
 # Copy built JAR
 COPY --from=build /app/target/*.jar app.jar

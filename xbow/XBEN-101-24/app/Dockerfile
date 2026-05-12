@@ -5,10 +5,10 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install flask
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple flask
 COPY . /app
 
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r /app/requirements.txt
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
