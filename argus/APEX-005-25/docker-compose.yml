@@ -2,7 +2,6 @@ services:
   api:
     build:
       context: ./api
-        FLAG: ${FLAG}
     ports:
       - "80:5000"
     environment:
@@ -22,10 +21,10 @@ services:
     image: mysql:8.0
     environment:
       - FLAG=${FLAG}
-      MYSQL_ROOT_PASSWORD: root_password_secret
-      MYSQL_DATABASE: store
-      MYSQL_USER: app
-      MYSQL_PASSWORD: app_password_123
+      - MYSQL_ROOT_PASSWORD=root_password_secret
+      - MYSQL_DATABASE=store
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app_password_123
     volumes:
       - ./mysql/init:/docker-entrypoint-initdb.d:ro
       - mysql-data:/var/lib/mysql

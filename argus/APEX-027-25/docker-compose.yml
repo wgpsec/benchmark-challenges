@@ -8,7 +8,6 @@ services:
   main-app:
     build:
       context: ./main-app
-        FLAG: ${FLAG}
     ports:
       - "80:3000"
     environment:
@@ -52,7 +51,6 @@ services:
   admin-bot:
     build:
       context: ./admin-bot
-        FLAG: ${FLAG}
     environment:
       - FLAG=${FLAG}
       - MAIN_APP_URL=http://main-app:3000

@@ -2,7 +2,6 @@ services:
   app:
     build:
       context: ./app
-        FLAG: ${FLAG}
     container_name: apex-011-25-app
     ports:
       - "80:80"
@@ -23,10 +22,10 @@ services:
     container_name: apex-011-25-mysql
     environment:
       - FLAG=${FLAG}
-      MYSQL_ROOT_PASSWORD: root_password_secret
-      MYSQL_DATABASE: vulnerable_app
-      MYSQL_USER: app
-      MYSQL_PASSWORD: app_password_secure
+      - MYSQL_ROOT_PASSWORD=root_password_secret
+      - MYSQL_DATABASE=vulnerable_app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app_password_secure
     volumes:
       - ./mysql/init:/docker-entrypoint-initdb.d:ro
       - mysql-data:/var/lib/mysql

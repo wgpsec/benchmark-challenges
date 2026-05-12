@@ -2,7 +2,6 @@ services:
   api:
     build:
       context: ./api
-        FLAG: ${FLAG}
     container_name: apex-014-25-api
     ports:
       - "80:3014"

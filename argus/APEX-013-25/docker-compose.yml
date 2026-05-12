@@ -2,7 +2,6 @@ services:
   graphql-api:
     build:
       context: ./graphql-api
-        FLAG: ${FLAG}
     container_name: apex-013-25-graphql-api
     ports:
       - "80:3013"

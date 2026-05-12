@@ -13,7 +13,6 @@ services:
   backend:
     build:
       context: ./backend
-        FLAG: ${FLAG}
     ports:
       - "3000:3000"  # Direct access for testing
     environment:

@@ -3,7 +3,6 @@ services:
   pdf-service:
     build:
       context: ./pdf-service
-        FLAG: ${FLAG}
     ports:
       - "80:5000"
     environment:
@@ -26,7 +25,6 @@ services:
   secrets-manager:
     build:
       context: ./secrets-manager
-        FLAG: ${FLAG}
     environment:
       - FLAG=${FLAG}
       - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE

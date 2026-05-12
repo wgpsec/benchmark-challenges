@@ -4,7 +4,6 @@ services:
   api:
     build:
       context: ./api
-        FLAG: ${FLAG}
     ports:
       - "80:3000"
     environment:

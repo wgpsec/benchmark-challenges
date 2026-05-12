@@ -2,7 +2,6 @@ services:
   app:
     build:
       context: ./app
-        FLAG: ${FLAG}
     container_name: apex-018-25-app
     ports:
       - "80:5000"
@@ -22,7 +21,6 @@ services:
   openldap:
     build:
       context: ./openldap
-        FLAG: ${FLAG}
     container_name: apex-018-25-openldap
     environment:
       - FLAG=${FLAG}
