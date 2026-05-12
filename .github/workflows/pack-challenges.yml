@@ -18,8 +18,9 @@ jobs:
       - name: Detect changed challenges
         id: detect
         run: |
-          if git rev-parse HEAD~1 >/dev/null 2>&1; then
-            CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
+          BEFORE="${{ github.event.before }}"
+          if [ "$BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$BEFORE" 2>/dev/null; then
+            CHANGED=$(git diff --name-only "$BEFORE" "${{ github.sha }}" | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
           else
             CHANGED=$(git ls-tree -r --name-only HEAD | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
           fi
