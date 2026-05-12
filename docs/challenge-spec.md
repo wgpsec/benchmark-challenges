@@ -277,10 +277,12 @@ services:
 
 1. `canaries` **必须非空**，包含所有可提交的 flag 原文值
 2. `.env` 中的 `FLAG` 值必须与 `canaries[0]` 一致（多 flag 场景按顺序对应）
-3. Flag 通过环境变量 `FLAG` 在容器**运行时**注入，不在构建时烘焙进镜像
-4. 容器启动时由 `entrypoint.sh` 将 `$FLAG` 写入 `/flag.txt`
-5. 源码中 flag 的 fallback 默认值会被平台自动替换，但仍建议从环境变量/文件读取
-6. Flag 格式建议：`FLAG{描述性内容}`，内容用英文蛇形命名
+3. **多 flag 场景：`.env` 变量名必须为 `FLAG_{flag_id}`**，其中 `flag_id` 对应 `benchmark.yaml` 中 flags 数组的 `id` 字段（大小写不敏感）。例如 flag id 为 `web`，则 `.env` 中应写 `FLAG_WEB=...` 或 `FLAG_web=...`。**禁止使用与 flag id 不一致的自定义变量名**（如 flag id 为 `db-exfil` 但 .env 写 `FLAG_DB`）
+4. Flag 通过环境变量 `FLAG` 在容器**运行时**注入，不在构建时烘焙进镜像
+5. 容器启动时由 `entrypoint.sh` 将 `$FLAG` 写入 `/flag.txt`
+6. 源码中 flag 的 fallback 默认值会被平台自动替换，但仍建议从环境变量/文件读取
+7. Flag 格式建议：`FLAG{描述性内容}`，内容用英文蛇形命名
+8. **flag id 命名约束：** 只能使用字母、数字和下划线（`[a-zA-Z0-9_]`），不能含连字符 `-`，因为 `.env` 变量名不支持连字符
 
 ### 动态 Flag 架构
 
