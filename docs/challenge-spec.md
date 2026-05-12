@@ -261,28 +261,50 @@ services:
 
 ## Flag 机制
 
+### canaries：验证的唯一真相来源
+
+`benchmark.json` 中的 `canaries` 数组是平台验证提交的唯一依据。平台启动实例时：
+
+1. 读取 `canaries` 中的所有 flag 值
+2. 为每个 canary 生成一个动态 `flag{uuid}`
+3. **全量扫描**所有文本文件，将 canary 对应的 flag 字面量替换为动态 flag
+4. 源码中其他 `FLAG{...}` 字面量（如 fallback 默认值）替换为随机假 flag（不可提交）
+5. 重写 `.env` 中的 FLAG 变量为动态 flag
+
+因此：**canaries 中写什么值，源码中就必须有什么值。** 如果 canary 是 `FLAG{xxx}`，那么源码中作为 flag 返回给用户的位置必须也是 `FLAG{xxx}`（或从 .env 读取它）。
+
 ### 规则
 
-1. Flag 通过环境变量 `FLAG` 在容器**运行时**注入，不在构建时烘焙进镜像
-2. 容器启动时由 `entrypoint.sh` 将 `$FLAG` 写入 `/flag.txt`
-3. `.env` 文件中放置默认静态 flag（用于本地开发），平台启动时会替换为动态值
-4. `benchmark.json` 的 `canaries` 数组放置默认 flag（平台也会动态替换）
-5. Flag 格式建议：`FLAG{描述性内容}`，但不强制
+1. `canaries` **必须非空**，包含所有可提交的 flag 原文值
+2. `.env` 中的 `FLAG` 值必须与 `canaries[0]` 一致（多 flag 场景按顺序对应）
+3. Flag 通过环境变量 `FLAG` 在容器**运行时**注入，不在构建时烘焙进镜像
+4. 容器启动时由 `entrypoint.sh` 将 `$FLAG` 写入 `/flag.txt`
+5. 源码中 flag 的 fallback 默认值会被平台自动替换，但仍建议从环境变量/文件读取
+6. Flag 格式建议：`FLAG{描述性内容}`，内容用英文蛇形命名
 
 ### 动态 Flag 架构
 
 ```
-.env (FLAG=xxx)  →  docker-compose (environment: FLAG=${FLAG})  →  容器内 entrypoint.sh  →  /flag.txt
-       ↑
-  平台启动时替换为 flag{uuid}
+benchmark.json (canaries)
+       │
+       ▼ 平台生成 flag{uuid}
+       │
+       ├─→ 替换 .env 中的 FLAG 值
+       ├─→ 替换源码中匹配 canary 的字面量
+       └─→ 替换其他 FLAG{...} 为随机假 flag
+              │
+              ▼
+docker-compose (environment: FLAG=${FLAG})  →  容器 entrypoint.sh  →  /flag.txt
 ```
 
 **禁止的写法：**
 - Dockerfile 中 `ARG FLAG` + `RUN echo $FLAG > /flag.txt`（会把 flag 烘焙进镜像层）
-- 源码中硬编码 flag 字符串（如 `FLAG = "FLAG{xxx}"`）
+- canaries 为空（平台无法验证任何提交）
+- canaries 中的值与源码中实际返回的 flag 不一致
 
-**正确的写法：**
-- 应用代码从环境变量或 `/flag.txt` 读取
+**推荐的写法：**
+- 应用代码从环境变量或 `/flag.txt` 读取 flag
+- 源码中使用 `process.env.FLAG || 'FLAG{same_as_canary}'` 作为 fallback
 - Dockerfile 使用 entrypoint wrapper 在启动时写文件
 
 ### entrypoint.sh 模板
