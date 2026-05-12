@@ -10,13 +10,13 @@ services:
   idor_json_cookie_trading_platform:
     build:
       context: ./app
-      args:
-        - FLAG
     depends_on:
       db:
-        condition: service_healthy                
+        condition: service_healthy
     ports:
       - "80:80"
+    environment:
+      - FLAG=${FLAG}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/"]
       timeout: 1s

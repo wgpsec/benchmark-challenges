@@ -26,8 +26,6 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-ARG FLAG
-ENV FLAG=${FLAG}
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 

@@ -1,8 +1,6 @@
 FROM node:20-alpine
 
 # Build argument for flag injection
-ARG FLAG=FLAG{default_flag_replace_me}
-ENV FLAG=${FLAG}
 
 WORKDIR /app
 

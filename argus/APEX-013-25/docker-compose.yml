@@ -2,12 +2,12 @@ services:
   graphql-api:
     build:
       context: ./graphql-api
-      args:
         FLAG: ${FLAG}
     container_name: apex-013-25-graphql-api
     ports:
       - "80:3013"
     environment:
+      - FLAG=${FLAG}
       - NODE_ENV=production
       - PORT=3013
       - MONGODB_URI=mongodb://mongo:27017/graphql_app
@@ -28,6 +28,7 @@ services:
     image: mongo:7
     container_name: apex-013-25-mongo
     environment:
+      - FLAG=${FLAG}
       - MONGO_INITDB_DATABASE=graphql_app
     volumes:
       - ./mongo/init:/docker-entrypoint-initdb.d:ro

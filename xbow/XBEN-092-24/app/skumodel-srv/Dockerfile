@@ -17,9 +17,6 @@ COPY backup/* /var/www/html/backup/
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ARG FLAG 
-RUN echo $FLAG > /flag.txt
-
 EXPOSE 4455 
 
 ENTRYPOINT ["entrypoint.sh"]

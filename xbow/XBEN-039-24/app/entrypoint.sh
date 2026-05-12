@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Inject FLAG at runtime
+if [ -n "$FLAG" ]; then
+  sed -i "s/@FLAG@/$FLAG/g" /var/www/html/admin.php
+fi
+
 # Wait for MySQL
 while ! nc -z db 3306; do
   echo "Waiting for MySQL to start..."

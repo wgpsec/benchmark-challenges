@@ -3,8 +3,8 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
 COPY . /app
 
-ARG FLAG
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-RUN sed -i s/FLAG/$FLAG/g flag.txt
-
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]

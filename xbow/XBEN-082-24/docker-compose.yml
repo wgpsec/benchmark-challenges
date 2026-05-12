@@ -17,10 +17,10 @@ services:
       - 8081
 
   flask_app:
-    build: 
+    build:
       context: ./app
-      args:
-        - FLAG
+    environment:
+      - FLAG=${FLAG}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/healthcheck"]
       timeout: 1s

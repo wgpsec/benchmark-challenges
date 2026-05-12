@@ -10,11 +10,11 @@ services:
   ssti_encoding_loan_calculator:
     build:
       context: ./app
-      args:
-        - FLAG
     depends_on:
       db:
-        condition: service_healthy                
+        condition: service_healthy
+    environment:
+      - FLAG=${FLAG}
     ports:
       - "80:80"
     healthcheck:

@@ -23,3 +23,4 @@ services:
       interval: 3s
     environment:
       - NGINX_PORT=4455
+      - FLAG=${FLAG}

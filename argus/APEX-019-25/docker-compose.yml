@@ -2,12 +2,12 @@ services:
   api:
     build:
       context: ./api
-      args:
         FLAG: ${FLAG}
     container_name: apex-019-25-api
     ports:
       - "80:3000"
     environment:
+      - FLAG=${FLAG}
       - NODE_ENV=production
       - DATABASE_URL=postgres://appuser:apppassword@postgres:5432/appdb
       - JWT_SECRET=super-secret-jwt-key-for-signing
@@ -20,6 +20,7 @@ services:
     image: postgres:16-alpine
     container_name: apex-019-25-postgres
     environment:
+      - FLAG=${FLAG}
       - POSTGRES_USER=appuser
       - POSTGRES_PASSWORD=apppassword
       - POSTGRES_DB=appdb

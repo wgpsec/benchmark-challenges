@@ -2,8 +2,8 @@ services:
   libraryv1:
     build:
       context: ./app
-      args:
-        - FLAG
+    environment:
+      - FLAG
     ports:
       - "80:80"
     healthcheck:

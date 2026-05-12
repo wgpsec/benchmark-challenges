@@ -13,9 +13,10 @@ COPY website /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html
 
-ARG FLAG  
-RUN echo -n $FLAG > /FLAG.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]

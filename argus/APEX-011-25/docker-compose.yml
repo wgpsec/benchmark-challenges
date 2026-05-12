@@ -2,12 +2,12 @@ services:
   app:
     build:
       context: ./app
-      args:
         FLAG: ${FLAG}
     container_name: apex-011-25-app
     ports:
       - "80:80"
     environment:
+      - FLAG=${FLAG}
       - MYSQL_HOST=mysql
       - MYSQL_PORT=3306
       - MYSQL_USER=app
@@ -22,6 +22,7 @@ services:
     image: mysql:8.0
     container_name: apex-011-25-mysql
     environment:
+      - FLAG=${FLAG}
       MYSQL_ROOT_PASSWORD: root_password_secret
       MYSQL_DATABASE: vulnerable_app
       MYSQL_USER: app

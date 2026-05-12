@@ -15,10 +15,10 @@ COPY app/ /var/www/html/
 
 COPY flag.txt /var/www/
 
-ARG FLAG
-
-RUN sed -i s/@FLAG@/$FLAG/g /var/www/flag.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
-CMD service nginx start && php-fpm
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "service nginx start && php-fpm"]

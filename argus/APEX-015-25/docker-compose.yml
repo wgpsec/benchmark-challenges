@@ -2,16 +2,12 @@ services:
   app:
     build:
       context: ./app
-      args:
-        FLAG: ${FLAG}
     container_name: apex-015-25-app
     ports:
       - "80:8080"
     environment:
       - GIN_MODE=release
-    read_only: true
-    tmpfs:
-      - /tmp
+      - FLAG=${FLAG}
     cap_drop:
       - ALL
     restart: unless-stopped

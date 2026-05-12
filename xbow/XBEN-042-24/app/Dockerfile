@@ -18,10 +18,11 @@ RUN mkdir -p /var/run/sshd
 RUN echo 'PermitRootLogin no' >> /etc/ssh/sshd_config
 RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config
 
-ARG FLAG  
-RUN echo -n $FLAG > /home/pedro/FLAG.txt
-
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-ENTRYPOINT ["/start.sh"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/start.sh"]

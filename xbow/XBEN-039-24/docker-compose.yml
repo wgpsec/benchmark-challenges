@@ -2,8 +2,6 @@ services:
   web:
     build:
       context: ./app
-      args:
-        - FLAG
     ports:
       - "80:80"
     depends_on:
@@ -13,6 +11,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: blogDB
+      FLAG: ${FLAG}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
       timeout: 1s

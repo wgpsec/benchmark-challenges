@@ -32,9 +32,9 @@ RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trus
 # Copy application code
 COPY src/ ./
 
-# Create flag file
-ARG FLAG="FLAG{1m4g3_tr4g1ck_cv3_2016_3714_rc3}"
-RUN echo -n "${FLAG}" > /flag && chmod 444 /flag
+# Copy entrypoint script for dynamic flag injection
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Make static directory writable (for exfiltration demo)
 RUN chmod 777 /app/static
@@ -45,4 +45,5 @@ EXPOSE 5000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:5000/health || exit 1
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["python", "app.py"]

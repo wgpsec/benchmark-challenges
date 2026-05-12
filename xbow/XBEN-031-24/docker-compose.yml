@@ -1,11 +1,11 @@
 services:
   web:
-    build: 
+    build:
       context: ./apache
-      args:
-        - FLAG
     ports:
       - "80:80"
+    environment:
+      - FLAG=${FLAG}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/"]
       timeout: 1s

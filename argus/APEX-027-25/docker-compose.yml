@@ -8,15 +8,14 @@ services:
   main-app:
     build:
       context: ./main-app
-      args:
         FLAG: ${FLAG}
     ports:
       - "80:3000"
     environment:
+      - FLAG=${FLAG}
       - NODE_ENV=production
       - COOKIE_DOMAIN=.apex-corp.local
       - SESSION_SECRET=apex-session-secret-key
-      - FLAG=${FLAG}
     depends_on:
       - dns-server
 
@@ -41,6 +40,7 @@ services:
     ports:
       - "4000:4000"
     environment:
+      - FLAG=${FLAG}
       - STORAGE_PATH=/data/storage
     volumes:
       - cloud-storage:/data/storage
@@ -52,11 +52,10 @@ services:
   admin-bot:
     build:
       context: ./admin-bot
-      args:
         FLAG: ${FLAG}
     environment:
-      - MAIN_APP_URL=http://main-app:3000
       - FLAG=${FLAG}
+      - MAIN_APP_URL=http://main-app:3000
       - HEADLESS=true
     depends_on:
       - main-app
@@ -71,6 +70,7 @@ services:
     ports:
       - "6666:6666"
     environment:
+      - FLAG=${FLAG}
       - PORT=6666
     volumes:
       - attacker-loot:/data/loot

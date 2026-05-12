@@ -8,7 +8,9 @@ COPY . .
 RUN npm install 
 RUN npm run build
 EXPOSE 3000
-ARG FLAG
-RUN sed -i s/@FLAG@/$FLAG/g .env
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["npm", "start"]

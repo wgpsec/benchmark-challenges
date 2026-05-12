@@ -9,11 +9,10 @@ services:
   web:
     build: 
       context: ./app
-      args:
-        - FLAG
     ports:
       - "80:80"
     environment:
+      - FLAG=${FLAG}
       - MYSQL_HOST=db
       - MYSQL_USER=ctfuser
       - MYSQL_PASSWORD=MyPass1234

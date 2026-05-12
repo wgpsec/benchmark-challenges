@@ -30,9 +30,10 @@ RUN composer install
 USER root
 RUN chown -R www-data:www-data /var/www/html/vendor
 
-ARG FLAG 
-RUN echo $FLAG > /flag.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]

@@ -8,12 +8,10 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
 
-ARG FLAG=FLAG{default_flag_replace_me}
-
 WORKDIR /app
 
-# Write flag file
-RUN echo "${FLAG}" > /flag && chmod 644 /flag
+# Install gosu for privilege dropping
+RUN apt-get update && apt-get install -y --no-install-recommends gosu && rm -rf /var/lib/apt/lists/*
 
 # Copy built jar
 COPY --from=builder /build/target/*.jar app.jar
@@ -26,8 +24,10 @@ RUN groupadd -g 1001 appgroup && \
     useradd -r -u 1001 -g appgroup appuser && \
     chown -R appuser:appgroup /app
 
-USER appuser
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["java", "-jar", "app.jar"]

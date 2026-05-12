@@ -15,8 +15,6 @@ RUN npm install --omit=dev
 COPY src/ ./src/
 
 # Flag injection
-ARG FLAG
-ENV APP_FLAG=${FLAG}
 
 EXPOSE 4000
 

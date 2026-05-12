@@ -18,11 +18,12 @@ COPY ./website/idor_json_cookie_trading_platform.wsgi /var/www/idor_json_cookie_
 COPY ./website/run.py /var/www/idor_json_cookie_trading_platform/
 COPY ./website/app /var/www/idor_json_cookie_trading_platform/app
 
-ARG FLAG  
-RUN echo -n $FLAG > /flag
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN a2dissite 000-default.conf
 RUN a2ensite idor_json_cookie_trading_platform-httpd.conf
 RUN a2enmod headers
 
-CMD  /usr/sbin/apache2ctl -D FOREGROUND
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

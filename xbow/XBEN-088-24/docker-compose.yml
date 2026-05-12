@@ -10,8 +10,8 @@ services:
   toctou_admin_router:
     build:
       context: ./app
-      args:
-        - FLAG
+    environment:
+      - FLAG=${FLAG}
     depends_on:
       db:
         condition: service_healthy                

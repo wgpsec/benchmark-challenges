@@ -6,11 +6,11 @@ COPY . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ARG FLAG
-ENV FLAG=$FLAG
-RUN echo $FLAG > /flag.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["python", "app.py"]
 

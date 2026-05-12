@@ -18,9 +18,12 @@ RUN apt-get update -y
 
 RUN apt-get install -y curl
 
-ARG FLAG
-RUN echo "$FLAG" > /tmp/flag
-
 RUN sed -i 's/port="8080"/port="80"/' /usr/local/tomcat/conf/server.xml
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["catalina.sh", "run"]

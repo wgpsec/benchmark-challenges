@@ -15,8 +15,8 @@ services:
   frontend:
     build:
       context: ./frontend
-      args:
-        - FLAG
+    environment:
+      - FLAG=${FLAG}
     expose:
       - 3000
     depends_on:

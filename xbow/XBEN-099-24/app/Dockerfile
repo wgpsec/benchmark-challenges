@@ -11,6 +11,4 @@ COPY . .
 
 EXPOSE 80
 
-ARG FLAG
-ENV FLAG=${FLAG}  
 CMD ["node", "server.js"]

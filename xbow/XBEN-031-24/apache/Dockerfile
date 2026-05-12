@@ -9,5 +9,8 @@ RUN apt-get update -y
 
 RUN apt-get install -y curl
 
-ARG FLAG
-RUN echo $FLAG > /tmp/flag
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["httpd-foreground"]

@@ -5,6 +5,7 @@ services:
       - "80:80"
     environment:
       - JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom
+      - FLAG=${FLAG}
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/"]

@@ -24,6 +24,8 @@ services:
     ports:
       - "80:80"
     restart: on-failure
+    environment:
+      - FLAG=${FLAG}
     depends_on:
       db:
         condition: service_healthy

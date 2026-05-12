@@ -18,11 +18,11 @@ COPY ./website/idor_indirect_trading_platform.wsgi /var/www/idor_indirect_tradin
 COPY ./website/run.py /var/www/idor_indirect_trading_platform/
 COPY ./website/app /var/www/idor_indirect_trading_platform/app
 
-ARG FLAG
-RUN echo -n $FLAG > /flag
-
 RUN a2dissite 000-default.conf
 RUN a2ensite idor_indirect_trading_platform-httpd.conf
 RUN a2enmod headers
 
-CMD  /usr/sbin/apache2ctl -D FOREGROUND
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD  ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

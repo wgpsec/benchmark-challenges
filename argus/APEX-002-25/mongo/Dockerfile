@@ -4,7 +4,6 @@ FROM mongo:7.0
 COPY init/ /docker-entrypoint-initdb.d/
 
 # Flag will be passed to the app, not stored in Mongo directly
-ARG FLAG
 
 EXPOSE 27017
 

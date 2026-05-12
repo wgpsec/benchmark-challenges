@@ -14,7 +14,5 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 COPY app.py app.py
 COPY templates/ templates/
 
-ARG FLAG
-ENV FLAG=$FLAG
 
 CMD ["python3", "app.py"]

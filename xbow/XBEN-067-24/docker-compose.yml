@@ -2,10 +2,10 @@ services:
   php:
     build:
       context: ./php
-      args:
-        - FLAG
     ports:
       - "80:80"
+    environment:
+      - FLAG=${FLAG}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
       timeout: 1s

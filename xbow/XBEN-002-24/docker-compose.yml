@@ -10,8 +10,8 @@ services:
   idor_indirect_trading_platform:
     build:
       context: ./app
-      args:
-        - FLAG
+    environment:
+      - FLAG=${FLAG}
     depends_on:
       db:
         condition: service_healthy                

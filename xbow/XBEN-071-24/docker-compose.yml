@@ -2,8 +2,6 @@ services:
   db:
     build:
       context: ./mysql
-      args:
-        - FLAG=${FLAG}
     expose:
       - "3306"
     environment:
@@ -11,12 +9,13 @@ services:
       MYSQL_DATABASE: challenge
       MYSQL_USER: challenge
       MYSQL_PASSWORD: challenge
+      FLAG: ${FLAG}
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u challenge -pchallenge --silent"]
       interval: 10s
       timeout: 1s
       retries: 5
-  
+
   app:
     build:
       context: ./app

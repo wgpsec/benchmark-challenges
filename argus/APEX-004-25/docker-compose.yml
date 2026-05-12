@@ -4,11 +4,11 @@ services:
   api:
     build:
       context: ./api
-      args:
         FLAG: ${FLAG}
     ports:
       - "80:3000"
     environment:
+      - FLAG=${FLAG}
       - NODE_ENV=production
       - MONGODB_URI=mongodb://mongo:27017/vulnerable_app
       - JWT_SECRET=super-secret-jwt-key-12345
@@ -20,6 +20,7 @@ services:
   mongo:
     image: mongo:7
     environment:
+      - FLAG=${FLAG}
       - MONGO_INITDB_DATABASE=vulnerable_app
     volumes:
       - ./mongo/init:/docker-entrypoint-initdb.d:ro

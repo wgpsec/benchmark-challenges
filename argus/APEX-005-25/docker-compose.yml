@@ -2,11 +2,11 @@ services:
   api:
     build:
       context: ./api
-      args:
         FLAG: ${FLAG}
     ports:
       - "80:5000"
     environment:
+      - FLAG=${FLAG}
       - FLASK_ENV=production
       - MYSQL_HOST=mysql
       - MYSQL_PORT=3306
@@ -21,6 +21,7 @@ services:
   mysql:
     image: mysql:8.0
     environment:
+      - FLAG=${FLAG}
       MYSQL_ROOT_PASSWORD: root_password_secret
       MYSQL_DATABASE: store
       MYSQL_USER: app

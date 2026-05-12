@@ -4,16 +4,15 @@ services:
   web:
     build:
       context: ./web
-      args:
         FLAG: ${FLAG}
     ports:
       - "80:80"
     environment:
+      - FLAG=${FLAG}
       - DB_HOST=db
       - DB_NAME=webapp
       - DB_USER=webapp
       - DB_PASS=webapp
-      - FLAG=${FLAG}
     depends_on:
       db:
         condition: service_healthy
@@ -22,6 +21,7 @@ services:
   db:
     image: mysql:8.0
     environment:
+      - FLAG=${FLAG}
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=webapp
       - MYSQL_USER=webapp

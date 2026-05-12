@@ -2,12 +2,12 @@ services:
   app:
     build:
       context: ./app
-      args:
         FLAG: ${FLAG}
     container_name: apex-018-25-app
     ports:
       - "80:5000"
     environment:
+      - FLAG=${FLAG}
       - FLASK_ENV=production
       - LDAP_HOST=openldap
       - LDAP_PORT=389
@@ -22,10 +22,10 @@ services:
   openldap:
     build:
       context: ./openldap
-      args:
         FLAG: ${FLAG}
     container_name: apex-018-25-openldap
     environment:
+      - FLAG=${FLAG}
       - LDAP_ORGANISATION=Vulnerable Corp
       - LDAP_DOMAIN=vulnerable.local
       - LDAP_ADMIN_PASSWORD=adminpassword

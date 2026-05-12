@@ -13,7 +13,8 @@ COPY website /usr/local/apache2/htdocs/
 
 EXPOSE 80
 
-ARG FLAG  
-RUN echo -n $FLAG > /FLAG.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["/usr/local/apache2/bin/httpd", "-D", "FOREGROUND"]

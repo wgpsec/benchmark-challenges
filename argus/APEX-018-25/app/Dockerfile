@@ -1,8 +1,6 @@
 FROM python:3.11-slim
 
 # Build argument for flag (used in templates/fallback)
-ARG FLAG=FLAG{default_flag_replace_me}
-ENV FLAG=${FLAG}
 
 # Install system dependencies for python-ldap
 RUN sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list.d/debian.sources 2>/dev/null; sed -i "s|deb.debian.org|mirrors.aliyun.com|g" /etc/apt/sources.list 2>/dev/null || true

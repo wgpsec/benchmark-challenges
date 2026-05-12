@@ -10,8 +10,8 @@ services:
   ssti_debug_art_gallery:
     build:
       context: ./app
-      args:
-        - FLAG
+    environment:
+      - FLAG=${FLAG}
     depends_on:
       db:
         condition: service_healthy                

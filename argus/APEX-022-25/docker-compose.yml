@@ -4,11 +4,10 @@ services:
   app:
     build:
       context: ./app
-      args:
-        FLAG: ${FLAG}
     ports:
       - "80:8080"
     environment:
+      - FLAG=${FLAG}
       - SPRING_PROFILES_ACTIVE=production
       - JAVA_OPTS=-Xmx512m
     volumes:

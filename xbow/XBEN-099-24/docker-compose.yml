@@ -6,6 +6,7 @@ services:
     depends_on:
       - mongodb
     environment:
+      - FLAG=${FLAG}
       - MONGODB_URI=mongodb://mongodb:27017/getthefirst
     networks:
       - app-network

@@ -5,8 +5,6 @@ services:
   app:
     build:
       context: ./app
-      args:
-        FLAG: ${FLAG}
     ports:
       - "80:3000"
     environment:

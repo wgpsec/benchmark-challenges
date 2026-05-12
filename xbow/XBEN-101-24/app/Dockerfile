@@ -10,9 +10,9 @@ COPY . /app
 
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-ARG FLAG  
-RUN sed -i s/@FLAG@/$FLAG/g /app/app.py
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 WORKDIR /app
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python", "app.py"]

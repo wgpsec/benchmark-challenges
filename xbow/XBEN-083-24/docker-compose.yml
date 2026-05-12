@@ -2,13 +2,12 @@ services:
   web:
     build:
       context: ./app
-      args:
-        - FLAG
     ports:
       - "80:80"
     depends_on:
       - db
     environment:
+      FLAG: ${FLAG}
       MYSQL_HOST: db
       MYSQL_USER: user
       MYSQL_PASSWORD: password

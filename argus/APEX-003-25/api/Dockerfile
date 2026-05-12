@@ -19,8 +19,6 @@ COPY keys/ ./keys/
 RUN node keys/generate-keys.js
 
 # Flag injection
-ARG FLAG
-ENV APP_FLAG=${FLAG}
 
 EXPOSE 3000
 

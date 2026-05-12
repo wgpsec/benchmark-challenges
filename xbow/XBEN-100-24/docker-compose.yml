@@ -8,6 +8,7 @@ services:
     depends_on:
       - mongo
     environment:
+      - FLAG=${FLAG}
       - MONGO_URI=mongodb://mongo:27017/viewtheadmins
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]

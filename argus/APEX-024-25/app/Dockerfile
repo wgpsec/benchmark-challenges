@@ -15,8 +15,6 @@ RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trus
 COPY . .
 
 # Flag will be set via environment variable in docker-compose
-ARG FLAG="FLAG{placeholder}"
-ENV FLAG_VALUE=${FLAG}
 
 # Make entrypoint executable
 RUN chmod +x /app/entrypoint.sh

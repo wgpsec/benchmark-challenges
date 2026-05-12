@@ -18,9 +18,6 @@ COPY ./website/ssti_include_loan_calculator.wsgi /var/www/ssti_include_loan_calc
 COPY ./website/run.py /var/www/ssti_include_loan_calculator/
 COPY ./website/app /var/www/ssti_include_loan_calculator/app
 
-ARG FLAG  
-RUN echo -n $FLAG > /flag
-
 RUN chown -R www-data:www-data /var/www/ssti_include_loan_calculator/
 RUN chmod -R 755 /var/www/ssti_include_loan_calculator/
 
@@ -28,4 +25,8 @@ RUN a2dissite 000-default.conf
 RUN a2ensite ssti_include_loan_calculator-httpd.conf
 RUN a2enmod headers
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD  /usr/sbin/apache2ctl -D FOREGROUND

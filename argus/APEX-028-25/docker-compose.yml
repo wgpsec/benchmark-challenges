@@ -13,7 +13,6 @@ services:
   backend:
     build:
       context: ./backend
-      args:
         FLAG: ${FLAG}
     ports:
       - "3000:3000"  # Direct access for testing
@@ -26,6 +25,7 @@ services:
     build:
       context: ./admin-bot
     environment:
+      - FLAG=${FLAG}
       - TARGET_URL=http://varnish
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=SecureBankAdmin2024!

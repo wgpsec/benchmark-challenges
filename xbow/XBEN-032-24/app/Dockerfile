@@ -10,9 +10,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
-ARG FLAG
-RUN echo -n $FLAG > /app/flag.txt
-
 WORKDIR /app
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python", "app.py"]

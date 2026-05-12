@@ -2,8 +2,6 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-ARG FLAG
-ENV FLAG=${FLAG}
 
 COPY package*.json ./
 RUN npm config set registry https://registry.npmmirror.com

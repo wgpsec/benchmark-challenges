@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+    environment:
+      - FLAG=${FLAG}
     env_file:
       - .env
     healthcheck:

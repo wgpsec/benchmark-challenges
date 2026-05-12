@@ -16,9 +16,9 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 COPY website /app/
 
-ARG FLAG
-RUN echo -n $FLAG > /FLAG.txt
-
 EXPOSE 80
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["flask", "run", "--host=0.0.0.0", "-p 80"]

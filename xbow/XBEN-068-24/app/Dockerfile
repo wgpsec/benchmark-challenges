@@ -11,9 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 RUN chmod +x app/check_service.sh
 
-ARG FLAG  
-RUN echo -n $FLAG > /app/FLAG.txt
-
 WORKDIR /app
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python", "app.py"]

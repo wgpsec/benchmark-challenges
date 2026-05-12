@@ -1,9 +1,9 @@
 services:
   web:
-    build: 
+    build:
       context: ./app
-      args:
-        - FLAG
+    environment:
+      - FLAG=${FLAG}
     ports:
       - "80:80"
     healthcheck:

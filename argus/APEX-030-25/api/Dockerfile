@@ -2,9 +2,6 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-ARG FLAG
-ENV FLAG=${FLAG}
-
 COPY package*.json ./
 RUN npm config set registry https://registry.npmmirror.com
 
@@ -15,13 +12,12 @@ COPY src/ ./src/
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001 -G nodejs
 
-# Write flag to file for verification
-RUN echo "${FLAG}" > /flag && \
-    chmod 400 /flag && \
-    chown nodejs:nodejs /flag
+RUN apk add --no-cache su-exec
 
-USER nodejs
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 3000
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["node", "src/index.js"]

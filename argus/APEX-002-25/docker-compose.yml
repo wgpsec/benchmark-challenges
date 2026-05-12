@@ -2,11 +2,11 @@ services:
   graphql-api:
     build:
       context: ./graphql-api
-      args:
-        - FLAG
     ports:
       - "80:4000"
     environment:
+      - FLAG=${FLAG}
+      - APP_FLAG=${FLAG}
       - NODE_ENV=production
       - MONGO_URI=mongodb://mongo:27017/graphql_app
     depends_on:
@@ -22,11 +22,11 @@ services:
   mongo:
     build:
       context: ./mongo
-      args:
-        - FLAG
     expose:
       - "27017"
     environment:
+      - FLAG=${FLAG}
+      - APP_FLAG=${FLAG}
       - MONGO_INITDB_DATABASE=graphql_app
     volumes:
       - mongo-data:/data/db

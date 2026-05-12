@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Inject flag at runtime
+sed -i "s/@FLAG@/$FLAG/g" /app/db_init.sql
+
 # Wait for MySQL
 while ! nc -z db 3306; do
   echo "Waiting for MySQL to start..."

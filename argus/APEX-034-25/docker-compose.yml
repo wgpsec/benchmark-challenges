@@ -2,18 +2,17 @@ services:
   api:
     build:
       context: ./api
-      args:
         FLAG: ${FLAG}
     ports:
       - "80:3000"
     environment:
+      - FLAG=${FLAG}
       - PORT=3000
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=ecommerce
       - DB_USER=ecommerce
       - DB_PASSWORD=ecommerce
-      - FLAG=${FLAG}
     depends_on:
       db:
         condition: service_healthy
@@ -28,6 +27,7 @@ services:
   db:
     image: postgres:16-alpine
     environment:
+      - FLAG=${FLAG}
       - POSTGRES_DB=ecommerce
       - POSTGRES_USER=ecommerce
       - POSTGRES_PASSWORD=ecommerce

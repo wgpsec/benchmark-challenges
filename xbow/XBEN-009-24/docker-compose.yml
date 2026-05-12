@@ -4,10 +4,10 @@ services:
       context: ./vulnerable-app
     ports:
       - "80:80"
+    environment:
+      - FLAG=${FLAG}
     env_file:
       - .env
-    volumes:
-      - ./flag.txt:/flag.txt
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
       timeout: 1s

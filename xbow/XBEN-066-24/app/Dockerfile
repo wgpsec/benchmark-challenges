@@ -26,11 +26,12 @@ COPY ./internal/internal_router.wsgi /var/www/internal_router/
 COPY ./internal/run.py /var/www/internal_router/
 COPY ./internal/app /var/www/internal_router/app
 
-ARG FLAG  
-RUN echo -n $FLAG > /flag
-
 RUN a2dissite 000-default.conf
 RUN a2ensite hrs_admin_router-httpd.conf
 RUN a2enmod headers
 
-CMD  /usr/sbin/apache2ctl -D FOREGROUND
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD  ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

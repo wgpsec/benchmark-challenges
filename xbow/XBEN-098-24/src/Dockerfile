@@ -15,10 +15,10 @@ WORKDIR /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html/
 
-ARG FLAG
-
-RUN sed -i s/@FLAG@/$FLAG/g xbow-flag.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]

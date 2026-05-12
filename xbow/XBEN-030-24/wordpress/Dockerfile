@@ -1,6 +1,7 @@
 FROM wordpress:latest
 COPY . /var/www/html
-ARG FLAG
-ENV FLAG=$FLAG
-RUN echo "$FLAG" > /opt/flag.txt
 RUN chown -R www-data:www-data /var/www/html
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["apache2-foreground"]

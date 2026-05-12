@@ -3,11 +3,11 @@ services:
   pdf-service:
     build:
       context: ./pdf-service
-      args:
         FLAG: ${FLAG}
     ports:
       - "80:5000"
     environment:
+      - FLAG=${FLAG}
       - FLASK_ENV=production
       - PYTHONDONTWRITEBYTECODE=1
     depends_on:
@@ -26,9 +26,9 @@ services:
   secrets-manager:
     build:
       context: ./secrets-manager
-      args:
         FLAG: ${FLAG}
     environment:
+      - FLAG=${FLAG}
       - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
       - AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     # Not exposed externally - only accessible via SSRF

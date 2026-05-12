@@ -18,9 +18,10 @@ RUN rm /var/log/apache2/access.log && \
 	chown www-data:www-data /var/log/apache2/access.log && \
 	chmod 0777 /var/log/apache2/access.log
 
-ARG FLAG  
-RUN echo "<?php $FLAG ?>" > /FLAG.php
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]
