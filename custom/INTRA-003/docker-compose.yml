@@ -1,0 +1,51 @@
+services:
+  web:
+    build:
+      context: ./src/web
+    ports:
+      - "80:80"
+    networks:
+      - dmz
+    environment:
+      - FLAG=${FLAG_WEB}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+
+  oa:
+    build:
+      context: ./src/oa
+    networks:
+      - dmz
+      - office
+    environment:
+      - FLAG=${FLAG_OA}
+
+  fileserver:
+    build:
+      context: ./src/fileserver
+    networks:
+      - office
+      - core
+    environment:
+      - FLAG=${FLAG_FS}
+
+  core-biz:
+    build:
+      context: ./src/core
+    networks:
+      - core
+    environment:
+      - FLAG=${FLAG_CORE}
+
+networks:
+  dmz:
+    driver: bridge
+  office:
+    driver: bridge
+    internal: true
+  core:
+    driver: bridge
+    internal: true

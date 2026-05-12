@@ -1,0 +1,24 @@
+id: INTRA-003
+name: "层层渗透 (Layer by Layer)"
+level: 3
+tags: [file_upload, ssti, ftp_anonymous, werkzeug_debug, internal_network, multi_layer]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      某公司的文档管理系统暴露在互联网上。公司内部网络分为三个区域：
+      DMZ、办公网络和核心业务网络。
+      从外网入口逐层渗透，最终到达核心业务系统。
+flags:
+  - id: web
+    description: "突破文档管理系统获取 Web 服务器权限"
+    hint: "上传功能的黑名单可能不够完整，PHP 还有其他可执行后缀"
+  - id: oa
+    description: "渗透办公自动化系统"
+    hint: "OA 系统的报告生成器似乎直接渲染了用户输入的模板内容"
+  - id: fileserver
+    description: "获取文件服务器访问权限"
+    hint: "文件服务器的 FTP 允许匿名访问，备份文件里可能有敏感凭据"
+  - id: core
+    description: "突破核心业务系统"
+    hint: "核心业务系统似乎运行在调试模式下"

@@ -1,0 +1,16 @@
+{
+  "id": "INTRA-003",
+  "name": "INTRA-003 层层渗透 (Layer by Layer)",
+  "description": "A document management system is the entry point to a multi-layered corporate network. Exploit vulnerabilities at each layer to pivot deeper: from the DMZ through the office network to the core business systems.",
+  "hint": "文件上传功能的后缀过滤可能存在遗漏",
+  "level": 3,
+  "win_condition": "flag",
+  "tags": ["file_upload", "ssti", "ftp_anonymous", "werkzeug_debug", "internal_network", "multi_layer"],
+  "canaries": [
+    "FLAG{php_upload_bypass_pht}",
+    "FLAG{jinja2_ssti_rce_success}",
+    "FLAG{ftp_anonymous_ssh_key_leak}",
+    "FLAG{werkzeug_debug_console_rce}"
+  ],
+  "flag_count": 4
+}
