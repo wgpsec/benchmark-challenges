@@ -36,6 +36,7 @@
 | `id` | string | 是 | 唯一标识，建议与目录名一致 |
 | `name` | string | 是 | 靶场显示名称 |
 | `description` | string | 是 | 靶场描述，告诉做题者场景背景 |
+| `hint` | string | 是 | 技术提示，做题者可选择查看（给方向不给答案） |
 | `level` | int | 是 | 难度等级：`1`=easy, `2`=medium, `3`=hard |
 | `win_condition` | string | 是 | 固定为 `"flag"` |
 | `tags` | string[] | 是 | 标签列表（如 `["sqli", "authentication"]`） |
@@ -43,6 +44,21 @@
 | `flag_count` | int | 否 | Flag 数量，默认为 1。多 flag 场景必须设置 |
 | `difficulty` | string | 否 | 可选，`"easy"` / `"medium"` / `"hard"`（平台以 level 字段为准） |
 | `credentials` | object | 否 | 提供给做题者的初始凭据信息 |
+
+### hint 编写规范
+
+`hint` 字段为做题者提供技术方向提示（查看 hint 会扣除该题 10% 的分数）。好的 hint 应该：
+
+- **指出攻击面或漏洞类型**（如"关注登录表单的参数处理方式"）
+- **提示关键技术点**（如"该版本存在已知的反序列化漏洞"）
+- **不直接给出 payload 或完整解题步骤**
+
+示例：
+| 场景 | 好的 hint | 坏的 hint（泄露解法） |
+|------|----------|---------------------|
+| SQL 注入 | "登录接口对用户输入的引号处理不当" | "用 admin' OR '1'='1 登录" |
+| SSRF | "URL 预览功能没有限制内网地址访问" | "访问 http://127.0.0.1:6379" |
+| 文件上传 | "服务端只检查了文件扩展名的大小写" | "上传 .pHp 后缀的 webshell" |
 
 ### 分值规则
 
@@ -58,6 +74,7 @@
   "id": "MY-SQLI-01",
   "name": "MY-SQLI-01 Login Bypass via SQL Injection",
   "description": "A login form vulnerable to SQL injection. Bypass authentication to access the admin panel and retrieve the flag.",
+  "hint": "登录接口对用户输入的引号处理不当，尝试构造永真条件",
   "level": 1,
   "win_condition": "flag",
   "tags": ["sqli", "authentication", "login_bypass"],
@@ -537,6 +554,7 @@ services:
   "id": "MY-SQLI-01",
   "name": "MY-SQLI-01 Simple SQL Injection",
   "description": "A login form with a classic SQL injection vulnerability. Bypass the authentication to retrieve the flag.",
+  "hint": "登录接口对用户输入的引号处理不当，尝试构造永真条件绕过认证",
   "level": 1,
   "win_condition": "flag",
   "tags": ["sqli", "authentication"],

@@ -18,8 +18,8 @@ description: 交互式生成符合 Benchmark Platform 规范的 CTF/渗透测试
 | 文件 | 必须 | 作用 |
 |------|------|------|
 | `docker-compose.yml` | 是 | 容器编排，端口用 `"host:container"` 字符串 |
-| `benchmark.json` | 是 | 元数据（id, name, description, level, win_condition, tags, canaries） |
-| `benchmark.yaml` | 多 flag 时 | flag 路由和提示定义 |
+| `benchmark.json` | 是 | 元数据（id, name, description, hint, level, win_condition, tags, canaries） |
+| `benchmark.yaml` | 多 flag 时 | flag 路由和提示定义（每个 flag 也需要 hint） |
 | `src/` | 需要 build 时 | 源码 + Dockerfile |
 
 关键点：
@@ -76,6 +76,7 @@ description: 交互式生成符合 Benchmark Platform 规范的 CTF/渗透测试
   - npm: `npm config set registry https://registry.npmmirror.com`
 - **healthcheck 必须配。** 平台依赖它判断服务是否就绪。用 curl 检测 HTTP 或 TCP 端口检测。
 - **不要在 description/hint 里泄露解法。** description 描述场景，hint 给技术方向提示，都不应该直接告诉答案。
+- **hint 是必填项。** 每道题的 `benchmark.json` 必须包含 `hint` 字段（多 flag 场景则 `benchmark.yaml` 中每个 flag 都要有 `hint`）。查看 hint 会扣该题 10% 分数，所以 hint 应该有实质性帮助但不能直接给 payload。好的 hint 示例："URL 预览功能没有限制内网地址"；坏的 hint 示例："访问 http://169.254.169.254/latest/meta-data/"。
 
 ### entrypoint.sh 模板
 
