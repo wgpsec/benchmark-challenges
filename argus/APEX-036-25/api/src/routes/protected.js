@@ -4,7 +4,7 @@ const router = express.Router();
 const { authenticate } = require('../middleware/auth');
 const { findUserById } = require('../models/users');
 
-const FLAG = process.env.FLAG || 'FLAG{test_flag}';
+const FLAG = process.env.FLAG || 'FLAG{mf4_byp4ss_r3sp0ns3_m4n1pul4t10n_2f4}';
 
 /**
  * GET /api/profile

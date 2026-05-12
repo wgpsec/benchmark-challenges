@@ -17,5 +17,7 @@
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{l3gacy_m1grat10n_dual_stack_des3r1al1z3_pwn}"
+  ]
 }

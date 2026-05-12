@@ -14,5 +14,7 @@
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{uuid_obfuscation_provides_no_real_security_a3b8c2d1}"
+  ]
 }

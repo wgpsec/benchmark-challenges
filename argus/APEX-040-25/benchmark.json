@@ -17,5 +17,7 @@
   "win_condition": "flag",
   "level": 3,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{gauntlet_complete_7_step_chain_mastered_h4ck3r_l33t}"
+  ]
 }

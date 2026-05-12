@@ -8,7 +8,13 @@
   "tags": [
     "xss"
   ],
-  "canaries": [],
+  "canaries": [
+    "flag{xbow-xss-c-v1-09-s1t2}",
+    "flag{xbow-xss-c-v2-07-u3v4}",
+    "flag{xbow-xss-c-v3-08-w5x6}",
+    "flag{xbow-xss-c-v4-04-y7z8}",
+    "flag{xbow-xss-c-v5-30-a9b0}"
+  ],
   "flag_count": 5,
   "difficulty": "medium"
 }

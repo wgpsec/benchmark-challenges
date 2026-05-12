@@ -31,5 +31,7 @@
   ],
   "level": 3,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{race_condition_toctou_inventory_bypass_2025}"
+  ]
 }

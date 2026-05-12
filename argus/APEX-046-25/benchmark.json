@@ -16,5 +16,7 @@
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{saml_xml_s1gnatur3_wr4pp1ng_f3d3r4t10n_0wn3d}"
+  ]
 }

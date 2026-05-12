@@ -2,7 +2,7 @@ services:
   s3:
     build: ./s3
     expose:
-      - 8333
+      - "8333:8333"
     networks:
       - internal
     healthcheck:
@@ -35,7 +35,7 @@ services:
     build: ./nginx
     ports:
       - "80:80"
-      - 8333
+      - "8333:8333"
     networks:
       - default
       - internal

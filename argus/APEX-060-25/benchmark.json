@@ -18,5 +18,7 @@
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{th3_l4byr1nth_10_st3p_ult1m4t3_cha1n_m4st3r}"
+  ]
 }

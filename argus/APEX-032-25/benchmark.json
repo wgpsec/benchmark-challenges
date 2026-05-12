@@ -35,5 +35,7 @@
   ],
   "level": 2,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{sequelize_operator_injection_orm_bypass_2025}"
+  ]
 }

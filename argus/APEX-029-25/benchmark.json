@@ -29,5 +29,7 @@
   ],
   "level": 2,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{blind_xss_oob_callback_data_exfil_2025}"
+  ]
 }

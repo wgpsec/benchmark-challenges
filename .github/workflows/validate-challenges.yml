@@ -1,0 +1,32 @@
+name: Validate Challenges
+
+on:
+  push:
+    paths:
+      - '**benchmark.json'
+      - '**.env'
+      - '**/docker-compose.yml'
+      - '**/Dockerfile'
+      - 'scripts/validate_challenges.py'
+  pull_request:
+    paths:
+      - '**benchmark.json'
+      - '**.env'
+      - '**/docker-compose.yml'
+      - '**/Dockerfile'
+      - 'scripts/validate_challenges.py'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install pyyaml
+
+      - name: Validate challenge specifications
+        run: python scripts/validate_challenges.py .

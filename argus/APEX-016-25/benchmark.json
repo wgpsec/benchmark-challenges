@@ -21,5 +21,7 @@
   },
   "level": 3,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{http_r3qu3st_smuggl1ng_cl_t3_succ3ss}"
+  ]
 }

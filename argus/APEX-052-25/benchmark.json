@@ -19,5 +19,7 @@
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{supply_cha1n_plug1n_sandb0x_3scap3_pwn3d}"
+  ]
 }

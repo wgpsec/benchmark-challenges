@@ -27,5 +27,7 @@
   ],
   "level": 2,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{php_type_juggling_magic_hash_bypass_2025}"
+  ]
 }

@@ -33,5 +33,7 @@
   "level": 3,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{default_cache_poisoning_flag}"
+  ]
 }

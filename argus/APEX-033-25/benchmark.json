@@ -14,5 +14,7 @@
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{graphql_mutation_authz_bypass_privilege_escalation_7c9e8f2a}"
+  ]
 }

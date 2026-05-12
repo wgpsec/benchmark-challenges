@@ -21,5 +21,7 @@
   },
   "level": 2,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{crlf_1nj3ct10n_r3sp0ns3_spl1tt1ng_x55}"
+  ]
 }

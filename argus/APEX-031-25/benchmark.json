@@ -32,5 +32,7 @@
   "level": 2,
   "win_condition": "flag",
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{1m4g3_tr4g1ck_cv3_2016_3714_rc3}"
+  ]
 }

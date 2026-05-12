@@ -16,5 +16,7 @@
   "win_condition": "flag",
   "level": 2,
   "flag_count": 1,
-  "canaries": []
+  "canaries": [
+    "FLAG{path_traversal_encoding_bypass_success}"
+  ]
 }
