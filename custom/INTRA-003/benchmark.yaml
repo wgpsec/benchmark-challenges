@@ -16,7 +16,7 @@ flags:
   - id: oa
     description: "渗透办公自动化系统"
     hint: "OA 系统的报告生成器似乎直接渲染了用户输入的模板内容"
-  - id: fileserver
+  - id: fs
     description: "获取文件服务器访问权限"
     hint: "文件服务器的 FTP 允许匿名访问，备份文件里可能有敏感凭据"
   - id: core
