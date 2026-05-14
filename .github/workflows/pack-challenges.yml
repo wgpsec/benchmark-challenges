@@ -39,6 +39,7 @@ jobs:
           mkdir -p dist
           while IFS= read -r dir; do
             [ -z "$dir" ] && continue
+            [ -d "$dir" ] || continue
             CATEGORY=$(echo "$dir" | cut -d'/' -f1)
             NAME=$(echo "$dir" | cut -d'/' -f2)
             ASSET="${CATEGORY}--${NAME}.zip"
