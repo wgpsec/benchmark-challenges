@@ -1,0 +1,27 @@
+id: AD-003
+name: "证书攻击与域控沦陷 (ADCS Takeover)"
+level: 3
+tags: [ssrf, mssql, xp_cmdshell, adcs_esc1, certificate_abuse, active_directory]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      某企业 Web 应用存在 SSRF 漏洞，可以探测到内网的 MSSQL 数据库服务器。
+      数据库服务器是域成员，运行着域服务账号。域内部署了 Active Directory
+      Certificate Services (ADCS)，存在证书模板错误配置。
+
+      你需要从 Web 入口出发，逐步渗透到数据库，再利用 ADCS 漏洞
+      伪造域管理员证书，最终完全控制域。
+flags:
+  - id: ssrf
+    description: "通过 SSRF 访问内网 MSSQL"
+    hint: "Web 应用的 URL 预览功能没有限制内网地址"
+  - id: mssql
+    description: "获得数据库服务器 shell"
+    hint: "MSSQL sa 账号可能使用弱密码，xp_cmdshell 可以执行系统命令"
+  - id: adcs
+    description: "利用 ADCS 证书模板漏洞"
+    hint: "检查域内证书模板配置，ESC1 允许指定任意 SAN"
+  - id: dc
+    description: "以域管身份访问域控"
+    hint: "用伪造的域管证书进行 Kerberos 认证"

@@ -1,0 +1,23 @@
+id: AD-001
+name: "域初探 (Domain First Blood)"
+level: 2
+tags: [credential_leak, kerberoasting, lateral_movement, active_directory]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      某企业 Web 门户连接了 Active Directory 域进行身份认证。
+      你的目标是通过 Web 应用获取域凭据，利用 Kerberos 协议漏洞
+      逐步提权，最终拿下域控制器。
+
+      提示：域内服务账号往往有过高权限且密码强度不足。
+flags:
+  - id: web
+    description: "从 Web 应用获取域凭据"
+    hint: "Web 应用可能存在敏感文件泄露，检查备份目录"
+  - id: kerberoast
+    description: "破解服务账号密码"
+    hint: "拥有域凭据后，尝试请求域内注册了 SPN 的服务票据"
+  - id: dc
+    description: "拿下域控制器"
+    hint: "服务账号可能有域控的管理权限"

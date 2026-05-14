@@ -1,0 +1,26 @@
+id: AD-002
+name: "权限攻击链 (ACL Abuse Chain)"
+level: 3
+tags: [sql_injection, asrep_roasting, acl_abuse, dcsync, active_directory, bloodhound]
+content:
+  - kind: description
+    content_type: text/markdown
+    content: |
+      某企业内网应用连接了 Active Directory 域进行认证。
+      通过 Web 应用漏洞获取初始域凭据后，你需要利用域内 ACL 错配
+      形成的攻击链逐步提权，最终通过 DCSync 完全控制域。
+
+      建议使用 BloodHound 进行域内权限关系分析。
+flags:
+  - id: web
+    description: "通过 Web 漏洞获取域凭据"
+    hint: "Web 应用的搜索功能存在 SQL 注入"
+  - id: asrep
+    description: "AS-REP Roasting 破解用户密码"
+    hint: "域内存在未启用 Kerberos 预认证的账户"
+  - id: acl
+    description: "利用 ACL 攻击链提权"
+    hint: "使用 BloodHound 分析域内权限关系，寻找到高权限组的攻击路径"
+  - id: dcsync
+    description: "DCSync 导出域控哈希"
+    hint: "获得具有目录复制权限的账户后，可以模拟域控同步所有凭据"

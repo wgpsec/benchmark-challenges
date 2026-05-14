@@ -1,0 +1,14 @@
+FROM python:3.11-slim
+
+RUN pip install flask -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+WORKDIR /app
+COPY app.py .
+COPY templates/ templates/
+COPY backup/ backup/
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 80
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["python", "app.py"]

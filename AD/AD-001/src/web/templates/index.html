@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Corp Portal - Authentication Gateway</title></head>
+<body>
+<h1>Corporate Authentication Portal</h1>
+<p>Welcome to the internal authentication gateway.</p>
+<p>Please contact IT support if you need access credentials.</p>
+{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+<form action="/login" method="POST">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit">Login</button>
+</form>
+<footer><small>Corp Portal v2.3.1 | Powered by LDAP</small></footer>
+</body>
+</html>

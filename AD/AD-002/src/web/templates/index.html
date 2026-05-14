@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>North Corp - Employee Directory</title></head>
+<body>
+<h1>Employee Directory</h1>
+<form action="/search" method="GET">
+  <input type="text" name="q" placeholder="Search by name or department" value="{{ query or '' }}">
+  <button type="submit">Search</button>
+</form>
+{% if results is defined %}
+<table border="1" cellpadding="8">
+  <tr><th>ID</th><th>Name</th><th>Department</th><th>Email</th></tr>
+  {% for row in results %}
+  <tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td></tr>
+  {% endfor %}
+</table>
+{% if results|length == 0 %}
+<p>No results found.</p>
+{% endif %}
+{% endif %}
+<footer><small>North Corp Intranet v1.2</small></footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Castle Corp - Link Preview Service</title></head>
+<body>
+<h1>Link Preview Service</h1>
+<p>Enter a URL to preview its content:</p>
+<form action="/preview" method="GET">
+  <input type="text" name="url" placeholder="https://example.com" size="60"
+         value="{{ url or '' }}">
+  <button type="submit">Preview</button>
+</form>
+{% if error %}
+<div style="color:red;margin-top:10px;">Error: {{ error }}</div>
+{% endif %}
+{% if content is defined and content %}
+<div style="margin-top:20px;border:1px solid #ccc;padding:10px;">
+  <h3>Preview of {{ url }} (HTTP {{ status }})</h3>
+  <pre>{{ content }}</pre>
+</div>
+{% endif %}
+<footer><small>Castle Corp Intranet Tools v1.0</small></footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+services:
+  web:
+    build:
+      context: ./src/web
+    ports:
+      - "80:80"
+    networks:
+      - dmz
+      - corp-net
+    environment:
+      - FLAG=${FLAG_WEB}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+    depends_on:
+      dc:
+        condition: service_healthy
+
+  dc:
+    image: dockurr/windows
+    environment:
+      - VERSION=2022
+      - RAM_SIZE=4G
+      - CPU_CORES=2
+      - DISK_SIZE=64G
+      - FLAG=${FLAG_DC}
+      - FLAG_KERBEROAST=${FLAG_KERBEROAST}
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    # 调试端口（正式运行时不暴露，防止非预期解）
+    # ports:
+    #   - "3389:3389"
+    #   - "8006:8006"
+    volumes:
+      - dc-data:/storage
+      - ./src/dc/oem:/oem
+      - dc-shared:/shared
+    networks:
+      - dmz
+      - corp-net
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /run/ready || exit 1"]
+      timeout: 10s
+      retries: 60
+      interval: 30s
+      start_period: 600s
+
+volumes:
+  dc-data:
+  dc-shared:
+
+networks:
+  dmz:
+    driver: bridge
+  corp-net:
+    driver: bridge
+    internal: true

@@ -1,0 +1,13 @@
+# LDAP Authentication Configuration
+# Last updated: 2024-03-15 by admin
+
+[ldap]
+server = dc.corp.local
+port = 389
+base_dn = DC=corp,DC=local
+
+# Service account for LDAP binds
+bind_user = web_admin@corp.local
+bind_password = WebAdmin@2024!
+
+# Do NOT commit this file to version control!

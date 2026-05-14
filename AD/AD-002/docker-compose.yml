@@ -1,0 +1,80 @@
+services:
+  web:
+    build:
+      context: ./src/web
+    ports:
+      - "80:80"
+    networks:
+      - dmz
+      - corp-net
+    environment:
+      - FLAG=${FLAG_WEB}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+    depends_on:
+      dc:
+        condition: service_healthy
+
+  dc:
+    image: dockurr/windows
+    environment:
+      - VERSION=2022
+      - RAM_SIZE=4G
+      - CPU_CORES=2
+      - DISK_SIZE=64G
+      - FLAG=${FLAG_DCSYNC}
+      - FLAG_ASREP=${FLAG_ASREP}
+      - FLAG_ACL=${FLAG_ACL}
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - dc-data:/storage
+      - ./src/dc/oem:/oem
+      - dc-shared:/shared
+    networks:
+      - corp-net
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /run/ready || exit 1"]
+      timeout: 10s
+      retries: 60
+      interval: 30s
+      start_period: 600s
+
+  ws01:
+    image: dockurr/windows
+    environment:
+      - VERSION=win11
+      - RAM_SIZE=4G
+      - CPU_CORES=2
+      - DISK_SIZE=64G
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ws01-data:/storage
+      - ./src/ws01/oem:/oem
+    networks:
+      - corp-net
+    depends_on:
+      dc:
+        condition: service_healthy
+
+volumes:
+  dc-data:
+  dc-shared:
+  ws01-data:
+
+networks:
+  dmz:
+    driver: bridge
+  corp-net:
+    driver: bridge
+    internal: true
