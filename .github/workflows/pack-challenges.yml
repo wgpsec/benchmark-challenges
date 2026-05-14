@@ -20,9 +20,9 @@ jobs:
         run: |
           BEFORE="${{ github.event.before }}"
           if [ "$BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$BEFORE" 2>/dev/null; then
-            CHANGED=$(git diff --name-only "$BEFORE" "${{ github.sha }}" | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
+            CHANGED=$(git diff --name-only "$BEFORE" "${{ github.sha }}" | grep -E '^(xbow|custom|argus|AD)/' | cut -d'/' -f1,2 | sort -u || true)
           else
-            CHANGED=$(git ls-tree -r --name-only HEAD | grep -E '^(xbow|custom|argus)/' | cut -d'/' -f1,2 | sort -u || true)
+            CHANGED=$(git ls-tree -r --name-only HEAD | grep -E '^(xbow|custom|argus|AD)/' | cut -d'/' -f1,2 | sort -u || true)
           fi
           echo "changed<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED" >> $GITHUB_OUTPUT
@@ -55,7 +55,7 @@ jobs:
 
           challenges = []
           for category_dir in sorted(Path(".").iterdir()):
-              if category_dir.name in ("xbow", "custom", "argus") and category_dir.is_dir():
+              if category_dir.name in ("xbow", "custom", "argus", "AD") and category_dir.is_dir():
                   for ch_dir in sorted(category_dir.iterdir()):
                       if not ch_dir.is_dir():
                           continue
@@ -79,6 +79,7 @@ jobs:
                           "difficulty": meta.get("difficulty", ""),
                           "tags": meta.get("tags", []),
                           "flag_count": meta.get("flag_count", 1),
+                          "requires": meta.get("requires"),
                           "size": size,
                       })
 
