@@ -1,0 +1,18 @@
+{
+  "id": "AD-002",
+  "name": "AD-002 权限攻击链 (ACL Abuse Chain)",
+  "requires": {"arch": "x86_64", "kvm": true},
+  "description": "A corporate intranet application connects to an Active Directory domain. Exploit AS-REP Roasting and a chain of ACL misconfigurations to escalate from a low-privilege domain user to full domain compromise via DCSync.",
+  "hint": "Web 应用存在 SQL 注入，可以获取域账号凭据",
+  "level": 3,
+  "win_condition": "flag",
+  "tags": ["sql_injection", "asrep_roasting", "acl_abuse", "dcsync", "active_directory", "bloodhound"],
+  "canaries": [
+    "FLAG{sqli_domain_credential_leak}",
+    "FLAG{asrep_roast_it_support}",
+    "FLAG{acl_chain_privilege_escalation}",
+    "FLAG{dcsync_domain_fully_compromised}"
+  ],
+  "flag_count": 4,
+  "difficulty": "hard"
+}

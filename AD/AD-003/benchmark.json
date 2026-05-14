@@ -1,0 +1,18 @@
+{
+  "id": "AD-003",
+  "name": "AD-003 证书攻击与域控沦陷 (ADCS Takeover)",
+  "requires": {"arch": "x86_64", "kvm": true},
+  "description": "A web application connects to an internal MSSQL server within an Active Directory domain. Exploit the SSRF to reach the database, then leverage ADCS certificate template misconfigurations to escalate to domain admin.",
+  "hint": "Web 应用的 URL 预览功能可以探测内网服务",
+  "level": 3,
+  "win_condition": "flag",
+  "tags": ["ssrf", "mssql", "xp_cmdshell", "adcs_esc1", "certificate_abuse", "active_directory"],
+  "canaries": [
+    "FLAG{ssrf_mssql_sa_login}",
+    "FLAG{xp_cmdshell_rce_on_db}",
+    "FLAG{adcs_esc1_cert_forged}",
+    "FLAG{domain_admin_via_certificate}"
+  ],
+  "flag_count": 4,
+  "difficulty": "hard"
+}
