@@ -1,6 +1,6 @@
 id: AD-001
 name: "域初探 (Domain First Blood)"
-level: 2
+level: 4
 tags: [credential_leak, kerberoasting, lateral_movement, active_directory]
 content:
   - kind: description

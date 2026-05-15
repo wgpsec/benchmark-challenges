@@ -1,6 +1,6 @@
 id: AD-003
 name: "证书攻击与域控沦陷 (ADCS Takeover)"
-level: 3
+level: 4
 tags: [ssrf, mssql, xp_cmdshell, adcs_esc1, certificate_abuse, active_directory]
 content:
   - kind: description

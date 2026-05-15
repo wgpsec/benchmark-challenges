@@ -1,6 +1,6 @@
 id: AD-002
 name: "权限攻击链 (ACL Abuse Chain)"
-level: 3
+level: 4
 tags: [sql_injection, asrep_roasting, acl_abuse, dcsync, active_directory, bloodhound]
 content:
   - kind: description
