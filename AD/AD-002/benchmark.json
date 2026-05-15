@@ -4,7 +4,7 @@
   "requires": {"arch": "x86_64", "kvm": true},
   "description": "A corporate intranet application connects to an Active Directory domain. Exploit AS-REP Roasting and a chain of ACL misconfigurations to escalate from a low-privilege domain user to full domain compromise via DCSync.",
   "hint": "Web 应用存在 SQL 注入，可以获取域账号凭据",
-  "level": 3,
+  "level": 4,
   "win_condition": "flag",
   "tags": ["sql_injection", "asrep_roasting", "acl_abuse", "dcsync", "active_directory", "bloodhound"],
   "canaries": [
