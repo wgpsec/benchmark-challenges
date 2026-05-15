@@ -25,6 +25,7 @@ services:
       - RAM_SIZE=4G
       - CPU_CORES=2
       - DISK_SIZE=64G
+      - BOOT_TIMEOUT=1800
       - FLAG=${FLAG_DCSYNC}
       - FLAG_ASREP=${FLAG_ASREP}
       - FLAG_ACL=${FLAG_ACL}
@@ -40,7 +41,7 @@ services:
     networks:
       - corp-net
     healthcheck:
-      test: ["CMD-SHELL", "test -f /run/ready || exit 1"]
+      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:8006/ || exit 1"]
       timeout: 10s
       retries: 60
       interval: 30s

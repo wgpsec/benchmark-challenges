@@ -165,13 +165,27 @@ if ($phase -eq "3") {
         Log "Phase 3: WARNING - MSSQL download failed, skipping installation"
     }
 
-    # Plant flags (use environment variables if available for dynamic flag support)
+    # Plant flags (read from OEM flags file injected by platform)
     Log "Phase 3: Planting flags"
-    $flagXP = if ($env:FLAG) { $env:FLAG } else { "FLAG{xp_cmdshell_rce_on_db}" }
-    $flagADCS = if ($env:FLAG_ADCS) { $env:FLAG_ADCS } else { "FLAG{adcs_esc1_cert_forged}" }
+    $flagsFile = "C:\OEM\flags.env"
+    $flagVars = @{}
+    if (Test-Path $flagsFile) {
+        Get-Content $flagsFile | ForEach-Object {
+            if ($_ -match '^([^=]+)=(.*)$') { $flagVars[$Matches[1]] = $Matches[2] }
+        }
+        Log "Phase 3: Loaded flags from $flagsFile"
+    } else {
+        Log "Phase 3: WARNING - $flagsFile not found, using fallback"
+    }
+    $flagXP = if ($flagVars["FLAG_XPCMD"]) { $flagVars["FLAG_XPCMD"] } else { "FLAG{xp_cmdshell_rce_on_db}" }
+    $flagADCS = if ($flagVars["FLAG_ADCS"]) { $flagVars["FLAG_ADCS"] } else { "FLAG{adcs_esc1_cert_forged}" }
 
     $flagXP | Out-File -Encoding ASCII C:\flag.txt
     $flagADCS | Out-File -Encoding ASCII C:\Users\Public\adcs_flag.txt
+
+    # Disable firewall so MSSQL/SMB ports are reachable from the Docker network
+    Log "Phase 3: Disabling Windows Firewall"
+    Set-NetFirewallProfile -Profile Domain,Private,Public -Enabled False
 
     # Cleanup
     schtasks /delete /tn "DB-Setup" /f 2>&1 | Out-Null

@@ -168,11 +168,21 @@ if ($phase -eq "3") {
         Log "Phase 3: ESC1 VulnTemplate created and published"
     } catch { Log "ESC1 template error: $_" }
 
-    # Plant flags (use environment variables if available for dynamic flag support)
+    # Plant flags (read from OEM flags file injected by platform)
     Log "Phase 3: Planting flags"
-    $flagDC = if ($env:FLAG_DC) { $env:FLAG_DC } else { "FLAG{domain_admin_via_certificate}" }
-    $flagXP = if ($env:FLAG_XPCMD) { $env:FLAG_XPCMD } else { "FLAG{xp_cmdshell_rce_on_db}" }
-    $flagADCS = if ($env:FLAG_ADCS) { $env:FLAG_ADCS } else { "FLAG{adcs_esc1_cert_forged}" }
+    $flagsFile = "C:\OEM\flags.env"
+    $flagVars = @{}
+    if (Test-Path $flagsFile) {
+        Get-Content $flagsFile | ForEach-Object {
+            if ($_ -match '^([^=]+)=(.*)$') { $flagVars[$Matches[1]] = $Matches[2] }
+        }
+        Log "Phase 3: Loaded flags from $flagsFile"
+    } else {
+        Log "Phase 3: WARNING - $flagsFile not found, using fallback"
+    }
+    $flagDC = if ($flagVars["FLAG_DC"]) { $flagVars["FLAG_DC"] } else { "FLAG{domain_admin_via_certificate}" }
+    $flagXP = if ($flagVars["FLAG_XPCMD"]) { $flagVars["FLAG_XPCMD"] } else { "FLAG{xp_cmdshell_rce_on_db}" }
+    $flagADCS = if ($flagVars["FLAG_ADCS"]) { $flagVars["FLAG_ADCS"] } else { "FLAG{adcs_esc1_cert_forged}" }
 
     $flagDC | Out-File -Encoding ASCII C:\flag.txt
     $flagADCS | Out-File -Encoding ASCII C:\Users\Public\adcs_flag.txt

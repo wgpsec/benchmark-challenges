@@ -188,11 +188,21 @@ if ($phase -eq "3") {
         Log "Phase 3: DCSync rights granted to IT-Admins"
     } catch { Log "DCSync rights error: $_" }
 
-    # Plant flags (use environment variables if available for dynamic flag support)
+    # Plant flags (read from OEM flags file injected by platform)
     Log "Phase 3: Planting flags"
-    $flagDC = if ($env:FLAG_DC) { $env:FLAG_DC } else { "FLAG{dcsync_domain_fully_compromised}" }
-    $flagASREP = if ($env:FLAG_ASREP) { $env:FLAG_ASREP } else { "FLAG{asrep_roast_it_support}" }
-    $flagACL = if ($env:FLAG_ACL) { $env:FLAG_ACL } else { "FLAG{acl_chain_privilege_escalation}" }
+    $flagsFile = "C:\OEM\flags.env"
+    $flagVars = @{}
+    if (Test-Path $flagsFile) {
+        Get-Content $flagsFile | ForEach-Object {
+            if ($_ -match '^([^=]+)=(.*)$') { $flagVars[$Matches[1]] = $Matches[2] }
+        }
+        Log "Phase 3: Loaded flags from $flagsFile"
+    } else {
+        Log "Phase 3: WARNING - $flagsFile not found, using fallback"
+    }
+    $flagDC = if ($flagVars["FLAG_DC"]) { $flagVars["FLAG_DC"] } else { "FLAG{dcsync_domain_fully_compromised}" }
+    $flagASREP = if ($flagVars["FLAG_ASREP"]) { $flagVars["FLAG_ASREP"] } else { "FLAG{asrep_roast_it_support}" }
+    $flagACL = if ($flagVars["FLAG_ACL"]) { $flagVars["FLAG_ACL"] } else { "FLAG{acl_chain_privilege_escalation}" }
 
     $flagDC | Out-File -Encoding ASCII C:\flag.txt
 

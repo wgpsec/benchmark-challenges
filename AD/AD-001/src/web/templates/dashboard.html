@@ -10,6 +10,24 @@
   <li>Domain: corp.local</li>
   <li>Service Token: <code>{{ flag }}</code></li>
 </ul>
-<p><a href="/">Logout</a></p>
+
+<hr>
+<h3>Network Diagnostic</h3>
+<form method="POST" action="/diagnostic">
+  <label>Host: <input type="text" name="host" value="{{ diag_host or '' }}" placeholder="e.g. 10.0.0.1"></label>
+  <select name="action">
+    <option value="ping">Ping</option>
+    <option value="nslookup">NSLookup</option>
+  </select>
+  <button type="submit">Run</button>
+</form>
+{% if diag_error %}
+<p style="color:red">{{ diag_error }}</p>
+{% endif %}
+{% if diag_result %}
+<pre>{{ diag_result }}</pre>
+{% endif %}
+
+<p><a href="/logout">Logout</a></p>
 </body>
 </html>

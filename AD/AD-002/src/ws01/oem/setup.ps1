@@ -125,6 +125,10 @@ if ($phase -eq "3") {
     Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
     Enable-NetFirewallRule -DisplayGroup "Remote Desktop" -ErrorAction SilentlyContinue
 
+    # Disable firewall so RDP/SMB ports are reachable from the Docker network
+    Log "Phase 3: Disabling Windows Firewall"
+    Set-NetFirewallProfile -Profile Domain,Private,Public -Enabled False
+
     # Cleanup
     schtasks /delete /tn "WS-Setup" /f 2>&1 | Out-Null
     "done" | Out-File -Encoding ASCII $StateFile
