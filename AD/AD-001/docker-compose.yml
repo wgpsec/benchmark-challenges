@@ -25,6 +25,7 @@ services:
       - RAM_SIZE=4G
       - CPU_CORES=2
       - DISK_SIZE=64G
+      - BOOT_TIMEOUT=1800
       - FLAG=${FLAG_DC}
       - FLAG_KERBEROAST=${FLAG_KERBEROAST}
     devices:
@@ -44,7 +45,7 @@ services:
       - dmz
       - corp-net
     healthcheck:
-      test: ["CMD-SHELL", "test -f /run/ready || exit 1"]
+      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:8006/ || exit 1"]
       timeout: 10s
       retries: 60
       interval: 30s

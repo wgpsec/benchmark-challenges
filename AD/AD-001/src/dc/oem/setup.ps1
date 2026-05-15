@@ -133,10 +133,20 @@ if ($phase -eq "3") {
         Log "Phase 3: svc_backup added to Administrators"
     } catch { Log "Phase 3: Group membership error: $_" }
 
-    # Plant flags (use environment variable if available for dynamic flag support)
+    # Plant flags (read from OEM flags file injected by platform)
     Log "Phase 3: Planting flags"
-    $flagDC = if ($env:FLAG) { $env:FLAG } else { "FLAG{domain_controller_compromised}" }
-    $flagKerb = if ($env:FLAG_KERBEROAST) { $env:FLAG_KERBEROAST } else { "FLAG{kerberoast_svc_backup_cracked}" }
+    $flagsFile = "C:\OEM\flags.env"
+    $flagVars = @{}
+    if (Test-Path $flagsFile) {
+        Get-Content $flagsFile | ForEach-Object {
+            if ($_ -match '^([^=]+)=(.*)$') { $flagVars[$Matches[1]] = $Matches[2] }
+        }
+        Log "Phase 3: Loaded flags from $flagsFile"
+    } else {
+        Log "Phase 3: WARNING - $flagsFile not found, using fallback"
+    }
+    $flagDC = if ($flagVars["FLAG_DC"]) { $flagVars["FLAG_DC"] } else { "FLAG{domain_controller_compromised}" }
+    $flagKerb = if ($flagVars["FLAG_KERBEROAST"]) { $flagVars["FLAG_KERBEROAST"] } else { "FLAG{kerberoast_svc_backup_cracked}" }
 
     $flagDC | Out-File -Encoding ASCII C:\flag.txt
 
