@@ -177,6 +177,10 @@ if ($phase -eq "3") {
     $flagDC | Out-File -Encoding ASCII C:\flag.txt
     $flagADCS | Out-File -Encoding ASCII C:\Users\Public\adcs_flag.txt
 
+    # Disable firewall so AD ports (88/389/445/etc.) are reachable from the Docker network
+    Log "Phase 3: Disabling Windows Firewall"
+    Set-NetFirewallProfile -Profile Domain,Private,Public -Enabled False
+
     # Cleanup
     schtasks /delete /tn "AD-Setup" /f 2>&1 | Out-Null
     "done" | Out-File -Encoding ASCII $StateFile
