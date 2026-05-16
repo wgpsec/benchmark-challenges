@@ -17,7 +17,7 @@ def index():
 <li><a href="/internal/exec">/internal/exec</a> - Maintenance Console (localhost only)</li>
 <li><a href="/health">/health</a> - Health Check</li>
 </ul>
-<p>DB connection: mssql+pyodbc://sa:sa123456@db:1433/master</p>
+<p>DB connection: mssql+pyodbc://sa:Sa123456!@db:1433/master</p>
 </body></html>""", 200
     return render_template("index.html")
 

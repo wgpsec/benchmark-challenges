@@ -8,7 +8,7 @@ services:
       - dmz
       - office-net
     environment:
-      - FLAG=${FLAG_WEB}
+      - FLAG=${FLAG_SSRF}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:80/"]
       timeout: 5s
@@ -17,45 +17,42 @@ services:
     depends_on:
       dc:
         condition: service_healthy
+      db:
+        condition: service_healthy
 
   db:
-    image: dockurr/windows
-    entrypoint: ["/usr/bin/tini", "-s", "--"]
-    command: ["/bin/sh", "-c", "sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && exec /run/entry.sh"]
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      - VERSION=2022
-      - RAM_SIZE=4G
-      - CPU_CORES=2
-      - DISK_SIZE=64G
-      - BOOT_TIMEOUT=1800
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Sa123456!
+      - MSSQL_PID=Developer
       - FLAG=${FLAG_MSSQL}
-      - FLAG_ADCS=${FLAG_ADCS}
-    devices:
-      - /dev/kvm
-      - /dev/net/tun
-    cap_add:
-      - NET_ADMIN
     volumes:
-      - db-data:/storage
-      - ./src/db/oem:/oem
+      - ./src/db/entrypoint.sh:/opt/mssql-scripts/entrypoint.sh
+      - ./src/db/init.sql:/opt/mssql-scripts/init.sql
+    entrypoint: /opt/mssql-scripts/entrypoint.sh
     networks:
       - office-net
-      - core-net
-    depends_on:
-      dc:
-        condition: service_healthy
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Sa123456!' -Q "SELECT 1" -C -b
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
   dc:
     image: dockurr/windows
     entrypoint: ["/usr/bin/tini", "-s", "--"]
-    command: ["/bin/sh", "-c", "sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && exec /run/entry.sh"]
+    command: ["/bin/sh", "-c", "mkdir -p /data && printf 'FLAG_DC=%s\\nFLAG_ADCS=%s\\n' \"$$FLAG\" \"$$FLAG_ADCS\" > /data/flags.env && sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && sed -i -e 's/vnc=:/vnc=127.0.0.1:/g' -e 's/-vnc :/-vnc 127.0.0.1:/g' /run/display.sh && exec /run/entry.sh"]
     environment:
       - VERSION=2022
       - RAM_SIZE=4G
       - CPU_CORES=2
       - DISK_SIZE=64G
       - BOOT_TIMEOUT=1800
+      - PASS=VncAdmin2024!
       - FLAG=${FLAG_DC}
+      - FLAG_ADCS=${FLAG_ADCS}
     devices:
       - /dev/kvm
       - /dev/net/tun
@@ -64,27 +61,21 @@ services:
     volumes:
       - dc-data:/storage
       - ./src/dc/oem:/oem
-      - dc-shared:/shared
     networks:
-      - core-net
+      - office-net
     healthcheck:
-      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:8006/ || exit 1"]
+      test: ["CMD-SHELL", "wget --spider -q http://admin:VncAdmin2024!@127.0.0.1:8006/ || exit 1"]
       timeout: 10s
       retries: 60
       interval: 30s
       start_period: 600s
 
 volumes:
-  db-data:
   dc-data:
-  dc-shared:
 
 networks:
   dmz:
     driver: bridge
   office-net:
-    driver: bridge
-    internal: true
-  core-net:
     driver: bridge
     internal: true

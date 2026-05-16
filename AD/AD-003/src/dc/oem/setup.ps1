@@ -27,10 +27,6 @@ if ($phase -eq "1") {
     $result = Install-WindowsFeature AD-Domain-Services -IncludeManagementTools -ErrorAction Stop
     Log "Phase 1: AD DS feature: ExitCode=$($result.ExitCode), Success=$($result.Success)"
 
-    Log "Phase 1: Installing AD-Certificate feature"
-    $result2 = Install-WindowsFeature AD-Certificate -IncludeManagementTools -ErrorAction Stop
-    Log "Phase 1: ADCS feature: ExitCode=$($result2.ExitCode), Success=$($result2.Success)"
-
     if (-not $result.Success) {
         Log "Phase 1: FATAL - AD DS feature installation failed"
         exit 1
@@ -101,6 +97,28 @@ if ($phase -eq "3") {
         }
     }
 
+    # Install AD-Certificate feature (must be done after DC promotion)
+    Log "Phase 3: Installing AD-Certificate feature"
+    try {
+        $result = Install-WindowsFeature AD-Certificate -IncludeManagementTools -ErrorAction Stop
+        Log "Phase 3: ADCS feature: ExitCode=$($result.ExitCode), Success=$($result.Success)"
+    } catch { Log "Phase 3: ADCS feature install error: $_" }
+
+    # Load flags early (needed for template displayName)
+    Log "Phase 3: Loading flags"
+    $flagsFile = "\\?\UNC\host.lan\Data\flags.env"
+    $flagVars = @{}
+    if (Test-Path $flagsFile) {
+        Get-Content $flagsFile | ForEach-Object {
+            if ($_ -match '^([^=]+)=(.*)$') { $flagVars[$Matches[1]] = $Matches[2] }
+        }
+        Log "Phase 3: Loaded flags from shared drive"
+    } else {
+        Log "Phase 3: Shared flags not found, using defaults"
+    }
+    $flagDC = if ($flagVars["FLAG_DC"]) { $flagVars["FLAG_DC"] } else { "FLAG{domain_admin_via_certificate}" }
+    $flagADCS = if ($flagVars["FLAG_ADCS"]) { $flagVars["FLAG_ADCS"] } else { "FLAG{adcs_esc1_cert_forged}" }
+
     # Create svc_sql user
     Log "Phase 3: Creating svc_sql"
     try {
@@ -136,19 +154,29 @@ if ($phase -eq "3") {
         $container = [ADSI]"LDAP://$templateDN"
         $newTemplate = $container.Create("pKICertificateTemplate", "CN=VulnTemplate")
 
-        $newTemplate.Put("displayName", "VulnTemplate")
+        $newTemplate.Put("displayName", "VulnTemplate - $flagADCS")
         $newTemplate.Put("flags", 131680)
         $newTemplate.Put("pKIDefaultKeySpec", 1)
         $newTemplate.Put("pKIMaxIssuingDepth", 0)
         $newTemplate.Put("pKICriticalExtensions", @("2.5.29.15"))
         $newTemplate.Put("pKIExtendedKeyUsage", @("1.3.6.1.5.5.7.3.2"))
-        $newTemplate.Put("msPKI-Template-Schema-Version", 2)
+        # Schema version 1 avoids OID/period requirements while still supporting ESC1
+        $newTemplate.Put("msPKI-Template-Schema-Version", 1)
         $newTemplate.Put("msPKI-Template-Minor-Revision", 1)
         $newTemplate.Put("msPKI-RA-Signature", 0)
         $newTemplate.Put("msPKI-Enrollment-Flag", 0)
-        $newTemplate.Put("msPKI-Private-Key-Flag", 16842768)
+        $newTemplate.Put("msPKI-Private-Key-Flag", 16)
         # ESC1: CT_FLAG_ENROLLEE_SUPPLIES_SUBJECT - allows attacker to specify any SAN
         $newTemplate.Put("msPKI-Certificate-Name-Flag", 1)
+        $newTemplate.Put("msPKI-Minimal-Key-Size", 2048)
+        $newTemplate.Put("pKIDefaultCSPs", @("1,Microsoft RSA SChannel Cryptographic Provider"))
+        $newTemplate.SetInfo()
+
+        # Binary attributes must be set AFTER first SetInfo() (ADSI requires object to exist)
+        # 1 year validity
+        $newTemplate.Properties["pKIExpirationPeriod"].Value = [byte[]]@(0x00,0x40,0x39,0x87,0x2E,0xE1,0xFE,0xFF)
+        # 6 weeks overlap
+        $newTemplate.Properties["pKIOverlapPeriod"].Value = [byte[]]@(0x00,0x80,0xA6,0x0A,0xFF,0xDE,0xFF,0xFF)
         $newTemplate.SetInfo()
 
         # Grant Authenticated Users enrollment rights
@@ -168,24 +196,18 @@ if ($phase -eq "3") {
         Log "Phase 3: ESC1 VulnTemplate created and published"
     } catch { Log "ESC1 template error: $_" }
 
-    # Plant flags (read from OEM flags file injected by platform)
+    # Plant flags on disk
     Log "Phase 3: Planting flags"
-    $flagsFile = "C:\OEM\flags.env"
-    $flagVars = @{}
-    if (Test-Path $flagsFile) {
-        Get-Content $flagsFile | ForEach-Object {
-            if ($_ -match '^([^=]+)=(.*)$') { $flagVars[$Matches[1]] = $Matches[2] }
-        }
-        Log "Phase 3: Loaded flags from $flagsFile"
-    } else {
-        Log "Phase 3: WARNING - $flagsFile not found, using fallback"
-    }
-    $flagDC = if ($flagVars["FLAG_DC"]) { $flagVars["FLAG_DC"] } else { "FLAG{domain_admin_via_certificate}" }
-    $flagXP = if ($flagVars["FLAG_XPCMD"]) { $flagVars["FLAG_XPCMD"] } else { "FLAG{xp_cmdshell_rce_on_db}" }
-    $flagADCS = if ($flagVars["FLAG_ADCS"]) { $flagVars["FLAG_ADCS"] } else { "FLAG{adcs_esc1_cert_forged}" }
 
+    # Flag 4 (DC): only domain admin can read
     $flagDC | Out-File -Encoding ASCII C:\flag.txt
-    $flagADCS | Out-File -Encoding ASCII C:\Users\Public\adcs_flag.txt
+    $acl = Get-Acl C:\flag.txt
+    $acl.SetAccessRuleProtection($true, $false)
+    $acl.Access | ForEach-Object { $acl.RemoveAccessRule($_) } 2>&1 | Out-Null
+    $adminRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUILTIN\Administrators", "FullControl", "Allow")
+    $acl.AddAccessRule($adminRule)
+    Set-Acl C:\flag.txt $acl
+    # Flag 3 (ADCS): embedded in VulnTemplate displayName — visible via certipy find / certutil
 
     # Disable firewall so AD ports (88/389/445/etc.) are reachable from the Docker network
     Log "Phase 3: Disabling Windows Firewall"
