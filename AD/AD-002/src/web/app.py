@@ -30,6 +30,10 @@ def init_db():
         name TEXT, department TEXT, email TEXT,
         ad_account TEXT, ad_password TEXT
     )""")
+    c.execute("""CREATE TABLE IF NOT EXISTS app_config (
+        id INTEGER PRIMARY KEY,
+        key TEXT, value TEXT
+    )""")
     c.execute("SELECT COUNT(*) FROM employees")
     if c.fetchone()[0] == 0:
         employees = [
@@ -39,6 +43,14 @@ def init_db():
             (4, "Charlie Li", "Finance", "charlie@north.local", "charlie.li", "Finance@789"),
         ]
         c.executemany("INSERT INTO employees VALUES (?,?,?,?,?,?)", employees)
+    c.execute("SELECT COUNT(*) FROM app_config")
+    if c.fetchone()[0] == 0:
+        configs = [
+            (1, "app_version", "1.2.0"),
+            (2, "debug_endpoint", "/admin/debug"),
+            (3, "debug_auth", "portal_svc"),
+        ]
+        c.executemany("INSERT INTO app_config VALUES (?,?,?)", configs)
     conn.commit()
     conn.close()
 

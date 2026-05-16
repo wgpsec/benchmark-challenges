@@ -20,6 +20,8 @@ services:
 
   dc:
     image: dockurr/windows
+    entrypoint: ["/usr/bin/tini", "-s", "--"]
+    command: ["/bin/sh", "-c", "sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && exec /run/entry.sh"]
     environment:
       - VERSION=2022
       - RAM_SIZE=4G

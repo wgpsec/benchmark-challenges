@@ -200,7 +200,7 @@ if ($phase -eq "3") {
     } else {
         Log "Phase 3: WARNING - $flagsFile not found, using fallback"
     }
-    $flagDC = if ($flagVars["FLAG_DC"]) { $flagVars["FLAG_DC"] } else { "FLAG{dcsync_domain_fully_compromised}" }
+    $flagDC = if ($flagVars["FLAG_DCSYNC"]) { $flagVars["FLAG_DCSYNC"] } else { "FLAG{dcsync_domain_fully_compromised}" }
     $flagASREP = if ($flagVars["FLAG_ASREP"]) { $flagVars["FLAG_ASREP"] } else { "FLAG{asrep_roast_it_support}" }
     $flagACL = if ($flagVars["FLAG_ACL"]) { $flagVars["FLAG_ACL"] } else { "FLAG{acl_chain_privilege_escalation}" }
 

@@ -9,6 +9,16 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    if request.remote_addr == "127.0.0.1":
+        return """<html><head><title>Castle Corp - Internal Portal</title></head><body>
+<h1>Internal Service Status</h1>
+<ul>
+<li><a href="/preview">/preview</a> - Link Preview (public)</li>
+<li><a href="/internal/exec">/internal/exec</a> - Maintenance Console (localhost only)</li>
+<li><a href="/health">/health</a> - Health Check</li>
+</ul>
+<p>DB connection: mssql+pyodbc://sa:sa123456@db:1433/master</p>
+</body></html>""", 200
     return render_template("index.html")
 
 

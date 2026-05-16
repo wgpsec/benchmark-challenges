@@ -7,6 +7,7 @@ RUN pip install flask requests -i https://mirrors.aliyun.com/pypi/simple/ --trus
 WORKDIR /app
 COPY app.py .
 COPY templates/ templates/
+COPY config/ config/
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

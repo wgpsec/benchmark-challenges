@@ -177,7 +177,7 @@ if ($phase -eq "3") {
     } else {
         Log "Phase 3: WARNING - $flagsFile not found, using fallback"
     }
-    $flagXP = if ($flagVars["FLAG_XPCMD"]) { $flagVars["FLAG_XPCMD"] } else { "FLAG{xp_cmdshell_rce_on_db}" }
+    $flagXP = if ($flagVars["FLAG_MSSQL"]) { $flagVars["FLAG_MSSQL"] } else { "FLAG{xp_cmdshell_rce_on_db}" }
     $flagADCS = if ($flagVars["FLAG_ADCS"]) { $flagVars["FLAG_ADCS"] } else { "FLAG{adcs_esc1_cert_forged}" }
 
     $flagXP | Out-File -Encoding ASCII C:\flag.txt

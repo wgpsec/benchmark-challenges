@@ -20,6 +20,8 @@ services:
 
   dc:
     image: dockurr/windows
+    entrypoint: ["/usr/bin/tini", "-s", "--"]
+    command: ["/bin/sh", "-c", "sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && exec /run/entry.sh"]
     environment:
       - VERSION=2022
       - RAM_SIZE=4G
@@ -47,31 +49,9 @@ services:
       interval: 30s
       start_period: 600s
 
-  ws01:
-    image: dockurr/windows
-    environment:
-      - VERSION=win11
-      - RAM_SIZE=4G
-      - CPU_CORES=2
-      - DISK_SIZE=64G
-    devices:
-      - /dev/kvm
-      - /dev/net/tun
-    cap_add:
-      - NET_ADMIN
-    volumes:
-      - ws01-data:/storage
-      - ./src/ws01/oem:/oem
-    networks:
-      - corp-net
-    depends_on:
-      dc:
-        condition: service_healthy
-
 volumes:
   dc-data:
   dc-shared:
-  ws01-data:
 
 networks:
   dmz:
