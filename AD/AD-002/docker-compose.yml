@@ -21,13 +21,14 @@ services:
   dc:
     image: dockurr/windows
     entrypoint: ["/usr/bin/tini", "-s", "--"]
-    command: ["/bin/sh", "-c", "sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && exec /run/entry.sh"]
+    command: ["/bin/sh", "-c", "sed -i 's/sleep 30/sleep 1800/' /run/entry.sh && sed -i -e 's/vnc=:/vnc=127.0.0.1:/g' -e 's/-vnc :/-vnc 127.0.0.1:/g' /run/display.sh && exec /run/entry.sh"]
     environment:
       - VERSION=2022
       - RAM_SIZE=4G
       - CPU_CORES=2
       - DISK_SIZE=64G
       - BOOT_TIMEOUT=1800
+      - PASS=VncAdmin2024!
       - FLAG=${FLAG_DCSYNC}
       - FLAG_ASREP=${FLAG_ASREP}
       - FLAG_ACL=${FLAG_ACL}
@@ -43,7 +44,7 @@ services:
     networks:
       - corp-net
     healthcheck:
-      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:8006/ || exit 1"]
+      test: ["CMD-SHELL", "wget --spider -q http://admin:VncAdmin2024!@127.0.0.1:8006/ || exit 1"]
       timeout: 10s
       retries: 60
       interval: 30s
